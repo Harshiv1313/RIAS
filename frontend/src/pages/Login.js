@@ -83,7 +83,7 @@ const Login = () => {
         </div>
         <div className="login-card">
           <img src={RIASLogo} alt="RIAS Logo" className="logo" />
-          <div className="title">Login Page</div>
+          <div className="title"><b>Login Page</b></div>
           <form onSubmit={onSubmit}>
             <label htmlFor="email" className="label">Email</label>
             <input type="email" name="email" value={email} onChange={onChange} placeholder="Email" className="input" />
