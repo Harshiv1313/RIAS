@@ -67,7 +67,7 @@ const Register = () => {
         </div>
         <div className="register-card">
           <img src={RIASLogo} alt="RIAS Logo" className="logo" />
-          <div className="title">Register Page</div>
+          <div className="title"><b>Register Page</b></div>
           <form onSubmit={onSubmit}>
             <label htmlFor="username" className="label">Username</label>
             <input type="text" name="username" value={username} onChange={onChange} placeholder="Username" className="input" />
