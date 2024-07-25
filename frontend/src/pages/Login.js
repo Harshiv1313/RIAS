@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import RIASLogo from '../assets/rias.png'; // Adjust the path according to your file structure
-import FacultyImage from '../assets/faculty.png'; // Corrected relative path
+import FacultyImage from '../assets/faculty.png'; // Adjust the path according to your file structure
 import StudentImage from '../assets/student.png'; // Adjust the path according to your file structure
 import '../css/Login.css'; // Import the CSS file
 
@@ -24,19 +24,24 @@ const Login = () => {
     try {
       const res = await axios.post('http://localhost:5000/api/login', formData); // Ensure this URL is correct
       console.log(res.data);
-      // Save token and redirect
+
+      // Save token and role
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('role', res.data.user.role);
       const userRole = res.data.user.role;
+
       if (userRole === 'admin') {
+        // Admin has free access
         navigate('/admin-dashboard');
-      } else if (userRole === 'faculty') {
+      } else if (userRole === 'faculty' && role === 'faculty') {
+        // Faculty role selected and validated
         navigate('/faculty-dashboard');
-      } else if (userRole === 'student') {
+      } else if (userRole === 'student' && role === 'student') {
+        // Student role selected and validated
         navigate('/student-dashboard');
-      } else if (userRole !== role) {
+      } else {
+        // Incorrect role selected
         setError('Incorrect role selected');
-        return;
       }
     } catch (error) {
       setError(error.response.data.message || 'Login failed');
