@@ -8,10 +8,10 @@
   
   :root {
     --bg-sidebar: #010f17;
-    --light-green: #8ed7c6;
-    --bg-color: #dce4e3;
+    --light-green: #FFFDD0;
+    --bg-color: #FFFDD0;
     --light-grey: #dce4e3;
-    --text-color: #FFF;
+    --text-color: #FFFDD0;
   }
   
   /* Sidebar Container */
@@ -55,7 +55,7 @@
     color: var(--text-color);
     font-size: 24px;
     font-weight: bold;
-    margin-left: 15px; /* Space between menu icon and title */
+    margin-left: 70px; /* Space between menu icon and title */
     display: inline-block;
   }
   
@@ -86,7 +86,7 @@
   
   .menu-links > li:hover {
     background-color: var(--bg-sidebar); /* Change background on hover */
-    color: white; /* Change text color on hover */
+    color: #FFFDD0; /* Change text color on hover */
   }
   
   .menu-links > li input {

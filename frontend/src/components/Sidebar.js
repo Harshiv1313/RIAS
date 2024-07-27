@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MenuIcon from '../assets/menu.svg';
 import DashboardIcon from '../assets/grid.svg';
-import TimetablesIcon from '../assets/Rias.svg';
+import TimetablesIcon from '../assets/tt.svg';
 import FeedbackIcon from '../assets/feedback.svg';
 import ReportsIcon from '../assets/report.svg';
 import SurveysIcon from '../assets/survey.svg';

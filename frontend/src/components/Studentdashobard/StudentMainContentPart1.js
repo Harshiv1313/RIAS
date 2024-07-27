@@ -4,6 +4,7 @@ import './CSS/StudentMainContentPart1.css'; // Ensure this path is correct
 const StudentMainContentPart1 = () => {
   return (
     <div className="student-main-content-part1">
+      <div><h1>handleLogout</h1></div>
       <div className="card-container">
         <div className="card">
           <h2>Upcoming Classes</h2>

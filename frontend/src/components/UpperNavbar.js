@@ -18,7 +18,7 @@ const UpperNavbar = ({ isClosed }) => {
     <nav className={`upper-navbar ${isClosed ? 'closed' : ''}`}>
       <div className="navbar-left">
         <div className="logo">
-          <span className="navbar-title">RIAS</span>
+          <span className="navbar-title"><b>RIAS</b></span>
         </div>
       </div>
       <div className="search-bar">
