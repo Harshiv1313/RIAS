@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProfileIcon from '../assets/profile-icon.svg';
 import LogoutIcon from '../assets/log-out.svg';
 import SearchIcon from '../assets/search.svg';
 import '../css/UpperNavbar.css';
 
-const UpperNavbar = () => {
+const UpperNavbar = ({ isClosed }) => {
   const navigate = useNavigate();
-  const [isClosed, setIsClosed] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -16,17 +15,19 @@ const UpperNavbar = () => {
   };
 
   return (
-    <nav className="upper-navbar">
-      <div className="logo">
-        <span className="navbar-title">RIAS</span>
+    <nav className={`upper-navbar ${isClosed ? 'closed' : ''}`}>
+      <div className="navbar-left">
+        <div className="logo">
+          <span className="navbar-title">RIAS</span>
+        </div>
       </div>
       <div className="search-bar">
         <div className="search-container">
           <img src={SearchIcon} alt="Search Icon" className="search-icon" />
-          <input type="search" placeholder="Search" className={`search-input ${isClosed ? 'hideElement' : ''}`} />
+          <input type="search" placeholder="Search" className="search-input" />
         </div>
       </div>
-      <div className="nav-buttons">
+      <div className="navbar-right">
         <img src={ProfileIcon} alt="Profile" className="nav-icon" />
         <img src={LogoutIcon} alt="Logout" className="nav-icon" onClick={handleLogout} />
       </div>

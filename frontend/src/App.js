@@ -4,7 +4,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminDashboard from './components/AdminDashboard';
 import FacultyDashboard from './components/FacultyDashboard';
-import StudentDashboard from './components/StudentDashboard';
+import StudentDashboard from './components/Studentdashobard/StudentDashboard';
 
 const AuthRoute = ({ children }) => {
   const token = localStorage.getItem('token');

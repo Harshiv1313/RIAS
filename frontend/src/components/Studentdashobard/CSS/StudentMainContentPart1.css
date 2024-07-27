@@ -1,0 +1,28 @@
+.student-main-content-part1 {
+  padding: 5px;
+  margin-top: 0px;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.card {
+  flex: 1 1 22%; /* Adjust this to maintain four cards per row */
+  background-color: #f5f5f5; /* Cream grey color */
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.card h2 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: #666;
+}

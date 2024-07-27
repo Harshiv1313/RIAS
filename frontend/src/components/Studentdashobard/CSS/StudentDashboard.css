@@ -1,0 +1,98 @@
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+:root {
+  --bg-sidebar: #010f17;
+  --light-green: #8ed7c6;
+  --bg-color: #dce4e3;
+  --light-grey: #dce4e3;
+  --text-color: #FFF;
+}
+
+/* Sidebar Container */
+.sidebar {
+  background-color: var(--bg-sidebar);
+  position: fixed;
+  top: 0px; /* Position 1px below the upper navbar */ /* Full height minus the navbar height and 1px offset */
+  width: 250px; /* Default width when open */
+  transition: width 0.3s ease; /* Smooth transition for width changes */
+  white-space: nowrap;
+  z-index: 1000; /* Ensure the sidebar is on top of other content */
+  left: 0; /* Align with the left of the screen */
+}
+
+.sidebar.close {
+  width: 80px; /* Width when closed */
+}
+
+/* Upper Navbar */
+.upper-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  background-color: #050412;
+  padding: 0 20px;
+  transition: all 0.3s ease;
+  position: fixed;
+  top: 0; /* Align at the top of the screen */
+  left: 0; /* Align with the left of the screen */
+  width: 100%; /* Full width of the viewport */
+  border-radius: 20px;
+  border-end-end-radius: 20px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 500; /* Ensure the navbar is below the sidebar */
+}
+
+/* Main Layout */
+.main-layout {
+  display: flex;
+  height: calc(100vh - 60px); /* Adjust based on the height of the upper navbar */
+  overflow: hidden;
+  margin-left: 250px; /* Default margin when sidebar is open */
+  transition: margin-left 0.3s ease; /* Smooth transition for margin changes */
+  position: relative; /* Ensure positioning context */
+}
+
+.main-layout.expanded {
+  margin-left: 80px; /* Margin when sidebar is closed */
+}
+
+.main-layout.collapsed {
+  margin-left: 250px; /* Margin when sidebar is open */
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  transition: margin-left 0.3s ease;
+  margin-top: 60px; /* Adjust based on the height of the upper navbar */
+  display: flex;
+  flex-direction: row; /* Horizontal layout */
+  position: relative; /* Ensure positioning context */
+}
+
+.content {
+  display: flex;
+  flex-direction: row; /* Horizontal layout */
+  height: 100%; /* Full height of the parent container */
+  width: 100%; /* Full width of the parent container */
+}
+
+.student-main-content-part1 {
+  flex: 4; /* 80% width */
+  padding: 20px;
+  overflow-y: auto; /* Adds scroll if content overflows */
+  border-right: 1px solid #ddd; /* Optional: Border to separate the two parts */
+}
+
+.student-main-content-part2 {
+  flex: 1; /* 20% width */
+  padding: 20px;
+  overflow-y: auto; /* Adds scroll if content overflows */
+}
