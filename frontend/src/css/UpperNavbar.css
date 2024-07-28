@@ -30,7 +30,7 @@
 .logo {
   display: flex;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 38px;
   margin-left: 100px;
   color: #FFF;
 }
@@ -57,7 +57,7 @@
 }
 
 .search-input {
-  padding: 6px 100px;
+  padding: 5px 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }

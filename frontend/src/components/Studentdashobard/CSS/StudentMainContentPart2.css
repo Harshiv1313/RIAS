@@ -1,44 +1,72 @@
+/* StudentMainContentPart2.css */
+
 .student-main-content-part2 {
-    padding: 20px;
-    background-color: #f5f5f5; /* Cream grey color */
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Set width to 25% of the screen */
+    position: relative;
+    top: -15px; /* Adjust top position as needed */
+    height: calc(100vh - 60px); /* Adjust height as needed for the viewport minus the navbar height */
+    display: flex;
+    flex-direction: column;
   }
   
-  .react-calendar {
-    width: 100%;
-    max-width: 500px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.125em;
+  .date-time {
+    margin-bottom: 10px;
   }
   
-  .react-calendar__navigation button {
-    color: #000;
-    min-width: 44px;
-    background: none;
+  .date-time h2, .date-time h3 {
+    margin: 5px 0;
+    color: #333;
+  }
+  
+  .timetable-card {
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1; /* Allow timetable card to fill remaining space */
+  }
+  
+  .timetable-card h2 {
     font-size: 16px;
-    margin-top: 8px;
+    margin-bottom: 10px;
   }
   
-  .react-calendar__tile {
-    max-width: 100%;
-    padding: 10px 6.6667px;
-    background: none;
+  .scrollable-timetable {
+    max-height: 100%; /* Adjust height as needed */
+    overflow-y: auto;
+  }
+  
+  .scrollable-timetable table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .scrollable-timetable th, .scrollable-timetable td {
+    border: 1px solid #ddd;
+    padding: 8px;
     text-align: center;
-    line-height: 16px;
   }
   
-  .react-calendar__tile--active {
-    background: #f5f5f5;
-    color: black;
-    border-radius: 6px;
+  .scrollable-timetable th {
+    background-color: #f4f4f4;
   }
   
-  .react-calendar__tile--now {
-    background: #ffffe0;
-    border-radius: 6px;
+  .view-all-button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0056b3;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .view-all-button:hover {
+    background-color: #004494;
   }
   
