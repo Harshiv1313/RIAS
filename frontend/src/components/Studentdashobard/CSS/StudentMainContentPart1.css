@@ -23,6 +23,7 @@
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
+
 }
 
 /* Cards Container */
@@ -31,6 +32,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   width: calc(70% - 20px); /* Adjust width to accommodate timetable */
+  margin-top: 1%;
 }
 
 /* Card */
@@ -46,6 +48,7 @@
   max-width: calc(22% - 10px);
   box-sizing: border-box;
   color: #ffffff;
+  margin-top: -2%;
 }
 
 .card2 {
@@ -87,6 +90,7 @@
   background-color: #d11b1b; /* Default button color */
   color: #fff;
   cursor: pointer;
+  
 }
 
 .button-container .action-button {
@@ -101,6 +105,8 @@
 .timetable-container {
   width: 30%;
   margin-left: 20px;
+  
+  
 }
 
 /* Timetable */
@@ -110,26 +116,33 @@
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   color: #ffffff;
+  margin-top: -1%;
 }
 
 .timetable h2 {
   font-size: 18px;
-  margin-bottom: 10px;
+  margin-bottom: -10px;
+  
+  
 }
 
 .timetable table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: -5%;
 }
 
 .timetable th, .timetable td {
   border: 1px solid #151010;
   padding: 10px;
   text-align: center;
+  
+  
 }
 
 .timetable th {
   background-color: #333333;
+  
 }
 
 /* Chart Containers */
@@ -166,21 +179,22 @@
 }
 
 /* Reward Points Dashboard */
-.reward-points-dashboard {
+.tt {
   flex: 1 1 calc(90% - 10px);
   max-width: calc(90% - 10px);
   min-height: 200px;
   background-color: #333333; /* Dark Gray */
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 1px;
   margin: 5px;
+  height: 40%;
   box-sizing: border-box;
-  margin-top: -20%;
-  margin-bottom: 50%;
+  margin-top: -21%;
+  margin-bottom: 40%;
 }
 
-.reward-points-dashboard h2 {
+.tt h2 {
   font-size: 20px;
   margin-bottom: 20px;
 }
@@ -297,7 +311,7 @@
   border-radius: 8px;
   box-shadow: 0 2px 8px rgb(252, 252, 252);
   margin: 8px  0;
-  height: 320px;
+  height: 410px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -315,4 +329,24 @@
 .card3 canvas {
   width: 100% !important;
   height: 92% !important;
+}
+
+
+.card9 {
+  background-color: #333333; /* Dark Gray for card background */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(108, 100, 100);
+  margin: 20px 0;
+  height: 200px; /* Adjust height to fit smaller chart */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Center align content */
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box; /* Include padding in width/height calculations */
+  overflow: hidden; /* Hide overflow to prevent content from spilling out */
+  color: #FFF;
+  margin-top: -1%;
 }

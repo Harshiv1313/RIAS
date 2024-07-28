@@ -11,11 +11,13 @@ const AppLayout = () => {
   };
 
   return (
-    <div className="app-layout">
-      <Sidebar isClosed={isSidebarClosed} onToggleSidebar={toggleSidebar} />
-      <UpperNavbar isClosed={isSidebarClosed} />
-      <div className={`content ${isSidebarClosed ? 'sidebar-closed' : ''}`}>
-        {/* Your main content goes here */}
+    <div className="dashboard-container">
+      <UpperNavbar />
+      <div className="main-layout">
+        <Sidebar />
+        <div className="main-content">
+          <Outlet /> {/* This is where the routed components will be rendered */}
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React from "react";
-import "./CSS/StudentMainContentPart1.css"; // Ensure this path is correct
-import StudentClassSchedule from "./StudentClassSchedule.js";
+import FacultyAddSchedule from './FacultyAddSchedule';
+import "./css/FacultyDashboard1.css"; // Ensure this path is correct
 import { Bar, Pie } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -123,12 +123,17 @@ const StudentMainContentPart1 = () => {
         <div className="card">
           <h2>Daily Feedback</h2>
           <p>Submit your daily feedback on today's lecture.</p>
-          <button className="action-button">Submit Feedback</button>
+          <button className="action-button">Take</button>
+          <span>
+            {" "}
+            <span></span>{" "}
+          </span>
+          <button className="action-button">View</button>
         </div>
         <div className="card">
           <h2>Weekly Feedback</h2>
           <p>Review and submit feedback for this week's lectures.</p>
-          <button className="action-button">Feedback</button>
+          <button className="action-button">View</button>
         </div>
         <div className="card">
           <h2>Monthly Survey</h2>
@@ -136,7 +141,7 @@ const StudentMainContentPart1 = () => {
             Participate in the monthly survey on teaching methodologies and
             campus issues.
           </p>
-          <button className="action-button">Take Survey</button>
+          <button className="action-button">View Survey</button>
         </div>
         <div className="card8">
           <div className="chart-container small-bar-chart">
@@ -151,24 +156,7 @@ const StudentMainContentPart1 = () => {
             <span style={{ height: "70%" }}>70%</span> {/* Example progress */}
           </div>
         </div>
-        <div className="tt">
-          <div className="timetable">
-            <h4>
-              Today's Upcoming Classes <span> </span><span></span>
-              <button className="view-all-button">View Full Timetable</button>
-            </h4>
-            <br />
-            <br />
-            <br />
-            
-              <StudentClassSchedule />
-              {/* Other dashboard content */}
-           
-          </div>
-        </div>
-      </div>
-      <div className="timetable-container">
-        <div className="card9">
+        <div className="card reward-points-dashboard">
           <h2>Reward Points Dashboard</h2>
           <div className="points-summary">
             <p>Total Points: 120</p>
@@ -178,6 +166,17 @@ const StudentMainContentPart1 = () => {
             <p>History: Earned 50 points on 01/07/2024</p>
             <p>Redeemed 20 points on 15/07/2024</p>
           </div>
+        </div>
+      </div>
+      <div className="timetable-container">
+        <div className="timetable">
+          <h2>Today's Upcoming Classes</h2>
+          <div className="faculty-dashboard">
+            <h1>Faculty Dashboard</h1>
+            <FacultyAddSchedule />
+            {/* Other dashboard content */}
+          </div>
+          <button className="view-all-button">View Full Timetable</button>
         </div>
         <div className="card3">
           <h2>Monthly Survey Participation</h2>

@@ -1,6 +1,5 @@
 import React from "react";
-import "./CSS/StudentMainContentPart1.css"; // Ensure this path is correct
-import StudentClassSchedule from "./StudentClassSchedule.js";
+import "./css/FacultyDashboard1.css"; // Ensure this path is correct
 import { Bar, Pie } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -43,12 +42,12 @@ const feedbackOptions = {
   responsive: true,
   plugins: {
     legend: {
-      position: "top",
+      position: 'top',
       labels: {
         font: {
           size: 12, // Adjust font size for legend labels
         },
-        color: "#333", // Change legend text color if needed
+        color: '#333', // Change legend text color if needed
       },
     },
     tooltip: {
@@ -57,23 +56,23 @@ const feedbackOptions = {
           return `Score: ${tooltipItem.raw}`;
         },
       },
-      backgroundColor: "#333", // Tooltip background color
-      titleColor: "#fff", // Tooltip title color
-      bodyColor: "#fff", // Tooltip body color
+      backgroundColor: '#333', // Tooltip background color
+      titleColor: '#fff', // Tooltip title color
+      bodyColor: '#fff', // Tooltip body color
     },
   },
   scales: {
     x: {
       beginAtZero: true,
       grid: {
-        color: "rgba(200, 200, 200, 0.2)", // Grid line color
-        borderColor: "rgba(200, 200, 200, 0.2)", // Border color for x-axis
+        color: 'rgba(200, 200, 200, 0.2)', // Grid line color
+        borderColor: 'rgba(200, 200, 200, 0.2)', // Border color for x-axis
       },
       ticks: {
         font: {
           size: 10, // Font size for x-axis ticks
         },
-        color: "#fff", // Color for x-axis ticks
+        color: '#fff', // Color for x-axis ticks
       },
       barThickness: 200, // Adjust the thickness of each bar
       categoryPercentage: 20, // Adjust spacing between groups of bars
@@ -81,14 +80,14 @@ const feedbackOptions = {
     y: {
       beginAtZero: true,
       grid: {
-        color: "rgba(200, 200, 200, 0.2)", // Grid line color
-        borderColor: "rgba(200, 200, 200, 0.5)", // Border color for y-axis
+        color: 'rgba(200, 200, 200, 0.2)', // Grid line color
+        borderColor: 'rgba(200, 200, 200, 0.5)', // Border color for y-axis
       },
       ticks: {
         font: {
           size: 10, // Font size for y-axis ticks
         },
-        color: "#fff", // Color for y-axis ticks
+        color: '#fff', // Color for y-axis ticks
       },
     },
   },
@@ -123,52 +122,35 @@ const StudentMainContentPart1 = () => {
         <div className="card">
           <h2>Daily Feedback</h2>
           <p>Submit your daily feedback on today's lecture.</p>
-          <button className="action-button">Submit Feedback</button>
+          <button className="action-button">Take</button><span> <span></span> </span>
+          <button className="action-button">View</button>
         </div>
         <div className="card">
           <h2>Weekly Feedback</h2>
           <p>Review and submit feedback for this week's lectures.</p>
-          <button className="action-button">Feedback</button>
+          <button className="action-button">View</button>
         </div>
         <div className="card">
           <h2>Monthly Survey</h2>
-          <p>
-            Participate in the monthly survey on teaching methodologies and
-            campus issues.
-          </p>
-          <button className="action-button">Take Survey</button>
+          <p>Participate in the monthly survey on teaching methodologies and campus issues.</p>
+          <button className="action-button">View Survey</button>
         </div>
         <div className="card8">
+          
           <div className="chart-container small-bar-chart">
-            <h2>Feedback Summary</h2>
+          <h2>Feedback Summary</h2>
             <Bar data={feedbackData} options={feedbackOptions} />
           </div>
+          
         </div>
         <div className="card4">
-          <h2 style={{ color: "#ffffff" }}>Tracker</h2>
+        <h2 style={{ color: '#ffffff' }}>Tracker</h2>
 
           <div className="progress-bar-vertical">
             <span style={{ height: "70%" }}>70%</span> {/* Example progress */}
           </div>
         </div>
-        <div className="tt">
-          <div className="timetable">
-            <h4>
-              Today's Upcoming Classes <span> </span><span></span>
-              <button className="view-all-button">View Full Timetable</button>
-            </h4>
-            <br />
-            <br />
-            <br />
-            
-              <StudentClassSchedule />
-              {/* Other dashboard content */}
-           
-          </div>
-        </div>
-      </div>
-      <div className="timetable-container">
-        <div className="card9">
+        <div className="card reward-points-dashboard">
           <h2>Reward Points Dashboard</h2>
           <div className="points-summary">
             <p>Total Points: 120</p>
@@ -178,6 +160,43 @@ const StudentMainContentPart1 = () => {
             <p>History: Earned 50 points on 01/07/2024</p>
             <p>Redeemed 20 points on 15/07/2024</p>
           </div>
+        </div>
+      </div>
+      <div className="timetable-container">
+        <div className="timetable">
+          <h2>Today's Upcoming Classes</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Subject</th>
+                <th>Professor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>9:00 AM</td>
+                <td>Mathematics</td>
+                <td>Dr. Smith</td>
+              </tr>
+              <tr>
+                <td>11:00 AM</td>
+                <td>Physics</td>
+                <td>Dr. Johnson</td>
+              </tr>
+              <tr>
+                <td>2:00 PM</td>
+                <td>Chemistry</td>
+                <td>Dr. Brown</td>
+              </tr>
+              <tr>
+                <td>4:00 PM</td>
+                <td>Biology</td>
+                <td>Dr. Davis</td>
+              </tr>
+            </tbody>
+          </table>
+          <button className="view-all-button">View Full Timetable</button>
         </div>
         <div className="card3">
           <h2>Monthly Survey Participation</h2>

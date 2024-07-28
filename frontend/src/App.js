@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminDashboard from './components/AdminDashboard';
-import FacultyDashboard from './components/FacultyDashboard';
-import StudentDashboard from './components/Studentdashobard/StudentDashboard';
+import FacultyDashboard from './components/FacultyDashboard/FacultyDashboard';
+import StudentMainContentPart1 from './components/Studentdashobard/StudentMainContentPart1'; // Update import path as needed
+import Timetable from './components/Studentdashobard/Timetable'; // Ensure this import path is correct
+import DashboardLayout from './components/Studentdashobard/DashboardLayout'; // Ensure this import path is correct
 import './App.css'; // Ensure your CSS file is included
 
 const AuthRoute = ({ children }) => {
   const token = localStorage.getItem('token');
-  return token ? <Navigate to="/student-dashboard" /> : children;
+  return !token ? children : <Navigate to="/student-dashboard" />;
 };
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -21,17 +23,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
   }
 
   if (allowedRoles && !allowedRoles.includes(role)) {
-    // Redirect to a role-specific dashboard or login if not authorized
-    switch (role) {
-      case 'admin':
-        return <Navigate to="/admin-dashboard" />;
-      case 'faculty':
-        return <Navigate to="/faculty-dashboard" />;
-      case 'student':
-        return <Navigate to="/student-dashboard" />;
-      default:
-        return <Navigate to="/login" />;
-    }
+    return <Navigate to={`/${role}-dashboard`} />;
   }
 
   return children;
@@ -39,7 +31,6 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 
 function App() {
   useEffect(() => {
-    // Adjust the app container size to 80% of the viewport
     const appContainer = document.querySelector('.app-container');
     if (appContainer) {
       appContainer.style.width = '80%';
@@ -64,17 +55,26 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/admin-dashboard" element={
             <ProtectedRoute allowedRoles={['admin']}>
-              <AdminDashboard />
+              <DashboardLayout>
+                <AdminDashboard />
+              </DashboardLayout>
             </ProtectedRoute>
           } />
           <Route path="/faculty-dashboard" element={
             <ProtectedRoute allowedRoles={['faculty']}>
-              <FacultyDashboard />
+              <DashboardLayout>
+                <FacultyDashboard />
+              </DashboardLayout>
             </ProtectedRoute>
           } />
-          <Route path="/student-dashboard" element={
+          <Route path="/student-dashboard/*" element={
             <ProtectedRoute allowedRoles={['student']}>
-              <StudentDashboard />
+              <DashboardLayout>
+                <Routes>
+                  <Route path="" element={<StudentMainContentPart1 />} />
+                  <Route path="timetable" element={<Timetable />} />
+                </Routes>
+              </DashboardLayout>
             </ProtectedRoute>
           } />
           <Route path="*" element={<Navigate to="/login" />} />

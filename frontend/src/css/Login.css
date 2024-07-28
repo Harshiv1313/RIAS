@@ -12,6 +12,8 @@ body {
     width: 100vw;
     background: url('../assets/bglogin.png') no-repeat center center;
     background-size: cover; /* Ensure the background image covers the entire container */
+    margin-left: -14%;
+    margin-top: -2%;
 }
 
 .card-container {
@@ -58,6 +60,7 @@ body {
 .logo {
     width: 150px;
     margin-bottom: 30px;
+    margin-left: 40px;
 }
 
 .title {

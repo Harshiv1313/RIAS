@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import Sidebar from '../Sidebar';
 import UpperNavbar from '../UpperNavbar';
-import StudentMainContentPart1 from './StudentMainContentPart1';
-import StudentMainContentPart2 from './StudentMainContentPart2';
-import './CSS/StudentDashboard.css';
+import FacultyMainContentPart1 from './FacultyMainContentPart1'; // You can add your content components
+import './css/FacultyDashboard.css'; // Create and add styles for the faculty dashboard
 
-const StudentDashboard = () => {
+const FacultyDashboard = () => {
   const [isSidebarClosed, setIsSidebarClosed] = useState(false);
 
   const handleToggleSidebar = () => {
@@ -18,14 +17,14 @@ const StudentDashboard = () => {
       <div className={`main-layout ${isSidebarClosed ? 'collapsed' : ''}`}>
         <Sidebar isClosed={isSidebarClosed} onToggleSidebar={handleToggleSidebar} />
         <div className="main-content">
-          <div className="student-main-content-part1">
-            <StudentMainContentPart1 />
+          <div className="faculty-main-content-part1">
+            <FacultyMainContentPart1 />
           </div>
-          
+         
         </div>
       </div>
     </div>
   );
 };
 
-export default StudentDashboard;
+export default FacultyDashboard;
