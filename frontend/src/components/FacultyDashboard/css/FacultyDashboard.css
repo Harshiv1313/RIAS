@@ -1,110 +1,353 @@
 /* General Styles */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+:root {
+  --bg-sidebar: #010f17;
+  --light-green: #252323;
+  --bg-color: #f4f4f4;
+  --light-grey: #37887d;
+  --text-color: #FFF;
+}
+
+/* Main Container */
+.student-main-content-part1 {
+  padding: 20px;
+  background-color: #333333;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-left: 10%;
+
+}
+
+/* Cards Container */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: calc(70% - 20px); /* Adjust width to accommodate timetable */
+  margin-top: 1%;
+}
+
+/* Card */
+.card, .card2 {
+  background-color: #333333; /* Dark Slate Gray */
+  padding: 15px;
+  margin: 5px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(108, 100, 100);
+  text-align: center;
+  min-height: 150px;
+  flex: 1 1 calc(22% - 10px);
+  max-width: calc(22% - 10px);
+  box-sizing: border-box;
+  color: #ffffff;
+  margin-top: -2%;
+}
+
+.card2 {
+  margin-bottom: 50%;
+  width: 100%;
+}
+
+.large-card {
+  flex: 1 1 calc(48% - 10px);
+  max-width: calc(48% - 10px);
+  min-height: 350px;
+}
+
+/* Card Titles and Content */
+.card h2, .card2 h2, .large-card h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.card p, .card2 p {
+  color: #ccc;
+  font-size: 14px;
+}
+
+/* Ensure the container is a flex container and the button is at the bottom */
+.button-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensure container takes full height if needed */
+  justify-content: flex-end; /* Align items to the bottom */
+}
+
+/* Buttons */
+.action-button, .view-all-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #d11b1b; /* Default button color */
+  color: #fff;
+  cursor: pointer;
+  
+}
+
+.button-container .action-button {
+  margin-top: auto; /* Pushes button to the bottom of the container */
+}
+
+.action-button:hover, .view-all-button:hover {
+  background-color: #004494; /* Darker blue for hover effect */
+}
+
+/* Timetable Container */
+.timetable-container {
+  width: 30%;
+  margin-left: 20px;
+  
+  
+}
+
+/* Timetable */
+.timetable {
+  background-color: #333333;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+  margin-top: -1%;
+}
+
+.timetable h2 {
+  font-size: 18px;
+  margin-bottom: -10px;
+  
+  
+}
+
+.timetable table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: -5%;
+}
+
+.timetable th, .timetable td {
+  border: 1px solid #151010;
+  padding: 10px;
+  text-align: center;
+  
+  
+}
+
+.timetable th {
+  background-color: #333333;
+  
+}
+
+/* Chart Containers */
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+}
+
+.small-bar-chart {
+  height: 200px;
+  width: 100%;
+  max-width: 90%;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Bar Chart Container */
+.bar-chart-container, .pie-chart-container {
+  flex: 1 1 calc(48% - 10px);
+  max-width: calc(48% - 10px);
+  min-height: 400px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 5px;
+  box-sizing: border-box;
+}
+
+.bar-chart, .pie-chart {
+  width: 100%;
+  height: 400px;
+}
+
+/* Reward Points Dashboard */
+.tt {
+  flex: 1 1 calc(90% - 10px);
+  max-width: calc(90% - 10px);
+  min-height: 200px;
+  background-color: #333333; /* Dark Gray */
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 1px;
+  margin: 5px;
+  height: 40%;
+  box-sizing: border-box;
+  margin-top: -21%;
+  margin-bottom: 40%;
+}
+
+.tt h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.points-summary, .points-history {
+  margin-bottom: 10px;
+}
+
+.points-summary p, .points-history p {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1000px) {
+  .reward-points-dashboard {
+    flex: 1 1 100%;
+    max-width: 100%;
   }
+}
+
+.points-summary, .points-history {
+  margin-bottom: 5px;
+}
+
+.points-summary p, .points-history p {
+  margin: 5px 0;
+}
+
+/* Monthly Survey Participation */
+.survey-status p {
+  margin: 10px 0;
+}
+
+.survey-links a {
+  color: #0056b3;
+  text-decoration: none;
+}
+
+.survey-links a:hover {
+  text-decoration: underline;
+}
+
+/* Vertical Progress Bar */
+.progress-bar-vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 400px;
+  width: 50px;
+  background-color: #ddd;
+  border-radius: 8px;
+  position: relative;
+  margin-top: 10px;
+  margin-left: 15px;
+}
+
+.progress-bar-vertical span {
+  height: 0%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:#37887d; /* Button color */
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  line-height: normal;
+  border-radius: 8px;
+  position: absolute;
+  bottom: 0;
+  transition: height 0.3s ease;
+  margin-bottom: 10%;
+}
+
+/* Feedback Summary Card */
+.card8 {
+  background-color: #333333; /* Dark Gray for card background */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  height: 200px; /* Adjust height to fit smaller chart */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Center align content */
+  width: 90%;
+  text-align: center;
+  box-sizing: border-box; /* Include padding in width/height calculations */
+  overflow: hidden; /* Hide overflow to prevent content from spilling out */
+  color: #FFF;
+}
+
+.card8 h2 {
+  margin-bottom: 30px; /* Space between title and chart */
+  font-size: 18px; /* Adjust font size as needed */
+  color: #FFF;
+}
+
+.card8 canvas {
+  width: 100% !important; /* Make sure the chart fills the card width */
+  height: auto !important; /* Maintain aspect ratio */
+  max-height: 200px; /* Limit height to ensure it fits within the card */
+  margin-top: -40px; 
+  margin-left: -3%; /* Space between the title and chart */
   
-  :root {
-    --bg-sidebar: #010f17;
-    --light-green: #252323;
-    --bg-color: #dce4e3;
-    --light-grey: #178778;
-    --text-color: #FFF;
-  }
-  
-  /* Sidebar Container */
-  .sidebar {
-    background-color: var(--bg-sidebar);
-    position: fixed;
-    top: 0; /* Align at the top of the screen */
-    width: 250px; /* Default width when open */
-    transition: width 0.3s ease; /* Smooth transition for width changes */
-    white-space: nowrap;
-    z-index: 1000; /* Ensure the sidebar is on top of other content */
-    left: 0; /* Align with the left of the screen */
-  }
-  
-  .sidebar.close {
-    width: 80px; /* Width when closed */
-  }
-  
-  /* Upper Navbar */
-  .upper-navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
-    background-color: #050412;
-    padding: 0 20px;
-    transition: all 0.3s ease;
-    position: fixed;
-    top: 0; /* Align at the top of the screen */
-    left: 0; /* Align with the left of the screen */
-    width: 100%; /* Full width of the viewport */
-    border-radius: 20px;
-    border-end-end-radius: 20px; /* Rounded corners */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 500; /* Ensure the navbar is below the sidebar */
-  }
-  
-  /* Main Layout */
-  .main-layout {
-    display: flex; /* Adjust based on the height of the upper navbar */
-    overflow: hidden;
-    margin-left: -92px; /* Default margin when sidebar is open */
-    margin-top: -50px;
-    margin-right: -150px;
-    padding-right: 0%;
-    transition: margin-left 0.3s ease; /* Smooth transition for margin changes */
-  }
-  
-  .main-layout.expanded {
-    margin-left: 80px; /* Margin when sidebar is closed */
-  }
-  
-  .main-layout.collapsed {
-    margin-left: 250px; /* Margin when sidebar is open */
-  }
-  
-  /* Main Content */
-  .main-content {
-    display: flex;
-    flex-direction: row; /* Horizontal layout */
-    margin-left: 20px; /* 20px margin from the left edge of the screen */
-    margin-top: 60px; /* Align below the upper navbar */
-    position: relative; /* Ensure positioning context */
-    width: calc(100%); /* Full width minus 20px margin */
-  }
-  
-  .content {
-    display: flex;
-    flex-direction: row; /* Horizontal layout */
-    width: 100%; /* Full width of the parent container */
-    height: 100%; /* Full height of the parent container */
-    margin-left: 20px; /* Shift the content part1 to the right */
-    margin-right: -20px;
-  }
-  
-  .student-main-content-part1 {
-    flex: 4; /* 80% width */
-    padding: 20px;
-    overflow-y: auto; /* Adds scroll if content overflows */
-    background-color: #202027;
-    box-sizing: border-box; /* Ensure padding is included in width */
-    margin-left: -1%;
-    margin-bottom: 10%;
-    margin-right: 0%;
-  }
-  
-  .student-main-content-part2 {
-    flex: 1; /* 20% width */
-    padding: 20px;
-    overflow-y: auto; /* Adds scroll if content overflows */
-    background-color: #252323;
-    box-sizing: border-box; /* Ensure padding is included in width */
-    margin-right: -100px;
-  }
-  
-  
+}
+
+/* Monthly Survey Participation Card */
+.card3 {
+  background-color: #333333; /* Dark Gray for card background */
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(252, 252, 252);
+  margin: 8px  0;
+  height: 410px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  color: #ffff;
+}
+
+.card3 h2 {
+  margin-bottom: 5px;
+  text-align: center;
+  margin-top: 18px;
+}
+
+.card3 canvas {
+  width: 100% !important;
+  height: 92% !important;
+}
+
+
+.card9 {
+  background-color: #333333; /* Dark Gray for card background */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(108, 100, 100);
+  margin: 20px 0;
+  height: 200px; /* Adjust height to fit smaller chart */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Center align content */
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box; /* Include padding in width/height calculations */
+  overflow: hidden; /* Hide overflow to prevent content from spilling out */
+  color: #FFF;
+  margin-top: -1%;
+}

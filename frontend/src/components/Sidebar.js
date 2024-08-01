@@ -52,7 +52,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="feedback-link">
-            <Link to="/student-dashboard/feedback">
+            <Link to="/student-dashboard/profile">
               <img className="icon" src={FeedbackIcon} alt="feedback" />
               <span className={`${isOpen ? '' : 'hideElement'}`}>Feedback</span>
             </Link>

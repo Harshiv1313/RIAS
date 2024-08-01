@@ -2,11 +2,14 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import AdminDashboard from './components/AdminDashboard';
+import AdminDashboard from './components/AdminDashboard/AdminDashboard';
 import FacultyDashboard from './components/FacultyDashboard/FacultyDashboard';
 import StudentMainContentPart1 from './components/Studentdashobard/StudentMainContentPart1'; // Update import path as needed
 import Timetable from './components/Studentdashobard/Timetable'; // Ensure this import path is correct
 import DashboardLayout from './components/Studentdashobard/DashboardLayout'; // Ensure this import path is correct
+import DashboardLayoutf from './components/FacultyDashboard/DashboardLayout'; // Ensure this import path is correct
+import StudentProfile from './components/Studentdashobard/StudentProfile';
+import Users from './components/FacultyDashboard/user'
 import './App.css'; // Ensure your CSS file is included
 
 const AuthRoute = ({ children }) => {
@@ -62,9 +65,12 @@ function App() {
           } />
           <Route path="/faculty-dashboard" element={
             <ProtectedRoute allowedRoles={['faculty']}>
-              <DashboardLayout>
-                <FacultyDashboard />
-              </DashboardLayout>
+              <DashboardLayoutf>
+                <Routes>
+                  <Route path="" element={<FacultyDashboard />} />
+                  <Route path="users" element={<Users />} />
+                </Routes>
+              </DashboardLayoutf>
             </ProtectedRoute>
           } />
           <Route path="/student-dashboard/*" element={
@@ -73,6 +79,7 @@ function App() {
                 <Routes>
                   <Route path="" element={<StudentMainContentPart1 />} />
                   <Route path="timetable" element={<Timetable />} />
+                  <Route path="profile" element={<StudentProfile />} />
                 </Routes>
               </DashboardLayout>
             </ProtectedRoute>

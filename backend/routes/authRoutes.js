@@ -1,9 +1,11 @@
 const express = require('express');
-const { register, login } = require('../controllers/authController');
 const router = express.Router();
+const { login, register } = require('../controllers/authController'); // Correct import
 
-// Ensure these match your frontend requests
-router.post('/register', register); // Accessible at /api/register
-router.post('/login', login);       // Accessible at /api/login
+// Route to register a user
+router.post('/register', register);
 
-module.exports = router;
+// Route to login a user
+router.post('/login', login);
+
+module.exports = router; // Fix the module export

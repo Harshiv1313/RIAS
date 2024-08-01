@@ -1,15 +1,26 @@
+// userRoutes.js
+
 const express = require('express');
 const router = express.Router();
-const { getUsers, getFaculty, getUserInfo } = require('../controllers/userController');
 const authMiddleware = require('../middleware/authMiddleware');
+const userController = require('../controllers/userController');
 
-// Route to get all users, protected by authentication middleware
-router.get('/users', authMiddleware, getUsers);
+// Register User
+router.post('/register', userController.register);
 
-// Route to get faculty members, protected by authentication middleware
-router.get('/faculty', authMiddleware, getFaculty);
+// Login User
+router.post('/login', userController.login);
 
-// Add route for user info
-router.get('/user-info', authMiddleware, getUserInfo);
+// Get All Users
+router.get('/', userController.getUsers);
 
-module.exports = router; // Corrected export statement
+// Get User by ID
+router.get('/user/:id', authMiddleware, userController.getUserById);
+
+// Update User Info
+router.put('/user/:id', authMiddleware, userController.updateUserInfo);
+
+// Get User Info (logged-in user)
+router.get('/me', authMiddleware, userController.getUserInfo);
+
+module.exports = router;

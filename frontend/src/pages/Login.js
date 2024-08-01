@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
 import RIASLogo from '../assets/rias.png'; // Adjust the path according to your file structure
 import FacultyImage from '../assets/faculty.png'; // Adjust the path according to your file structure
 import StudentImage from '../assets/student.png'; // Adjust the path according to your file structure
@@ -23,28 +24,31 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post('http://localhost:5000/api/login', formData); // Ensure this URL is correct
+
       console.log(res.data);
 
       // Save token and role
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('role', res.data.user.role);
+
+      // Decode token to get user ID
+      const decodedToken = jwtDecode(res.data.token);
+      localStorage.setItem('userId', decodedToken.id); // Correct field name from decoded token
+
       const userRole = res.data.user.role;
 
+      // Navigate based on the user role
       if (userRole === 'admin') {
-        // Admin has free access
         navigate('/admin-dashboard');
-      } else if (userRole === 'faculty' && role === 'faculty') {
-        // Faculty role selected and validated
+      } else if (userRole === 'faculty') {
         navigate('/faculty-dashboard');
-      } else if (userRole === 'student' && role === 'student') {
-        // Student role selected and validated
+      } else if (userRole === 'student') {
         navigate('/student-dashboard');
       } else {
-        // Incorrect role selected
-        setError('Incorrect role selected');
+        setError('Invalid role');
       }
     } catch (error) {
-      setError(error.response.data.message || 'Login failed');
+      setError(error.response?.data?.msg || 'Login failed');
     }
   };
 
@@ -90,7 +94,7 @@ const Login = () => {
             <label htmlFor="password" className="label">Password</label>
             <input type="password" name="password" value={password} onChange={onChange} placeholder="Password" className="input" />
             <button type="submit" className="button">Login</button>
-            <button onClick={() => navigate('/register')} className="register-button">Register</button>
+            <button type="button" onClick={() => navigate('/register')} className="register-button">Register</button>
           </form>
         </div>
       </div>

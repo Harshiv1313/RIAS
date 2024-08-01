@@ -1,3 +1,4 @@
+// server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -7,14 +8,18 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Import and use the routes
+// Import and use routes
 const authRoutes = require('./routes/authRoutes');
 const classSchedulesRoutes = require('./routes/classSchedules');
 const userRoutes = require('./routes/userRoutes');
+const studentRoutes = require('./routes/studentRoutes');
+const facultyRoutes = require('./routes/facultyRoutes'); // Add this import
 
 app.use('/api', authRoutes); // Authentication routes
 app.use('/api/class-schedules', classSchedulesRoutes); // Class schedules routes
-app.use('/api/user-info', userRoutes); // User info route
+app.use('/api/users', userRoutes); // User routes (renamed for clarity)
+app.use('/api/students', studentRoutes); // Student routes
+app.use('/api/faculty', facultyRoutes); // Add this route
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
@@ -22,7 +27,7 @@ mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true,
 })
   .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+  .catch((err) => console.error('MongoDB connection error:', err));
 
 // Start the server
 const PORT = process.env.PORT || 5000;

@@ -74,10 +74,10 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="anti-ragging-link">
-            <Link to="/student-dashboard/anti-ragging">
+            <Link to="/student-dashboard/users">
               <img className="icon" src={AntiRaggingIcon} alt="Anti-Ragging" />
               <span className={`${isOpen ? "" : "hideElement"}`}>
-                Anti-Ragging
+                Users
               </span>
             </Link>
           </li>
