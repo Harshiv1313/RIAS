@@ -1,0 +1,65 @@
+.dashboard-container {
+    padding: 20px;
+    background-color: #252323;
+    border-radius: 8px;
+    max-width: 120%;
+    margin: 20px auto;
+    margin-left: -5%;
+    margin-right: -40%;
+    margin-bottom: 40%;
+}
+.heading {
+    margin-left: 100%;
+    margin-top: 10%;
+    margin-right: 10%;
+    color: #fff;
+}
+
+.user-table {
+    width: 180%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-left: 50%;
+}
+
+.user-table th,
+.user-table td {
+    padding: 12px;
+    border: 1px solid #000000;
+    background-color: #e6e6e6;
+    color: #000000;
+    text-align: left;
+}
+
+.user-table th {
+    background-color: #ffffff00;
+    color: #000000;
+    background-color: rgb(243, 224, 13);
+}
+
+.user-table tr:nth-child(even) {
+    background-color: #ffffff;
+    color: #ffffff;
+}
+
+.user-table tr:hover {
+    background-color: #ffffff;
+}
+
+.approve-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #28a745; /* Green background */
+    color: #fff; /* White text */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.approve-button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.error-message {
+    color: red;
+}

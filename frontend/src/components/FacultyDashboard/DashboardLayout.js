@@ -2,9 +2,9 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import UpperNavbar from './UpperNavbar';
 import Sidebar from './Sidebar'; // Ensure this path is correct
-import './css/DashboardLayout.css'; // Add styles for layout
+import './css/DashboardLayout.css'; // Add styles for faculty layout
 
-const DashboardLayout = ({ children }) => {
+const DashboardLayoutf = ({ children }) => {
   return (
     <div className="dashboard-container">
       <UpperNavbar />
@@ -19,4 +19,4 @@ const DashboardLayout = ({ children }) => {
   );
 };
 
-export default DashboardLayout;
+export default DashboardLayoutf;

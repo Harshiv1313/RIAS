@@ -1,6 +1,6 @@
 import React from "react";
-import "./css/FacultyDashboard.css"; // Ensure this path is correct
-import FacultyAddSchedule from './FacultyAddSchedule';
+import "./CSS/StudentMainContentPart1.css"; // Ensure this path is correct
+import StudentClassSchedule from "./StudentClassSchedule.js";
 import { Bar, Pie } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -112,9 +112,9 @@ const surveyOptions = {
   responsive: true,
 };
 
-const FacultyDashboard = () => {
+const StudentMainContentPart1 = () => {
   return (
-    <div className="faculty-dashboard">
+    <div className="student-main-content-part1">
       <div className="cards-container">
         <div className="card">
           <h2>Upcoming Classes</h2>
@@ -146,6 +146,7 @@ const FacultyDashboard = () => {
         </div>
         <div className="card4">
           <h2 style={{ color: "#ffffff" }}>Tracker</h2>
+
           <div className="progress-bar-vertical">
             <span style={{ height: "70%" }}>70%</span> {/* Example progress */}
           </div>
@@ -159,11 +160,10 @@ const FacultyDashboard = () => {
             <br />
             <br />
             <br />
-            <div className="faculty-dashboard-content">
-              <h1>Faculty Dashboard</h1>
-              <FacultyAddSchedule />
+            
+              <StudentClassSchedule />
               {/* Other dashboard content */}
-            </div>
+           
           </div>
         </div>
       </div>
@@ -190,4 +190,4 @@ const FacultyDashboard = () => {
   );
 };
 
-export default FacultyDashboard;
+export default StudentMainContentPart1;

@@ -14,12 +14,14 @@ const classSchedulesRoutes = require('./routes/classSchedules');
 const userRoutes = require('./routes/userRoutes');
 const studentRoutes = require('./routes/studentRoutes');
 const facultyRoutes = require('./routes/facultyRoutes'); // Add this import
+const surveyRoutes = require('./routes/surveyRoutes'); // Add this line
 
 app.use('/api', authRoutes); // Authentication routes
 app.use('/api/class-schedules', classSchedulesRoutes); // Class schedules routes
 app.use('/api/users', userRoutes); // User routes (renamed for clarity)
 app.use('/api/students', studentRoutes); // Student routes
 app.use('/api/faculty', facultyRoutes); // Add this route
+app.use('/api/surveys', surveyRoutes); // Add this line
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
