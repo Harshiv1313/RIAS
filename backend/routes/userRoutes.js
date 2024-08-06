@@ -1,5 +1,3 @@
-// userRoutes.js
-
 const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middleware/authMiddleware');
@@ -12,7 +10,7 @@ router.post('/register', userController.register);
 router.post('/login', userController.login);
 
 // Get All Users
-router.get('/', userController.getUsers);
+router.get('/', authMiddleware, userController.getUsers);
 
 // Get User by ID
 router.get('/user/:id', authMiddleware, userController.getUserById);
@@ -23,4 +21,7 @@ router.put('/user/:id', authMiddleware, userController.updateUserInfo);
 // Get User Info (logged-in user)
 router.get('/me', authMiddleware, userController.getUserInfo);
 
-module.exports = router;
+// Get All Students
+router.get('/students', authMiddleware, userController.getStudents);
+
+module.exports = router; // Corrected module. Exports

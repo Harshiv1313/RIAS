@@ -1,16 +1,15 @@
+// models/Student.js
+
 const mongoose = require('mongoose');
 
-const studentSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  // Add other fields as needed
+const StudentSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    feedback: [{
+        type: String, // or a more complex structure based on your feedback form
+        date: { type: Date, default: Date.now }
+    }],
+    // other fields
 });
 
-module.exports = mongoose.model('Student', studentSchema);
+module.exports = mongoose.model('Student', StudentSchema);

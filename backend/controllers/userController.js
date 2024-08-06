@@ -1,7 +1,7 @@
 // userController.js
 
 const User = require('../models/User');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 // Register User
@@ -111,6 +111,17 @@ exports.getUserInfo = async (req, res) => {
       return res.status(404).json({ msg: 'User not found' });
     }
     res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+// Get All Students
+exports.getStudents = async (req, res) => {
+  try {
+    const students = await User.find({ role: "student" }).select('-password');
+    res.status(200).json(students);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

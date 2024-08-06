@@ -56,7 +56,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="feedback-link">
-            <Link to="/faculty-dashboard/feedback">
+            <Link to="/faculty-dashboard/Feedback">
               <img className="icon" src={FeedbackIcon} alt="Feedback" />
               <span className={`${isOpen ? "" : "hideElement"}`}>Feedback</span>
             </Link>
@@ -68,7 +68,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="surveys-link">
-            <Link to="/faculty-dashboard/surveys">
+            <Link to="/faculty-dashboard/Survey">
               <img className="icon" src={SurveysIcon} alt="Surveys" />
               <span className={`${isOpen ? "" : "hideElement"}`}>Surveys</span>
             </Link>

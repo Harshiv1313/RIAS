@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -13,15 +12,17 @@ const authRoutes = require('./routes/authRoutes');
 const classSchedulesRoutes = require('./routes/classSchedules');
 const userRoutes = require('./routes/userRoutes');
 const studentRoutes = require('./routes/studentRoutes');
-const facultyRoutes = require('./routes/facultyRoutes'); // Add this import
-const surveyRoutes = require('./routes/surveyRoutes'); // Add this line
+const facultyRoutes = require('./routes/facultyRoutes');
+const surveyRoutes = require('./routes/surveyRoutes');
+const feedbackRoutes = require('./routes/feedbackRoutes');
 
 app.use('/api', authRoutes); // Authentication routes
 app.use('/api/class-schedules', classSchedulesRoutes); // Class schedules routes
 app.use('/api/users', userRoutes); // User routes (renamed for clarity)
 app.use('/api/students', studentRoutes); // Student routes
-app.use('/api/faculty', facultyRoutes); // Add this route
-app.use('/api/surveys', surveyRoutes); // Add this line
+app.use('/api/faculty', facultyRoutes); // Faculty routes
+app.use('/api/surveys', surveyRoutes); // Surveys routes
+app.use('/api/feedback', feedbackRoutes); // Feedback routes
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, {
@@ -32,5 +33,5 @@ mongoose.connect(process.env.MONGO_URI, {
   .catch((err) => console.error('MongoDB connection error:', err));
 
 // Start the server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

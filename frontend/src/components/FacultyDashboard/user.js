@@ -12,7 +12,7 @@ const Users = () => {
     // Fetch all users on component mount
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/users', {
+        const response = await axios.get('http://localhost:4000/api/users', {
           headers: {
             'Authorization': `Bearer ${token}` // Include token in headers
           }
@@ -31,7 +31,7 @@ const Users = () => {
 
   const handleApproveUser = async (userId) => {
     try {
-      await axios.post(`http://localhost:5000/api/faculty/approve-user/${userId}`, {}, {
+      await axios.post(`http://localhost:4000/api/faculty/approve-user/${userId}`, {}, {
         headers: {
           'Authorization': `Bearer ${token}` // Include token in headers
         }

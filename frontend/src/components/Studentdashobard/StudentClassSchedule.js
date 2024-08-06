@@ -7,7 +7,7 @@ const StudentClassSchedule = () => {
   useEffect(() => {
     const fetchSchedules = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/class-schedules');
+        const response = await axios.get('http://localhost:4000/api/class-schedules');
         // Ensure response data is in the correct format
         if (Array.isArray(response.data.schedules)) {
           // Reverse the array to get the last schedules first

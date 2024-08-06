@@ -20,7 +20,7 @@ const SurveyForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/surveys/create', { title, questions });
+      await axios.post('http://localhost:4000/api/surveys/create', { title, questions });
       alert('Survey created successfully');
     } catch (error) {
       console.error(error);

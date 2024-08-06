@@ -21,7 +21,7 @@ const StudentProfile = () => {
       const userId = decodedToken.id;
 
       const response = await fetch(
-        `http://localhost:5000/api/users/user/${userId}`,
+        `http://localhost:4000/api/users/user/${userId}`,
         {
           method: "GET",
           headers: {
@@ -86,7 +86,7 @@ const StudentProfile = () => {
       const userId = decodedToken.id;
 
       const response = await fetch(
-        `http://localhost:5000/api/users/user/${userId}`,
+        `http://localhost:4000/api/users/user/${userId}`,
         {
           method: "PUT",
           headers: {

@@ -15,8 +15,10 @@ import DashboardLayout from "./components/Studentdashobard/DashboardLayout"; // 
 import DashboardLayoutf from "./components/FacultyDashboard/DashboardLayout"; // Updated import path
 import StudentProfile from "./components/Studentdashobard/StudentProfile"; // Updated import path
 import Users from "./components/FacultyDashboard/User"; // Updated import path
-import Survey from "./components/FacultyDashboard/SurveyDashboard";
-import Surveyf from "./components/FacultyDashboard/SurveyForm"
+import Survey from "./components/FacultyDashboard/FacultySurvey";
+import Surveyf from "./components/FacultyDashboard/SurveyForm";
+import Surveystu from "./components/Studentdashobard/Survey";
+import Feedback from "./components/Studentdashobard/Feedback";
 import "./App.css"; // Ensure your CSS file is included
 import FacultyAddSchedule from "./components/FacultyDashboard/FacultyAddSchedule";
 
@@ -102,6 +104,9 @@ function App() {
                     <Route path="" element={<StudentMainContentPart1 />} />
                     <Route path="timetable" element={<Timetable />} />
                     <Route path="profile" element={<StudentProfile />} />
+                    <Route path="Surveystu" element={<Surveystu />} />
+                    <Route path="Feedback" element={<Feedback />} />
+                    
                   </Routes>
                 </DashboardLayout>
               </ProtectedRoute>
@@ -115,3 +120,4 @@ function App() {
 }
 
 export default App;
+  

@@ -16,7 +16,7 @@ const Timetable = () => {
         }
 
         // Fetch class schedules
-        const response = await axios.get('http://localhost:5000/api/class-schedules', {
+        const response = await axios.get('http://localhost:4000/api/class-schedules', {
           headers: {
             Authorization: `Bearer ${token}` // Ensure token is sent with this request
           }
@@ -47,7 +47,7 @@ const Timetable = () => {
           throw new Error('No authentication token found');
         }
 
-        const response = await axios.get('http://localhost:5000/api/class-schedules', {
+        const response = await axios.get('http://localhost:4000/api/class-schedules', {
           headers: {
             Authorization: `Bearer ${token}` // Ensure token is sent with this request
           }

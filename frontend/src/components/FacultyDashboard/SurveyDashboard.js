@@ -9,7 +9,7 @@ const SurveyDashboard = () => {
   useEffect(() => {
     const fetchSurveys = async () => {
       try {
-        const result = await axios.get('http://localhost:5000/api/surveys/active');
+        const result = await axios.get('http://localhost:4000/api/surveys/active');
         setSurveys(result.data);
       } catch (error) {
         console.error(error);
@@ -31,7 +31,7 @@ const SurveyDashboard = () => {
 
   const handleSubmit = async () => {
     try {
-      await axios.post('http://localhost:5000/api/surveys/submit', { surveyId: selectedSurvey._id, responses });
+      await axios.post('http://localhost:4000/api/surveys/submit', { surveyId: selectedSurvey._id, responses });
       alert('Responses submitted');
     } catch (error) {
       console.error(error);
