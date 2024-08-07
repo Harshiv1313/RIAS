@@ -23,7 +23,7 @@ const Login = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/login', formData); // Ensure this URL is correct
+      const res = await axios.post('http://localhost:4000/api/login', formData); // Ensure this URL is correct
 
       console.log(res.data);
 

@@ -1,12 +1,20 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true },
   email: { type: String, required: true, unique: true },
+  reenterEmail: { type: String}, // New field
+  mobileNumber: { type: String }, // New field
+  registrationNumber: { type: String }, // New field
+  semester: { type: String }, // New field
+  branch: { type: String }, // New field
+  section: { type: String }, // New field
+  rollNumber: { type: String}, // New field
   password: { type: String, required: true },
+  reenterPassword: { type: String}, // New field
   role: { type: String, required: true },
-  isApproved: { type: Boolean, default: false } // Ensure this field exists
+  isApproved: { type: Boolean, default: false }
 });
 
 // Hash password before saving

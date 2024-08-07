@@ -1,22 +1,31 @@
-// userController.js
-
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 // Register User
 exports.register = async (req, res) => {
-  const { username, email, password, role } = req.body;
+  const {
+    username, email, reenterEmail, mobileNumber, registrationNumber, semester,
+    branch, section, rollNumber, password, reenterPassword, role
+  } = req.body;
 
   try {
+    if (email !== reenterEmail) {
+      return res.status(400).json({ msg: 'Emails do not match' });
+    }
+    if (password !== reenterPassword) {
+      return res.status(400).json({ msg: 'Passwords do not match' });
+    }
+
     let user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ msg: 'User already exists' });
     }
 
-    user = new User({ username, email, password, role });
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(password, salt);
+    user = new User({
+      username, email, reenterEmail, mobileNumber, registrationNumber, semester,
+      branch, section, rollNumber, password, reenterPassword, role
+    });
 
     await user.save();
     res.status(201).json({ msg: 'User registered successfully' });
@@ -63,6 +72,7 @@ exports.getUsers = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 // Get User by ID
 exports.getUserById = async (req, res) => {
   try {
@@ -78,16 +88,20 @@ exports.getUserById = async (req, res) => {
   }
 };
 
-
 // Update User Info
 exports.updateUserInfo = async (req, res) => {
-  const { username, email } = req.body;
+  const {
+    username, email, mobileNumber, registrationNumber, semester, branch,
+    section, rollNumber
+  } = req.body;
 
   try {
     const userId = req.user.id;
     const user = await User.findByIdAndUpdate(
       userId,
-      { username, email },
+      { username, email, mobileNumber, registrationNumber, semester, branch,
+        section, rollNumber
+      },
       { new: true, runValidators: true }
     ).select('-password');
 
@@ -116,7 +130,6 @@ exports.getUserInfo = async (req, res) => {
   }
 };
 
-
 // Get All Students
 exports.getStudents = async (req, res) => {
   try {
@@ -126,5 +139,3 @@ exports.getStudents = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-
