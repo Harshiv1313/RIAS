@@ -1,3 +1,5 @@
+// controllers/userController.js
+
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -5,28 +7,28 @@ const jwt = require('jsonwebtoken');
 // Register User
 exports.register = async (req, res) => {
   const {
-    username, email, reenterEmail, mobileNumber, registrationNumber, semester,
-    branch, section, rollNumber, password, reenterPassword, role
+    username, email, password, role,
+    mobileNumber, registrationNumber, semester, branch, section, rollNumber
   } = req.body;
 
   try {
-    if (email !== reenterEmail) {
-      return res.status(400).json({ msg: 'Emails do not match' });
-    }
-    if (password !== reenterPassword) {
-      return res.status(400).json({ msg: 'Passwords do not match' });
-    }
-
+    // Check if the user already exists
     let user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ msg: 'User already exists' });
     }
 
+    // Create a new user instance
     user = new User({
-      username, email, reenterEmail, mobileNumber, registrationNumber, semester,
-      branch, section, rollNumber, password, reenterPassword, role
+      username, email, password, role,
+      mobileNumber, registrationNumber, semester, branch, section, rollNumber
     });
 
+    // Hash the password
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(password, salt);
+
+    // Save the user
     await user.save();
     res.status(201).json({ msg: 'User registered successfully' });
   } catch (err) {
@@ -40,16 +42,19 @@ exports.login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    // Find the user by email
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ msg: 'Invalid credentials' });
     }
 
+    // Check if the password matches
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ msg: 'Invalid credentials' });
     }
 
+    // Create a JWT token
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_SECRET,
@@ -90,18 +95,27 @@ exports.getUserById = async (req, res) => {
 
 // Update User Info
 exports.updateUserInfo = async (req, res) => {
-  const {
-    username, email, mobileNumber, registrationNumber, semester, branch,
-    section, rollNumber
-  } = req.body;
+  const { username, email, mobileNumber, registrationNumber, semester, branch, section, rollNumber } = req.body;
 
   try {
     const userId = req.user.id;
+
+    // Prepare update data
+    const updateData = {
+      username,
+      email,
+      mobileNumber,
+      registrationNumber,
+      semester,
+      branch,
+      section,
+      rollNumber
+    };
+
+    // Update the user information
     const user = await User.findByIdAndUpdate(
       userId,
-      { username, email, mobileNumber, registrationNumber, semester, branch,
-        section, rollNumber
-      },
+      updateData,
       { new: true, runValidators: true }
     ).select('-password');
 
@@ -134,6 +148,54 @@ exports.getUserInfo = async (req, res) => {
 exports.getStudents = async (req, res) => {
   try {
     const students = await User.find({ role: "student" }).select('-password');
+    res.status(200).json(students);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Get All Branches
+exports.getBranches = async (req, res) => {
+  try {
+    // Fetch all unique branches from the User collection
+    const branches = await User.distinct('branch');
+    res.status(200).json(branches);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Get All Sections
+exports.getSections = async (req, res) => {
+  try {
+    const sections = await User.distinct('section');
+    res.status(200).json(sections);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Get All Semesters
+exports.getSemesters = async (req, res) => {
+  try {
+    const semesters = await User.distinct('semester');
+    res.status(200).json(semesters);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Get Students by Semester, Branch, and Section
+exports.getStudentsByCriteria = async (req, res) => {
+  const { semester, branch, section } = req.query;
+
+  try {
+    const query = {};
+    if (semester) query.semester = semester;
+    if (branch) query.branch = branch;
+    if (section) query.section = section;
+
+    const students = await User.find(query).select('-password');
     res.status(200).json(students);
   } catch (error) {
     res.status(500).json({ error: error.message });

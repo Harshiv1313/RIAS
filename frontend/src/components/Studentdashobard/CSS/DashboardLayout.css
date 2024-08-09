@@ -76,6 +76,7 @@
   margin-top: 60px; /* Align below the upper navbar */
   position: relative; /* Ensure positioning context */
   width: calc(100%); /* Full width minus 20px margin */
+  
 }
 
 .content {

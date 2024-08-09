@@ -1,0 +1,66 @@
+/* Container for the timetable */
+.student-timetable-container {
+  max-width: 800px;
+  margin: 5% auto; /* Center container horizontally with top margin */
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 120, 44, 0.1); /* Optional: Add shadow for better visual */
+  text-align: center; /* Center align text within the container */
+}
+
+/* Styling for the title */
+.student-timetable-container h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Styling for the table */
+.timetable-table {
+  width: 100%;
+  border-collapse: collapse; /* Remove double borders */
+  margin-bottom: 20px; /* Space below the table */
+}
+
+.timetable-table th, .timetable-table td {
+  border: 1px solid #ddd;
+  padding: 10px; /* Increased padding for better readability */
+  text-align: left;
+}
+
+.timetable-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.timetable-table tr:nth-child(even) {
+  background-color: #f9f9f9; /* Zebra striping for rows */
+}
+
+.timetable-table a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.timetable-table a:hover {
+  text-decoration: underline;
+}
+
+/* Optional: Styling for error message */
+.alert-error {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Styling for the 'No timetable available' message */
+.no-timetable-message {
+  font-size: 18px;
+  color: #333;
+  margin-top: 20px;
+}

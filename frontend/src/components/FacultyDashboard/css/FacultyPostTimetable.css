@@ -1,0 +1,256 @@
+/* Container for the form */
+/* Container for the form */
+.faculty-post-timetable-container {
+  max-width: 2000px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  margin-top: 5%;
+  overflow-x: auto; /* Enable horizontal scrolling if content overflows */
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  max-height: 600px; /* Optional: Set a max height to restrict container height */
+
+  margin-bottom: 100000px;
+}
+
+/* Ensure that the content inside the container also handles overflow */
+.faculty-post-timetable-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Add scroll bar for tables */
+.faculty-post-timetable-container .student-table-container {
+  overflow-x: auto; /* Horizontal scroll for tables */
+}
+
+/* Example of table styling */
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.student-table th,
+.student-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.student-table th {
+  background-color: #f4f4f4;
+}
+
+.student-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.student-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+
+/* Form styling */
+.faculty-post-timetable-form {
+  margin-bottom: 30px; /* Space between form and table */
+}
+
+/* Grid layout for the form */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 columns layout */
+  gap: 15px;
+}
+
+/* Styling for the first row items to span all 5 columns */
+.form-item.full-width {
+  grid-column: span 5; /* Span 5 columns for the first row items */
+}
+
+/* Styling for the second row items */
+.form-item:not(.full-width) {
+  grid-column: span 1; /* Default span for the second row items */
+}
+
+/* Add specific styles for button container */
+.button-container {
+  grid-column: span 5; /* Span all 5 columns */
+  display: flex;
+  justify-content: center; /* Center the button horizontally */
+}
+
+/* Styling for form labels and input fields */
+.form-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-item label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-item input[type="text"],
+.form-item select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Styling for the submit button */
+.submit-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Styling for the button on hover */
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+/* Optional: Styling for success/error messages */
+.alert {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Timetable Table Styling */
+.timetable-container {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.timetable-title {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.filter-container {
+  display: flex;
+  justify-content: space-between; /* Space items evenly */
+  gap: 20px; /* Adjust gap between items */
+  margin-bottom: 20px;
+}
+
+.filter-container label {
+  margin-right: 10px;
+}
+/* Styling for form items */
+.filter-container .form-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Styling for labels and dropdowns */
+.filter-container label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Optional: Add styles for better alignment */
+.filter-container .form-item:first-child {
+  flex: 1.5;
+}
+/* Dropdown styling to match filter dropdowns */
+.filter-container select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 16px;
+}
+/* Timetable card styling */
+.timetable-card {
+  max-height: 400px; /* Adjust as needed */
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  margin-top: 15px;
+  margin: 0 auto; /* Center the timetable card */
+  display: table;
+  width: 100%; /* Ensure it takes full width */
+}
+
+.timetable-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.timetable-card th,
+.timetable-card td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.timetable-card th {
+  background-color: #f4f4f4;
+}
+
+.timetable-card tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.timetable-card tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Error Message Styling */
+.error-message {
+  color: #721c24;
+  background-color: #f8d7da;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+/* Ensure form items are in one row */
+.form-grid-one-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.form-grid-one-row .form-item {
+  flex: 1;
+  margin: 0 10px;
+}
+
+.form-grid-one-row .form-item:first-child {
+  flex: 2;
+}
+
+/* Styling for select dropdowns */
+.select-dropdown {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 16px;
+}

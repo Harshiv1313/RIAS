@@ -1,139 +1,119 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './CSS/StudentTimetable.css'; // Import the CSS file
 
-const Timetable = () => {
-  const [timetable, setTimetable] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState('');
+const StudentTimetable = () => {
+  const [profileData, setProfileData] = useState(null);
+  const [timetableData, setTimetableData] = useState([]);
+  const [filteredTimetable, setFilteredTimetable] = useState([]);
+  const [error, setError] = useState(null);
 
+  // Fetch student profile data
+  const fetchProfileData = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) throw new Error('No token found');
+
+      // Extract user ID from the token
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      const userId = decodedToken.id;
+
+      const response = await fetch(`http://localhost:4000/api/users/user/${userId}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setProfileData(data);
+      } else {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('Error fetching profile data:', error);
+      setError('Error fetching profile data. Please try again later.');
+    }
+  };
+
+  // Fetch timetable data
+  const fetchTimetableData = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) throw new Error('No token found');
+
+      const response = await fetch('http://localhost:4000/api/timetables', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setTimetableData(data);
+      } else {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('Error fetching timetable data:', error);
+      setError('Error fetching timetable data. Please try again later.');
+    }
+  };
+
+  // Filter timetable data based on profile data
   useEffect(() => {
-    const fetchTimetable = async () => {
-      try {
-        const token = localStorage.getItem('token'); // Retrieve token from local storage
+    if (profileData && timetableData.length > 0) {
+      const filtered = timetableData.filter(entry =>
+        entry.branch === profileData.branch &&
+        entry.section === profileData.section &&
+        entry.semester === profileData.semester
+      );
+      setFilteredTimetable(filtered);
+    }
+  }, [profileData, timetableData]);
 
-        if (!token) {
-          throw new Error('No authentication token found');
-        }
-
-        // Fetch class schedules
-        const response = await axios.get('http://localhost:4000/api/class-schedules', {
-          headers: {
-            Authorization: `Bearer ${token}` // Ensure token is sent with this request
-          }
-        });
-
-        if (response.data && response.data.schedules) {
-          setTimetable(response.data.schedules);
-        } else {
-          throw new Error('Class schedules are not available');
-        }
-
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching schedules:', error.response?.data || error.message);
-        setError('Failed to load data. Please try again later.');
-        setIsLoading(false);
-      }
-    };
-
-    fetchTimetable();
-
-    // Set up an interval to fetch class schedules every second
-    const intervalId = setInterval(async () => {
-      try {
-        const token = localStorage.getItem('token'); // Retrieve token from local storage
-
-        if (!token) {
-          throw new Error('No authentication token found');
-        }
-
-        const response = await axios.get('http://localhost:4000/api/class-schedules', {
-          headers: {
-            Authorization: `Bearer ${token}` // Ensure token is sent with this request
-          }
-        });
-
-        if (response.data && response.data.schedules) {
-          setTimetable(response.data.schedules);
-        }
-      } catch (error) {
-        console.error('Error fetching schedules:', error.response?.data || error.message);
-      }
-    }, 1000); // Adjust interval to 1 second
-
-    // Clear the interval when the component unmounts
-    return () => clearInterval(intervalId);
+  // Fetch both profile and timetable data on component mount
+  useEffect(() => {
+    fetchProfileData();
+    fetchTimetableData();
   }, []);
 
-  const tableStyle = {
-    width: '100%',
-    borderCollapse: 'collapse',
-    margin: '20px 0',
-    fontSize: '18px',
-    textAlign: 'left',
-    border: '1px solid #ddd',
-  };
-
-  const thStyle = {
-    backgroundColor: '#f4f4f4',
-    color: '#333',
-    padding: '12px 15px',
-    borderBottom: '2px solid #ddd',
-  };
-
-  const tdStyle = {
-    padding: '12px 15px',
-    borderBottom: '1px solid #ddd',
-  };
-
-  const errorStyle = {
-    color: 'red',
-    fontWeight: 'bold',
-  };
-
-  const headerStyle = {
-    fontSize: '24px',
-    margin: '20px 0',
-    color: '#333',
-  };
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
   return (
-    <div>
-      <h2 style={headerStyle}>Timetable</h2>
-      {error && <p style={errorStyle}>{error}</p>} {/* Display error message if any */}
-
-      <table style={tableStyle}>
-        <thead>
-          <tr>
-            <th style={thStyle}>Course Name</th>
-            <th style={thStyle}>Faculty Name</th>
-            <th style={thStyle}>Day of Week</th>
-            <th style={thStyle}>Start Time</th>
-            <th style={thStyle}>End Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          {timetable.length > 0 ? timetable.map((schedule, index) => (
-            <tr key={index}>
-              <td style={tdStyle}>{schedule.courseName}</td>
-              <td style={tdStyle}>{schedule.facultyName}</td>
-              <td style={tdStyle}>{schedule.dayOfWeek}</td>
-              <td style={tdStyle}>{schedule.startTime}</td>
-              <td style={tdStyle}>{schedule.endTime}</td>
-            </tr>
-          )) : (
+    <div className="student-timetable-container">
+      {error && <div className="error">{error}</div>}
+      <h2>Student Timetable</h2>
+      {filteredTimetable.length > 0 ? (
+        <table className="timetable-table">
+          <thead>
             <tr>
-              <td colSpan="5" style={tdStyle}>No timetable available.</td>
+              <th>Day</th>
+              <th>Time</th>
+              <th>Subject</th>
+              <th>Room</th>
+              <th>Faculty</th>
+              <th>Course Code</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredTimetable.map((entry, index) => (
+              <tr key={index}>
+                <td>{entry.day || 'N/A'}</td>
+                <td>{entry.time || 'N/A'}</td>
+                <td>{entry.subjectName || 'N/A'}</td>
+                <td>{entry.room || 'N/A'}</td>
+                <td>{entry.facultyName || 'N/A'}</td>
+                <td>{entry.courseCode || 'N/A'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <div className="no-timetable-message">No timetable available for the specified criteria.</div>
+      )}
     </div>
   );
 };
 
-export default Timetable;
+export default StudentTimetable;

@@ -11,7 +11,7 @@ const Users = () => {
   useEffect(() => {
     // Fetch all users on component mount
     const fetchUsers = async () => {
-      try {
+      try { 
         const response = await axios.get('http://localhost:4000/api/users', {
           headers: {
             'Authorization': `Bearer ${token}` // Include token in headers

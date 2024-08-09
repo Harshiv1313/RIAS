@@ -48,7 +48,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="timetables-link">
-            <Link to="/faculty-dashboard/we">
+            <Link to="/faculty-dashboard/faculty-timetable">
               <img className="icon" src={TimetablesIcon} alt="Timetables" />
               <span className={`${isOpen ? "" : "hideElement"}`}>
                 Timetables

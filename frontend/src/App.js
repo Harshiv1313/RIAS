@@ -17,10 +17,12 @@ import StudentProfile from "./components/Studentdashobard/StudentProfile"; // Up
 import Users from "./components/FacultyDashboard/User"; // Updated import path
 import Survey from "./components/FacultyDashboard/FacultySurvey";
 import Surveyf from "./components/FacultyDashboard/SurveyForm";
+import Facultyimetable from "./components/FacultyDashboard/StudentTable";
 import Surveystu from "./components/Studentdashobard/Survey";
 import Feedback from "./components/Studentdashobard/Feedback";
 import "./App.css"; // Ensure your CSS file is included
 import FacultyAddSchedule from "./components/FacultyDashboard/FacultyAddSchedule";
+import FacultyPooostTimetable from "./components/FacultyDashboard/FacultyPostTimetable";
 
 const AuthRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -89,6 +91,10 @@ function App() {
                     <Route path="users" element={<Users />} />
                     <Route path="Survey" element={<Survey />} />
                     <Route path="Surveyform" element={<Surveyf />} />
+                    <Route
+                      path="faculty-timetable"
+                      element={<FacultyPooostTimetable />}
+                    />
                     {/* Add more routes as needed */}
                   </Routes>
                 </DashboardLayoutf>
@@ -102,16 +108,16 @@ function App() {
                 <DashboardLayout>
                   <Routes>
                     <Route path="" element={<StudentMainContentPart1 />} />
-                    <Route path="timetable" element={<Timetable />} />
+                    <Route path="timetable" element={<Timetable />} />{" "}
                     <Route path="profile" element={<StudentProfile />} />
                     <Route path="Surveystu" element={<Surveystu />} />
                     <Route path="Feedback" element={<Feedback />} />
-                    
                   </Routes>
                 </DashboardLayout>
               </ProtectedRoute>
             }
           />
+
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </div>
@@ -120,4 +126,3 @@ function App() {
 }
 
 export default App;
-  

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import StudentImage from "../../assets/faculty.png";
+import StudentImage from "../../assets/student.png";
 import "./CSS/StudentProfile.css";
 
 const StudentProfile = () => {
@@ -8,6 +8,12 @@ const StudentProfile = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    mobileNumber: "",
+    registrationNumber: "",
+    semester: "",
+    branch: "",
+    section: "",
+    rollNumber: "",
   });
   const [error, setError] = useState(null);
 
@@ -32,28 +38,16 @@ const StudentProfile = () => {
 
       if (response.ok) {
         const data = await response.json();
-        setProfileData({
-          ...data,
-          // Fake additional data
-          role: "student",
-          profilePicture: "http://example.com/path/to/profile-picture.jpg",
-          rollNumber: "123456789",
-          course: "Computer Science",
-          year: "3",
-          semester: "6",
-          major: "Software Engineering",
-          gpa: "8.5",
-          dateOfBirth: "2002-01-15",
-          gender: "Male",
-          address: "123, Elm Street, City, Country",
-          emergencyContact: {
-            name: "Jane Doe",
-            number: "+91-987-654-3210",
-          },
-        });
+        setProfileData(data);
         setFormData({
           name: data.username || "",
           email: data.email || "",
+          mobileNumber: data.mobileNumber || "",
+          registrationNumber: data.registrationNumber || "",
+          semester: data.semester || "",
+          branch: data.branch || "",
+          section: data.section || "",
+          rollNumber: data.rollNumber || "",
         });
       } else if (response.status === 404) {
         setError("Profile not found.");
@@ -112,6 +106,21 @@ const StudentProfile = () => {
     }
   };
 
+  const handleCancel = () => {
+    setIsEditing(false);
+    // Reset formData to profileData
+    setFormData({
+      name: profileData?.username || "",
+      email: profileData?.email || "",
+      mobileNumber: profileData?.mobileNumber || "",
+      registrationNumber: profileData?.registrationNumber || "",
+      semester: profileData?.semester || "",
+      branch: profileData?.branch || "",
+      section: profileData?.section || "",
+      rollNumber: profileData?.rollNumber || "",
+    });
+  };
+
   return (
     <div className="profile-container">
       {error && <div className="error">{error}</div>}
@@ -123,8 +132,8 @@ const StudentProfile = () => {
             <img src={StudentImage} alt="Profile" className="profile-picture" />
           </div>
 
-          <div>
-            <strong>Name: Aditya Bhagat</strong>
+          <div className="profile-detail">
+            <strong>Name:</strong>
             {isEditing ? (
               <input
                 type="text"
@@ -137,18 +146,7 @@ const StudentProfile = () => {
             )}
           </div>
 
-          <div>
-            <strong>Roll Number: 41</strong>{" "}
-            {profileData ? profileData.rollNumber : "Loading..."}
-          </div>
           <div className="profile-detail">
-            <strong>Course:</strong>
-            <span className="profile-data">
-              {profileData ? profileData.course : "Loading..."}
-            </span>
-          </div>
-
-          <div>
             <strong>Email:</strong>
             {isEditing ? (
               <input
@@ -161,41 +159,136 @@ const StudentProfile = () => {
               <span>{profileData ? profileData.email : "Loading..."}</span>
             )}
           </div>
-          <div>
+
+          <div className="profile-detail">
+            <strong>Mobile Number:</strong>
             {isEditing ? (
-              <button onClick={handleSave}>Save</button>
+              <input
+                type="text"
+                name="mobileNumber"
+                value={formData.mobileNumber}
+                onChange={handleChange}
+              />
             ) : (
-              <button onClick={() => setIsEditing(true)}>Edit</button>
+              <span>
+                {profileData ? profileData.mobileNumber : "Loading..."}
+              </span>
+            )}
+          </div>
+
+          <div className="profile-detail">
+            <strong>Registration Number:</strong>
+            {isEditing ? (
+              <input
+                type="text"
+                name="registrationNumber"
+                value={formData.registrationNumber}
+                onChange={handleChange}
+              />
+            ) : (
+              <span>
+                {profileData ? profileData.registrationNumber : "Loading..."}
+              </span>
             )}
           </div>
         </div>
 
         <div className="profile-square">
-          <div>
-            <strong>Year:2021-2025</strong>
+          <div className="profile-detail">
+            <strong>Password:</strong>
+            <span className="profile-data">
+              {profileData ? profileData.password : "Not available"}
+            </span>
           </div>
-          <div>
-            <strong>Semester:VII</strong>
+          <div className="profile-detail">
+            <strong>Role:</strong>
+            <span className="profile-data">
+              {profileData ? profileData.role : "Not available"}
+            </span>
           </div>
-          <div>
-            <strong>Major: CSE</strong>
+          <div className="profile-detail">
+            <strong>Approval Status:</strong>
+            <span className="profile-data">
+              {profileData
+                ? profileData.isApproved
+                  ? "Approved"
+                  : "Not Approved"
+                : "Not available"}
+            </span>
           </div>
-          <div>
-            <strong>GPA:</strong>
+
+          <div className="profile-detail">
+            <strong>Semester:</strong>
+            {isEditing ? (
+              <input
+                type="text"
+                name="semester"
+                value={formData.semester}
+                onChange={handleChange}
+              />
+            ) : (
+              <span>{profileData ? profileData.semester : "Loading..."}</span>
+            )}
           </div>
-          <div>
-            <strong>Date of Birth:03/11/2002</strong>
+
+          <div className="profile-detail">
+            <strong>Branch:</strong>
+            {isEditing ? (
+              <input
+                type="text"
+                name="branch"
+                value={formData.branch}
+                onChange={handleChange}
+              />
+            ) : (
+              <span>{profileData ? profileData.branch : "Loading..."}</span>
+            )}
           </div>
-          <div>
-            <strong>Gender:MALE</strong>
+
+          <div className="profile-detail">
+            <strong>Section:</strong>
+            {isEditing ? (
+              <input
+                type="text"
+                name="section"
+                value={formData.section}
+                onChange={handleChange}
+              />
+            ) : (
+              <span>{profileData ? profileData.section : "Loading..."}</span>
+            )}
           </div>
-          <div>
-            <strong>Address:NAGPUR</strong>
-          </div>
-          <div>
-            <strong>Emergency Contact:7219019359 </strong>
+
+          <div className="profile-detail">
+            <strong>Roll Number:</strong>
+            {isEditing ? (
+              <input
+                type="text"
+                name="rollNumber"
+                value={formData.rollNumber}
+                onChange={handleChange}
+              />
+            ) : (
+              <span>{profileData ? profileData.rollNumber : "Loading..."}</span>
+            )}
           </div>
         </div>
+      </div>
+      <div>
+        {isEditing ? (
+          <>
+            <button className="save" onClick={handleSave}>
+              Save
+            </button>
+            <button className="cancel" onClick={handleCancel}>
+              Cancel
+            </button>
+          </>
+        ) : (
+          <button className="edit" onClick={() => setIsEditing(true)}>
+            Edit
+          </button>
+        )}
       </div>
     </div>
   );

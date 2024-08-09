@@ -24,4 +24,16 @@ router.get('/me', authMiddleware, userController.getUserInfo);
 // Get All Students
 router.get('/students', authMiddleware, userController.getStudents);
 
+router.get('/branches', authMiddleware, userController.getBranches);
+
+
+// Get All Sections
+router.get('/sections', authMiddleware, userController.getSections);
+
+// Get All Semesters
+router.get('/semesters', authMiddleware, userController.getSemesters);
+
+
+router.get('/students/criteria', authMiddleware, userController.getStudentsByCriteria);
+
 module.exports = router; // Corrected module. Exports
