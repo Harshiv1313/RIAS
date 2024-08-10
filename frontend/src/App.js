@@ -19,7 +19,7 @@ import Survey from "./components/FacultyDashboard/FacultySurvey";
 import Surveyf from "./components/FacultyDashboard/SurveyForm";
 import Facultyimetable from "./components/FacultyDashboard/StudentTable";
 import Surveystu from "./components/Studentdashobard/Survey";
-import Feedback from "./components/Studentdashobard/Feedback";
+import Feedback from "./components/Studentdashobard/Stufeedback";
 import "./App.css"; // Ensure your CSS file is included
 import FacultyAddSchedule from "./components/FacultyDashboard/FacultyAddSchedule";
 import FacultyPooostTimetable from "./components/FacultyDashboard/FacultyPostTimetable";

@@ -3,7 +3,7 @@ const Timetable = require('../models/Timetable');
 // Create a new timetable
 exports.createTimetable = async (req, res) => {
   try {
-    const { branch, section, semester, batch, timetable, facultyName, subjectName, courseCode, day, time, room } = req.body;
+    const { branch, section, semester, batch, timetable, facultyName, subjectName, courseCode, type, time, room } = req.body;
 
     const newTimetable = new Timetable({
       branch,
@@ -14,7 +14,7 @@ exports.createTimetable = async (req, res) => {
       facultyName,
       subjectName,
       courseCode,
-      day,
+      type,
       time,
       room,
       createdBy: req.user._id // Assuming req.user is set by authentication middleware

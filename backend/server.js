@@ -14,9 +14,9 @@ const userRoutes = require("./routes/userRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const facultyRoutes = require("./routes/facultyRoutes");
 const surveyRoutes = require("./routes/surveyRoutes");
-const feedbackRoutes = require("./routes/feedbackRoutes");
 const timetableRoutes = require("./routes/timetableRoutes");
 const facultytt = require("./routes/facultytimetable");
+const feedbackRoutes = require('./routes/feedbackRoutes');
 
 app.use("/api", authRoutes); // Authentication routes
 app.use("/api/class-schedules", classSchedulesRoutes); // Class schedules routes
@@ -24,9 +24,10 @@ app.use("/api/users", userRoutes); // User routes (renamed for clarity)
 app.use("/api/students", studentRoutes); // Student routes
 app.use("/api/faculty", facultyRoutes); // Faculty routes
 app.use("/api/surveys", surveyRoutes); // Surveys routes
-app.use("/api/feedback", feedbackRoutes); // Feedback routes
 app.use("/api", timetableRoutes); // Update route prefix as needed
 app.use("/api", facultytt);
+app.use('/api/feedback', feedbackRoutes);
+
 
 // Connect to MongoDB
 mongoose

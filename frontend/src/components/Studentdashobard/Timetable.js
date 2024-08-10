@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import './CSS/StudentTimetable.css'; // Import the CSS file
 
 const StudentTimetable = () => {

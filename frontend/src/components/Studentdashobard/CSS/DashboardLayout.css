@@ -72,10 +72,11 @@
 .main-content {
   display: flex;
   flex-direction: row; /* Horizontal layout */
-  margin-left: 20px; /* 20px margin from the left edge of the screen */
+  margin-left: 15px; /* 20px margin from the left edge of the screen */
   margin-top: 60px; /* Align below the upper navbar */
   position: relative; /* Ensure positioning context */
   width: calc(100%); /* Full width minus 20px margin */
+  margin-bottom: 2000px;
   
 }
 

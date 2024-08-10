@@ -9,7 +9,7 @@ const timetableSchema = new mongoose.Schema({
   facultyName: { type: String, required: true },
   subjectName: { type: String, required: true },
   courseCode: { type: String, required: true },
-  day: { type: String, required: true }, // Day of the week (e.g., Monday)
+  type: { type: String, required: true }, // Day of the week (e.g., Monday)
   time: { type: String, required: true }, // Time of the class (e.g., 10:00 AM - 11:00 AM)
   room: { type: String, required: true }, // Room number or identifier
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'Faculty', required: true },

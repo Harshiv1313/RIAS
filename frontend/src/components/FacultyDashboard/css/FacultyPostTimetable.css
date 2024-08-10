@@ -1,7 +1,6 @@
 /* Container for the form */
-/* Container for the form */
 .faculty-post-timetable-container {
-  max-width: 2000px;
+  max-width: 1200px; /* Adjust as needed */
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ddd;
@@ -11,13 +10,11 @@
   overflow-x: auto; /* Enable horizontal scrolling if content overflows */
   overflow-y: auto; /* Enable vertical scrolling if content overflows */
   max-height: 600px; /* Optional: Set a max height to restrict container height */
-
-  margin-bottom: 100000px;
 }
 
 /* Ensure that the content inside the container also handles overflow */
 .faculty-post-timetable-container table {
-  width: 100%;
+  width: 100%; /* Adjust to ensure the table fits within the container */
   border-collapse: collapse;
 }
 
@@ -51,7 +48,6 @@
   background-color: #f1f1f1;
 }
 
-
 /* Form styling */
 .faculty-post-timetable-form {
   margin-bottom: 30px; /* Space between form and table */
@@ -79,6 +75,7 @@
   grid-column: span 5; /* Span all 5 columns */
   display: flex;
   justify-content: center; /* Center the button horizontally */
+  margin-top: 20px; /* Add some space above the button */
 }
 
 /* Styling for form labels and input fields */
@@ -103,14 +100,13 @@
 
 /* Styling for the submit button */
 .submit-button {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  color: #fff;
   background-color: #007bff;
+  color: #fff;
   border: none;
   border-radius: 4px;
+  padding: 10px 20px;
   cursor: pointer;
+  font-size: 16px;
 }
 
 /* Styling for the button on hover */
@@ -156,6 +152,7 @@
 .filter-container label {
   margin-right: 10px;
 }
+
 /* Styling for form items */
 .filter-container .form-item {
   flex: 1;
@@ -174,6 +171,7 @@
 .filter-container .form-item:first-child {
   flex: 1.5;
 }
+
 /* Dropdown styling to match filter dropdowns */
 .filter-container select {
   width: 100%;
@@ -183,6 +181,7 @@
   background-color: #fff;
   font-size: 16px;
 }
+
 /* Timetable card styling */
 .timetable-card {
   max-height: 400px; /* Adjust as needed */
