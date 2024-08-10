@@ -81,13 +81,13 @@ const StudentTimetable = () => {
 
   return (
     <div className="student-timetable-container">
-      {error && <div className="error">{error}</div>}
+      {error && <div className="alert-error">{error}</div>}
       <h2>Student Timetable</h2>
       {filteredTimetable.length > 0 ? (
         <table className="timetable-table">
           <thead>
             <tr>
-              <th>Day</th>
+              <th>Type</th>
               <th>Time</th>
               <th>Subject</th>
               <th>Room</th>
@@ -98,7 +98,7 @@ const StudentTimetable = () => {
           <tbody>
             {filteredTimetable.map((entry, index) => (
               <tr key={index}>
-                <td>{entry.day || 'N/A'}</td>
+                <td>{entry.type || 'N/A'}</td>
                 <td>{entry.time || 'N/A'}</td>
                 <td>{entry.subjectName || 'N/A'}</td>
                 <td>{entry.room || 'N/A'}</td>

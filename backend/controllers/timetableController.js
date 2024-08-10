@@ -3,14 +3,13 @@ const Timetable = require('../models/Timetable');
 // Create a new timetable
 exports.createTimetable = async (req, res) => {
   try {
-    const { branch, section, semester, batch, timetable, facultyName, subjectName, courseCode, type, time, room } = req.body;
+    const { branch, section, semester, batch, facultyName, subjectName, courseCode, type, time, room } = req.body;
 
     const newTimetable = new Timetable({
       branch,
       section,
       semester,
-      batch,       // New field
-      timetable,
+      batch,  // Include batch in the creation
       facultyName,
       subjectName,
       courseCode,
@@ -28,7 +27,7 @@ exports.createTimetable = async (req, res) => {
   }
 };
 
-// Get timetables based on filters
+// Get all timetables based on filters
 exports.getTimetables = async (req, res) => {
   try {
     const { branch, section, semester, batch } = req.query; // Include batch in the query
@@ -47,8 +46,7 @@ exports.getTimetables = async (req, res) => {
   }
 };
 
-// Get Timetables by Semester, Branch, and Section
-// Controller for fetching timetables by criteria
+// Get Timetables by specific criteria (semester, branch, section, batch)
 exports.getTimetablesByCriteria = async (req, res) => {
   const { semester, branch, section, batch } = req.query; // Include batch in the query
 
@@ -62,6 +60,57 @@ exports.getTimetablesByCriteria = async (req, res) => {
     const timetables = await Timetable.find(query);
     res.status(200).json(timetables);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error fetching timetables by criteria:', error);
+    res.status(500).json({ message: 'Failed to fetch timetables by criteria' });
+  }
+};
+
+// Get a specific timetable by ID
+exports.getTimetableById = async (req, res) => {
+  try {
+    const timetable = await Timetable.findById(req.params.id);
+    if (!timetable) {
+      return res.status(404).json({ message: 'Timetable not found' });
+    }
+    res.status(200).json(timetable);
+  } catch (error) {
+    console.error('Error fetching timetable by ID:', error);
+    res.status(500).json({ message: 'Failed to fetch timetable' });
+  }
+};
+
+// Update a specific timetable by ID
+exports.updateTimetable = async (req, res) => {
+  try {
+    const { branch, section, semester, batch, facultyName, subjectName, courseCode, type, time, room } = req.body;
+
+    const timetable = await Timetable.findByIdAndUpdate(
+      req.params.id,
+      { branch, section, semester, batch, facultyName, subjectName, courseCode, type, time, room },
+      { new: true, runValidators: true }
+    );
+
+    if (!timetable) {
+      return res.status(404).json({ message: 'Timetable not found' });
+    }
+
+    res.status(200).json(timetable);
+  } catch (error) {
+    console.error('Error updating timetable:', error);
+    res.status(500).json({ message: 'Failed to update timetable' });
+  }
+};
+
+// Delete a specific timetable by ID
+exports.deleteTimetable = async (req, res) => {
+  try {
+    const timetable = await Timetable.findByIdAndDelete(req.params.id);
+    if (!timetable) {
+      return res.status(404).json({ message: 'Timetable not found' });
+    }
+    res.status(200).json({ message: 'Timetable deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting timetable:', error);
+    res.status(500).json({ message: 'Failed to delete timetable' });
   }
 };
