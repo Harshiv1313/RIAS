@@ -2,10 +2,13 @@ const express = require('express');
 const router = express.Router();
 const feedbackController = require('../controllers/feedbackController');
 
-// Define route for submitting feedback
-router.post('/submit', feedbackController.submitFeedback);
+// Route to submit theory feedback
+router.post('/theory/submit', feedbackController.submitTheoryFeedback);
 
-// Define route for getting feedback by student ID
+// Route to submit practical feedback
+router.post('/practical/submit', feedbackController.submitPracticalFeedback);
+
+// Route to get feedback by student ID (for admin)
 router.get('/:studentId', feedbackController.getFeedbackByStudent);
 
 module.exports = router;

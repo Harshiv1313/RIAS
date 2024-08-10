@@ -17,6 +17,8 @@
   /* Add vertical scrollbar when content exceeds height */
 }
 
+
+
 .feedback-content {
   max-height: calc(100% - 100px);
   /* Adjust height based on card padding and other elements */

@@ -257,14 +257,16 @@ const FeedbackForm = () => {
                     <td key={item.serial} style={styles.td}>
                       <select
                         name={`${item.serial}_${question}`}
-                        value={responses[`${item.serial}_${question}`] || ''}
+                        value={responses[`${item.serial}_${question}`] || 0}
                         onChange={(e) => handleChange(e, item.serial, question)}
                         style={styles.select}
                       >
-                        <option value="">Select</option>
-                        {[...Array(5)].map((_, i) => (
-                          <option key={i + 1} value={i + 1}>{i + 1}</option>
-                        ))}
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                       </select>
                     </td>
                   ))}
@@ -272,8 +274,13 @@ const FeedbackForm = () => {
               ))}
             </tbody>
           </table>
-          <h4>Practical Timetable</h4>
-          {filteredPracticalTimetable.length > 0 ? (
+          <button type="submit" className="submit-button">Submit Feedback</button>
+        </form>
+      </div>
+      <div className="feedback-timetable-section">
+        {filteredPracticalTimetable.length > 0 ? (
+          <>
+            <h4>Practical Timetable</h4>
             <table className="timetable-table">
               <thead>
                 <tr>
@@ -294,13 +301,12 @@ const FeedbackForm = () => {
                 ))}
               </tbody>
             </table>
-          ) : (
-            <div className="no-timetable-message">
-              No practical timetable available for your branch, section, and semester.
-            </div>
-          )}
-          <button type="submit">Submit Feedback</button>
-        </form>
+          </>
+        ) : (
+          <div className="no-timetable-message">
+            No practical timetable available for your branch, section, and semester.
+          </div>
+        )}
       </div>
     </div>
   );
