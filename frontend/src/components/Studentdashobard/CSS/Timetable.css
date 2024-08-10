@@ -1,15 +1,10 @@
 /* Define color variables */
 :root {
   --bg-sidebar: #010f17;
-  --light-green: #2b2b2b; /* Darker background */
+  --light-green: #252323;
   --bg-color: #f4f4f4;
-  --light-grey: #4CAF50; /* Greenish-grey for better contrast */
+  --light-grey: #37887d;
   --text-color: #FFF;
-  --highlight-color: #4CAF50; /* Accent color */
-  --secondary-color: #FF9800; /* Secondary accent color (orange) */
-  --error-bg: #f8d7da;
-  --error-text: #721c24;
-  --hover-color: #555555; /* Hover color for rows */
 }
 
 /* Container for the timetable */
@@ -17,64 +12,50 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3000px;
+  padding: 20px;
   background-color: var(--light-green);
-  border-radius: 24px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deeper shadow */
+  border-radius: 18px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 1200px; /* Optimized width for larger screens */
+  max-width: 800px; /* Set a max width for the container */
   box-sizing: border-box;
-  margin: 50px auto;
-  color: var(--text-color);
+  margin: 50px auto; /* Center the container horizontally and provide top margin */
+  color: #ddd;
+  margin-bottom: 20000px;
 }
 
 /* Styling for the title */
 .student-timetable-container h2 {
-  margin-bottom: 25px;
-  font-size: 32px; /* Larger font size */
+  margin-bottom: 200px;
+  font-size: 24px;
   font-weight: bold;
-  color: var(--highlight-color); /* Accent color for the title */
-  text-align: center;
-  border-bottom: 2px solid var(--highlight-color); /* Underline effect */
-  padding-bottom: 10px;
+  color: #FFF;
 }
 
 /* Styling for the table */
 .timetable-table {
   width: 100%;
   border-collapse: collapse;
-  color: var(--text-color);
-  margin-top: 25px; /* Increased spacing above the table */
-  background-color: #1f1f1f; /* Dark background for the table */
-  border-radius: 12px;
-  overflow: hidden;
+  color: #FFF; /* Text color */
 }
 
-.timetable-table th,
-.timetable-table td {
+.timetable-table th, .timetable-table td {
   border: 1px solid var(--light-grey);
-  padding: 14px; /* Increased padding */
-  text-align: center; /* Center-align text */
-  font-size: 16px; /* Slightly larger text */
+  padding: 8px;
+  text-align: left;
 }
 
 .timetable-table th {
-  background-color: var(--secondary-color); /* Secondary color for the header */
+  background-color: var(--light-green);
   font-weight: bold;
-  text-transform: uppercase; /* Uppercase text for headers */
 }
 
 .timetable-table tr:nth-child(even) {
-  background-color: var(--hover-color); /* Improved zebra striping */
-}
-
-.timetable-table tr:hover {
-  background-color: var(--hover-color); /* Row hover effect */
-  color: var(--secondary-color); /* Text color change on hover */
+  background-color: #333333; /* Zebra striping for rows */
 }
 
 .timetable-table a {
-  color: #00aaff; /* Bright link color */
+  color: #007bff;
   text-decoration: none;
 }
 
@@ -84,53 +65,15 @@
 
 /* Optional: Styling for error message */
 .alert-error {
-  margin-top: 25px;
-  padding: 18px; /* Increased padding */
-  border-radius: 10px;
-  background-color: var(--error-bg);
-  color: var(--error-text);
-  font-weight: bold; /* Bold error text */
-  font-size: 18px;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #f8d7da;
+  color: #721c24;
 }
 
 /* Styling for the 'No timetable available' message */
 .no-timetable-message {
-  font-size: 20px;
-  color: var(--text-color);
-  margin-top: 25px; /* Increased spacing above the message */
-  text-align: center;
-}
-
-/* Add responsive design for smaller screens */
-@media (max-width: 1200px) {
-  .student-timetable-container {
-    padding: 20px;
-    max-width: 100%; /* Ensure it fits within the screen */
-  }
-
-  .timetable-table th,
-  .timetable-table td {
-    padding: 10px;
-    font-size: 15px; /* Adjust font size for smaller screens */
-  }
-
-  .student-timetable-container h2 {
-    font-size: 26px; /* Adjust title size for smaller screens */
-  }
-}
-
-@media (max-width: 768px) {
-  .student-timetable-container {
-    padding: 15px;
-  }
-
-  .timetable-table th,
-  .timetable-table td {
-    padding: 8px;
-    font-size: 14px; /* Adjust font size for mobile screens */
-  }
-
-  .student-timetable-container h2 {
-    font-size: 22px; /* Adjust title size for mobile screens */
-  }
+  font-size: 18px;
+  color: #FFF;
 }
