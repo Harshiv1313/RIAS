@@ -15,16 +15,16 @@ const questions = [
 ];
 
 const practicalQuestions = [
-  'Practical sessions were well-organized and conducted in a structured manner',
-  'The equipment and resources used in practical sessions were appropriate and in good condition',
-  'The practical sessions included relevant and practical exercises that enhanced understanding',
-  'The instructor provided clear instructions and guidance during practical sessions',
-  'The practical tasks and problems were challenging and contributed to skill development',
-  'Feedback on practical work was provided in a timely and constructive manner',
-  'The practical sessions encouraged active participation and problem-solving',
-  'The evaluation criteria for practical work were clear and fair',
-  'Adequate time was given for practical tasks and exercises',
-  'The practical sessions were integrated well with the theoretical concepts taught'
+  'Experiment preparation, organization, and execution',
+  'Clarity of instructions provided during the practical session',
+  'Availability and effectiveness of practical resources and equipment',
+  'Faculty’s guidance and support during the practical session',
+  'Relevance of the practical session to theoretical concepts taught',
+  'Timeliness of feedback provided on practical work',
+  'Faculty’s ability to handle practical problems and queries',
+  'Fairness in evaluating practical work',
+  'Practical session was conducted in an interactive and engaging manner',
+  'Suggestions for improving practical sessions'
 ];
 
 const FeedbackForm = () => {
@@ -158,49 +158,31 @@ const FeedbackForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
     try {
       const token = localStorage.getItem("token");
-      
-      if (!token) {
-        throw new Error('No authentication token found');
-      }
-  
-      // Decode the token to get studentId
-      const decodedToken = JSON.parse(atob(token.split('.')[1]));
-      const studentId = decodedToken.id;
-  
-      // Make POST request to submit feedback
       const response = await fetch('http://localhost:4000/api/feedback/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({
-          studentId,
-          timetableId: 'your-timetable-id', // Replace with actual timetableId if needed
-          responses // Ensure this variable is defined and contains feedback responses
+          studentId: JSON.parse(atob(token.split('.')[1])).id,
+          responses
         })
       });
-  
-      // Check if response is OK
+
       if (response.ok) {
-        const result = await response.json();
         setSuccess('Feedback submitted successfully!');
         setError('');
-        console.log(result); // For debugging
       } else {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to submit feedback');
+        throw new Error('Failed to submit feedback');
       }
     } catch (err) {
-      console.error('Error:', err); // For debugging
       setError('Error submitting feedback. Please try again.');
       setSuccess('');
     }
   };
-  
 
   const styles = {
     th: { border: '1px solid #ddd', padding: '8px' },
@@ -275,16 +257,14 @@ const FeedbackForm = () => {
                     <td key={item.serial} style={styles.td}>
                       <select
                         name={`${item.serial}_${question}`}
-                        value={responses[`${item.serial}_${question}`] || 0}
+                        value={responses[`${item.serial}_${question}`] || ''}
                         onChange={(e) => handleChange(e, item.serial, question)}
                         style={styles.select}
                       >
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
+                        <option value="">Select</option>
+                        {[...Array(5)].map((_, i) => (
+                          <option key={i + 1} value={i + 1}>{i + 1}</option>
+                        ))}
                       </select>
                     </td>
                   ))}
@@ -292,16 +272,11 @@ const FeedbackForm = () => {
               ))}
             </tbody>
           </table>
-          <button type="submit" className="submit-button">Submit Feedback</button>
-        </form>
-      </div>
-      <div className="feedback-timetable-sections" style={{ paddingTop: '120px' }}>
-        {filteredPracticalTimetable.length > 0 ? (
-          <>
-            <h4>Practical Timetable</h4>
+          <h4>Practical Timetable</h4>
+          {filteredPracticalTimetable.length > 0 ? (
             <table className="timetable-table">
               <thead>
-              <tr >
+                <tr>
                   <th style={styles.th}>S.N.</th>
                   <th style={styles.th}>Subject</th>
                   <th style={styles.th}>Faculty</th>
@@ -319,58 +294,14 @@ const FeedbackForm = () => {
                 ))}
               </tbody>
             </table>
-          </>
-        ) : (
-          <div className="no-timetable-message">
-            No practical timetable available for your branch, section, and semester.
-          </div>
-        )}
-      </div>
-      <div className="feedback-form-container">
-        <h2>Feedback Form</h2>
-        {error && <p className="error-message">{error}</p>}
-        {success && <p className="success-message">{success}</p>}
-        <form onSubmit={handleSubmit}>
-          <table className="feedback-table">
-            <thead>
-              <tr>
-                <th style={styles.th}>S.N.</th>
-                <th style={styles.th}>Theory Factors</th>
-                {filteredPracticalTimetable.map(item => (
-                  <th key={item.serial} style={styles.th}>{item.serial}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {practicalQuestions.map((question, index) => (
-                <tr key={index}>
-                  <td style={styles.td}>{index + 1}</td>
-                  <td style={styles.td}>{question}</td>
-                  {filteredPracticalTimetable.map(item => (
-                    <td key={item.serial} style={styles.td}>
-                      <select
-                        name={`${item.serial}_${question}`}
-                        value={responses[`${item.serial}_${question}`] || 0}
-                        onChange={(e) => handleChange(e, item.serial, question)}
-                        style={styles.select}
-                      >
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                      </select>
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <button type="submit" className="submit-button">Submit Feedback</button>
+          ) : (
+            <div className="no-timetable-message">
+              No practical timetable available for your branch, section, and semester.
+            </div>
+          )}
+          <button type="submit">Submit Feedback</button>
         </form>
       </div>
-      
     </div>
   );
 };
