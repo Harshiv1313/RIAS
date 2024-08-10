@@ -81,7 +81,7 @@
   /* Space out the items */
   flex-wrap: wrap;
   /* Allow items to wrap if necessary */
-  gap: 20px;
+  gap: 5px;
   /* Adjust spacing between items */
   padding: 10px 0;
   /* Add padding for spacing around the profile info */
@@ -95,6 +95,8 @@
   text-align: left;
   /* Align text to the left */
 }
+
+
 
 .feedback-form-container {
   margin-top: 20px;

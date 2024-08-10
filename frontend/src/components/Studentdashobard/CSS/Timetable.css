@@ -21,12 +21,11 @@
   box-sizing: border-box;
   margin: 50px auto; /* Center the container horizontally and provide top margin */
   color: #ddd;
-  margin-bottom: 20000px;
 }
 
 /* Styling for the title */
 .student-timetable-container h2 {
-  margin-bottom: 200px;
+  margin-bottom: 20px; /* Reduced margin to 20px for better spacing */
   font-size: 24px;
   font-weight: bold;
   color: #FFF;

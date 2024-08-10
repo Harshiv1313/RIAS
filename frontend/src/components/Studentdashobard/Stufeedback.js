@@ -202,7 +202,7 @@ const FeedbackForm = () => {
   return (
     <div className="feedback-card">
       <div className="feedback-content">
-        <h3>Profile & Timetable</h3>
+      <h2 style={{ marginBottom: '10px', textAlign: 'center' }}>RIAS Feedback Form</h2>
         {error && <p className="error-message">{error}</p>}
         {profileData && (
           <div className="profile-info">
@@ -218,6 +218,9 @@ const FeedbackForm = () => {
             <p>
               <strong>Semester:</strong> {profileData.semester}
             </p>
+            <p>
+              <strong>registrationNumber:</strong> {profileData.registrationNumber}
+            </p>
           </div>
         )}
         {filteredTheoryTimetable.length > 0 && (
@@ -229,6 +232,7 @@ const FeedbackForm = () => {
                   <th style={styles.th}>S.N.</th>
                   <th style={styles.th}>Subject</th>
                   <th style={styles.th}>Faculty</th>
+                  <th style={styles.th}>Type</th>
                   <th style={styles.th}>Course Code</th>
                 </tr>
               </thead>
@@ -238,6 +242,7 @@ const FeedbackForm = () => {
                     <td style={styles.td}>{index + 1}</td>
                     <td style={styles.td}>{item.subjectName}</td>
                     <td style={styles.td}>{item.facultyName}</td>
+                    <td style={styles.td}>{item.type}</td>
                     <td style={styles.td}>{item.courseCode}</td>
                   </tr>
                 ))}
@@ -296,7 +301,7 @@ const FeedbackForm = () => {
                   ))}
                 </tbody>
               </table>
-              <button type="submit">Submit Theory Feedback</button>
+              <button type="submit" >Submit Theory Feedback</button>
             </form>
           </>
         )}
@@ -309,6 +314,7 @@ const FeedbackForm = () => {
                   <th style={styles.th}>S.N.</th>
                   <th style={styles.th}>Subject</th>
                   <th style={styles.th}>Faculty</th>
+                  <th style={styles.th}>Type</th>
                   <th style={styles.th}>Course Code</th>
                 </tr>
               </thead>
@@ -318,6 +324,7 @@ const FeedbackForm = () => {
                     <td style={styles.td}>{index + 1}</td>
                     <td style={styles.td}>{item.subjectName}</td>
                     <td style={styles.td}>{item.facultyName}</td>
+                    <td style={styles.td}>{item.type}</td>
                     <td style={styles.td}>{item.courseCode}</td>
                   </tr>
                 ))}
