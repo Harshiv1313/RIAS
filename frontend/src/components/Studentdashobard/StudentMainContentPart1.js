@@ -1,6 +1,8 @@
 import React from "react";
 import "./CSS/StudentMainContentPart1.css"; // Ensure this path is correct
 import StudentClassSchedule from "./StudentClassSchedule.js";
+import { useNavigate } from 'react-router-dom';
+
 import { Bar, Pie } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -12,6 +14,9 @@ import {
   LinearScale,
   ArcElement,
 } from "chart.js";
+
+
+
 
 // Register the components
 ChartJS.register(
@@ -112,7 +117,13 @@ const surveyOptions = {
   responsive: true,
 };
 
+
 const StudentMainContentPart1 = () => {
+  const navigate = useNavigate();
+
+const handleNavigate = () => {
+    navigate('/student-dashboard/Feedback');
+};
   return (
     <div className="student-main-content-part1">
       <div className="cards-container">
@@ -123,12 +134,15 @@ const StudentMainContentPart1 = () => {
         <div className="card">
           <h2>Daily Feedback</h2>
           <p>Submit your daily feedback on today's lecture.</p>
-          <button className="action-button">Submit Feedback</button>
+          <button className="action-button" onClick={handleNavigate}    >Submit Feedback</button>
         </div>
         <div className="card">
           <h2>Weekly Feedback</h2>
           <p>Review and submit feedback for this week's lectures.</p>
-          <button className="action-button">Feedback</button>
+          <button className="action-button" onClick={handleNavigate}    >
+                Feedback
+            </button>
+
         </div>
         <div className="card">
           <h2>Monthly Survey</h2>
@@ -136,7 +150,7 @@ const StudentMainContentPart1 = () => {
             Participate in the monthly survey on teaching methodologies and
             campus issues.
           </p>
-          <button className="action-button">Take Survey</button>
+          <button className="action-button" onClick={handleNavigate}    >Take Survey</button>
         </div>
         <div className="card8">
           <div className="chart-container small-bar-chart">

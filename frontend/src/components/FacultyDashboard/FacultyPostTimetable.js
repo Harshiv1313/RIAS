@@ -48,8 +48,8 @@ const FacultyPostTimetable = () => {
     fetchOptions();
   }, []);
 
-  // Fetch timetables
   useEffect(() => {
+    // Function to fetch timetables
     const fetchTimetables = async () => {
       try {
         const response = await axios.get("http://localhost:4000/api/timetables");
@@ -60,9 +60,14 @@ const FacultyPostTimetable = () => {
         setError("Failed to load timetables.");
       }
     };
-
-    fetchTimetables();
-  }, []);
+  
+    // Fetch timetables every second
+    const intervalId = setInterval(fetchTimetables, 1000);
+  
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []); // Empty dependency array ensures this runs once on mount
+  
 
   // Filter timetables based on selected criteria
   useEffect(() => {

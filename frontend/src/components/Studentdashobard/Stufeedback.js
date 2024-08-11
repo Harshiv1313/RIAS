@@ -206,12 +206,15 @@ const FeedbackForm = () => {
   };
 
   return (
-    <div className="feedback-card" >
+    <div style={{ height: '690px' }}  className="feedback-card" >
+      {success && <p className="success-message">{success}</p>}
       <div className="feedback-content">
-      <h2 style={{ marginBottom: '10px', textAlign: 'center' }}>RIAS Feedback Form</h2>
+
+      <h2 style={{ marginBottom: '20px', textAlign: 'center' }}>RIAS Feedback Form</h2>
         {error && <p className="error-message">{error}</p>}
         {profileData && (
           <div className="profile-info">
+            
             <p>
               <strong>Student Name:</strong> {profileData.username}
             </p>
@@ -254,7 +257,7 @@ const FeedbackForm = () => {
                 ))}
               </tbody>
             </table>
-            <h4>Theory Feedback Form</h4>
+            <h2 style={{ textAlign: 'center', marginTop:'60px' }} >Theory Feedback Form</h2>
             <form onSubmit={(e) => handleSubmit(e, "theory")}>
               <table className="feedback-table">
                 <thead>
@@ -272,7 +275,7 @@ const FeedbackForm = () => {
                   {theoryQuestions.map((question, questionIndex) => (
                     <tr key={questionIndex}>
                       <td style={styles.td}>{questionIndex + 1}</td>
-                      <td style={styles.td}>{question}</td>
+                      <td style={{ textAlign: 'left' }}>{question}</td>
                       {filteredTheoryTimetable.map((item, timetableIndex) => (
                         <td
                           key={`${timetableIndex}_${questionIndex}`}
@@ -309,11 +312,12 @@ const FeedbackForm = () => {
               </table>
               <button type="submit" >Submit Theory Feedback</button>
             </form>
+            {success && <p className="success-message">{success}</p>}
           </>
         )}
         {filteredPracticalTimetable.length > 0 && (
           <>
-            <h4>Practical Timetable</h4>
+            <h2 style={{ textAlign: 'left', marginTop:'50px' }} >Practical Timetable</h2>
             <table className="timetable-table">
               <thead>
                 <tr>
@@ -336,7 +340,7 @@ const FeedbackForm = () => {
                 ))}
               </tbody>
             </table>
-            <h4>Practical Feedback Form</h4>
+            <h2 style={{ textAlign: 'center', marginTop:'50px' }} >Practical Feedback Form</h2>
             <form onSubmit={(e) => handleSubmit(e, "practical")}>
               <table className="feedback-table">
                 <thead>
@@ -354,7 +358,8 @@ const FeedbackForm = () => {
                   {practicalQuestions.map((question, questionIndex) => (
                     <tr key={questionIndex}>
                       <td style={styles.td}>{questionIndex + 1}</td>
-                      <td style={styles.td}>{question}</td>
+                      <td style={{ textAlign: 'left' }}>{question}</td>
+
                       {filteredPracticalTimetable.map(
                         (item, timetableIndex) => (
                           <td
@@ -391,11 +396,12 @@ const FeedbackForm = () => {
                   ))}
                 </tbody>
               </table>
+              {success && <p className="success-message">{success}</p>}
               <button type="submit">Submit Practical Feedback</button>
             </form>
           </>
         )}
-        {success && <p className="success-message">{success}</p>}
+        
       </div>
     </div>
   );

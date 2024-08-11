@@ -7,11 +7,11 @@ const StudentClassSchedule = () => {
   useEffect(() => {
     const fetchSchedules = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/class-schedules');
+        const response = await axios.get('http://localhost:4000/api/timetables');
         // Ensure response data is in the correct format
-        if (Array.isArray(response.data.schedules)) {
+        if (Array.isArray(response.data)) {
           // Reverse the array to get the last schedules first
-          const reversedSchedules = response.data.schedules.reverse();
+          const reversedSchedules = response.data.reverse();
           setData(reversedSchedules);
         } else {
           console.error('Unexpected data format:', response.data);
@@ -42,21 +42,21 @@ const StudentClassSchedule = () => {
       <table>
         <thead>
           <tr>
-            <th>Course Name</th>
+            <th>Branch</th>
             <th>Faculty Name</th>
-            <th>Day of Week</th>
-            <th>Start Time</th>
-            <th>End Time</th>
+            <th>Type</th>
+            <th>Time</th>
+            <th>Room</th>
           </tr>
         </thead>
         <tbody>
           {rows.map((schedule, index) => (
             <tr key={index}>
-              <td>{schedule ? schedule.courseName : 'N/A'}</td>
+              <td>{schedule ? schedule.branch : 'N/A'}</td>
               <td>{schedule ? schedule.facultyName : 'N/A'}</td>
-              <td>{schedule ? schedule.dayOfWeek : 'N/A'}</td>
-              <td>{schedule ? schedule.startTime : 'N/A'}</td>
-              <td>{schedule ? schedule.endTime : 'N/A'}</td>
+              <td>{schedule ? schedule.type : 'N/A'}</td>
+              <td>{schedule ? schedule.time : 'N/A'}</td>
+              <td>{schedule ? schedule.room : 'N/A'}</td>
             </tr>
           ))}
         </tbody>
