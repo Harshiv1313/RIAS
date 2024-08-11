@@ -9,27 +9,27 @@ const FacultyFeedback = () => {
   const [subjects, setSubjects] = useState([]);
   const [courses, setCourses] = useState([]);
   const [faculties, setFaculties] = useState([]);
-  
+
   const [selectedSemester, setSelectedSemester] = useState('');
   const [selectedBranch, setSelectedBranch] = useState('');
   const [selectedSection, setSelectedSection] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('');
   const [selectedCourse, setSelectedCourse] = useState('');
   const [selectedFaculty, setSelectedFaculty] = useState('');
-  
+
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState(''); // 'success' or 'error'
 
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const [semestersRes, branchesRes, sectionsRes, subjectsRes, coursesRes] = await Promise.all([
+        const [semestersRes, branchesRes, sectionsRes, subjectsRes, coursesRes, facultiesRes] = await Promise.all([
           axios.get("http://localhost:4000/api/feedback/feedbacks/semesters"),
           axios.get("http://localhost:4000/api/feedback/feedbacks/branches"),
           axios.get("http://localhost:4000/api/feedback/feedbacks/sections"),
           axios.get("http://localhost:4000/api/feedback/feedbacks/subject-names"),
           axios.get("http://localhost:4000/api/feedback/feedbacks/course-names"),
-          axios.get(" http://localhost:4000/api/feedback/feedbacks/faculty-names"),
+          axios.get("http://localhost:4000/api/feedback/feedbacks/faculty-names"),
         ]);
 
         setSemesters(semestersRes.data);
@@ -37,6 +37,7 @@ const FacultyFeedback = () => {
         setSections(sectionsRes.data);
         setSubjects(subjectsRes.data);
         setCourses(coursesRes.data);
+        setFaculties(facultiesRes.data);
       } catch (error) {
         console.error("Error fetching options:", error);
         setMessage("Failed to load options.");
@@ -46,31 +47,6 @@ const FacultyFeedback = () => {
 
     fetchOptions();
   }, []);
-
-  useEffect(() => {
-    const fetchFaculties = async () => {
-      if (selectedSemester && selectedBranch && selectedSection) {
-        try {
-          const response = await axios.get("http://localhost:4000/api/feedback/feedbacks/faculty-names", {
-            params: {
-              semester: selectedSemester,
-              branch: selectedBranch,
-              section: selectedSection,
-              subjectName: selectedSubject,
-              courseName: selectedCourse,
-            }
-          });
-          setFaculties(response.data);
-        } catch (error) {
-          console.error("Error fetching faculty names:", error);
-          setMessage("Failed to load faculty names.");
-          setMessageType("error");
-        }
-      }
-    };
-
-    fetchFaculties();
-  }, [selectedSemester, selectedBranch, selectedSection, selectedSubject, selectedCourse]);
 
   return (
     <div className="feedback-container">
@@ -158,7 +134,21 @@ const FacultyFeedback = () => {
               ))}
             </select>
           </div>
-         
+          <div className="dropdown-item">
+            <label htmlFor="faculty">Faculty:</label>
+            <select
+              id="faculty"
+              value={selectedFaculty}
+              onChange={(e) => setSelectedFaculty(e.target.value)}
+            >
+              <option value="">Select Faculty</option>
+              {faculties.map((faculty, index) => (
+                <option key={index} value={faculty}>
+                  {faculty}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
     </div>
