@@ -23,6 +23,7 @@ import Feedback from "./components/Studentdashobard/Stufeedback";
 import "./App.css"; // Ensure your CSS file is included
 import FacultyAddSchedule from "./components/FacultyDashboard/FacultyAddSchedule";
 import FacultyPooostTimetable from "./components/FacultyDashboard/FacultyPostTimetable";
+import FacultyFeedback from "./components/FacultyDashboard/FacultyFeedback";
 
 const AuthRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -91,6 +92,7 @@ function App() {
                     <Route path="users" element={<Users />} />
                     <Route path="Survey" element={<Survey />} />
                     <Route path="Surveyform" element={<Surveyf />} />
+                    <Route path="Feedback" element={<FacultyFeedback />} />
                     <Route
                       path="faculty-timetable"
                       element={<FacultyPooostTimetable />}

@@ -1,3 +1,7 @@
+const User = require('../models/User'); // Adjust the path as needed
+const Timetable = require('../models/Timetable');
+
+
 
 // Get User by ID
 exports.getUserById = async (req, res) => {
@@ -129,7 +133,25 @@ exports.updateUserInfo = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   };
-  
+
+// Get All Faculty Names
+exports.getFacultyName = async (req, res) => {
+  try {
+    const facultyNames = await Timetable.distinct('facultyName'); // Or use User if that's correct
+    console.log('Query Result:', facultyNames); // Log the result
+    if (facultyNames.length === 0) {
+      console.log('No faculty names found.');
+    }
+    res.status(200).json(facultyNames);
+  } catch (error) {
+    console.error('Error fetching faculty names:', error); // Log error
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+
+
   
   // Get Students by Semester, Branch, and Section
   exports.getStudentsByCriteria = async (req, res) => {

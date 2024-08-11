@@ -18,6 +18,7 @@ const timetableRoutes = require("./routes/timetableRoutes");
 const facultytt = require("./routes/facultytimetable");
 const feedbackRoutes = require("./routes/feedbackRoutes");
 
+
 app.use("/api", authRoutes); // Authentication routes
 app.use("/api/class-schedules", classSchedulesRoutes); // Class schedules routes
 app.use("/api/users", userRoutes); // User routes (renamed for clarity)

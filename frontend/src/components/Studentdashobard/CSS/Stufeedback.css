@@ -4,14 +4,14 @@
   /* Adjust width as needed */
   max-width: 1400px;
   /* Ensure the card does not exceed this width */
-  height: 600px;
+  height: 630px;
   /* Set a fixed height for the card */
   padding: 20px;
   border: 1px solid #ccc;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 100px auto;
+  margin: 80px auto;
   margin-left: 80px;
   overflow-y: auto;
   /* Add vertical scrollbar when content exceeds height */

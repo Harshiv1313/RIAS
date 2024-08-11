@@ -143,6 +143,12 @@ const FeedbackForm = () => {
       ).map((item, timetableIndex) => ({
         facultyName: item.facultyName,
         courseName: item.subjectName,
+        branch:item.branch,
+        section: item.section,
+        semester: item.semester,
+        batch: item.batch,
+        subjectName: item.subjectName,
+        courseCode: item.courseCode,
         responses: (type === "theory"
           ? theoryQuestions
           : practicalQuestions
@@ -200,7 +206,7 @@ const FeedbackForm = () => {
   };
 
   return (
-    <div className="feedback-card">
+    <div className="feedback-card" >
       <div className="feedback-content">
       <h2 style={{ marginBottom: '10px', textAlign: 'center' }}>RIAS Feedback Form</h2>
         {error && <p className="error-message">{error}</p>}

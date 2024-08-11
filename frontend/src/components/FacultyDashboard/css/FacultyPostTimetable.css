@@ -1,11 +1,14 @@
 /* Container for the form */
 .faculty-post-timetable-container {
-  max-width: 1200px; /* Adjust as needed */
+  max-width: 1400px; /* Adjust as needed */
   margin: 0 auto;
-  padding: 20px;
+  padding: 40px;
+  padding-right: 150px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #f9f9f9;
+  margin-left: 100px;
+  margin-right: 100px;
   margin-top: 5%;
   overflow-x: auto; /* Enable horizontal scrolling if content overflows */
   overflow-y: auto; /* Enable vertical scrolling if content overflows */
@@ -14,8 +17,10 @@
 
 /* Ensure that the content inside the container also handles overflow */
 .faculty-post-timetable-container table {
-  width: 100%; /* Adjust to ensure the table fits within the container */
+  width: 350%; /* Adjust to ensure the table fits within the container */
   border-collapse: collapse;
+  align-items: center;
+  align-content: center;
 }
 
 /* Add scroll bar for tables */
@@ -57,7 +62,9 @@
 .form-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* 5 columns layout */
-  gap: 15px;
+  gap: 50px;
+  width: 110%;
+  padding: 10px;
 }
 
 /* Styling for the first row items to span all 5 columns */
@@ -83,6 +90,7 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
+  padding-left: 10px;
 }
 
 .form-item label {
@@ -145,7 +153,8 @@
 .filter-container {
   display: flex;
   justify-content: space-between; /* Space items evenly */
-  gap: 20px; /* Adjust gap between items */
+  width: 300%;
+  gap: 40px; /* Adjust gap between items */
   margin-bottom: 20px;
 }
 
