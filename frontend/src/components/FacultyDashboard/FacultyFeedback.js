@@ -90,7 +90,7 @@ const FacultyFeedback = () => {
     <div style={{ marginTop: '70px', marginLeft: '70px'  }} className={styles.container}>
       <div className={styles.feedbackCard}>
         <h2>Faculty Feedback</h2>
-        <p>Here you can review feedback provided by faculty about the students and overall classroom performance.</p>
+        <p>Here you can review feedback provided by student.</p>
         {message && (
           <div className={`${styles.message} ${styles[messageType]}`}>
             {message}
