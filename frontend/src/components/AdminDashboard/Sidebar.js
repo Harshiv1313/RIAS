@@ -48,7 +48,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="timetables-link">
-            <Link to="/student-dashboard/timetable">
+            <Link to="/admin-dashboard/Stats">
               {" "}
               {/* Updated path */}
               <img className="icon" src={TimetablesIcon} alt="timetables" />

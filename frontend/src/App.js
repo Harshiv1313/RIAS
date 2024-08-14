@@ -27,6 +27,7 @@ import FacultyFeedback from "./components/FacultyDashboard/FacultyFeedback";
 import Antiragging from "./components/Studentdashobard/Antiragging";
 import Adashboard from "./components/AdminDashboard/dashboard";
 import Afedback from "./components/AdminDashboard/AdminFeedback";
+import Stats from "./components/AdminDashboard/FeedbackStats";
 
 const AuthRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -83,6 +84,7 @@ function App() {
                   <Routes>
                     <Route path="" element={<Adashboard />} />
                     <Route path="Feedback" element={<Afedback />} />
+                    <Route path="Stats" element={<Stats />} />
                   </Routes>
                 </AdminDashboard>
               </ProtectedRoute>

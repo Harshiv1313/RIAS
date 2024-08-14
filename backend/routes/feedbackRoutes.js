@@ -37,6 +37,9 @@ router.get('/feedbacks/course-names', feedbackController.getCourseNamesFromFeedb
 // Route to get branch names from feedbacks
 router.get('/feedbacks/branches', feedbackController.getBranchesFromFeedbacks);
 
+// Route to get type names from feedbacks
+router.get('/feedbacks/types', feedbackController.getTypesFromFeedbacks);
+
 // Route to get semester names from feedbacks
 router.get('/feedbacks/semesters', feedbackController.getSemestersFromFeedbacks);
 
@@ -53,9 +56,9 @@ router.get('/feedbacks/filtered', feedbackController.getFilteredFeedback);
 // Route to delete feedback
 router.delete('/feedbacks/:feedbackId', feedbackController.deleteFeedback);
 
-  
 
 
 
-
+// Route to get feedback analysis
+router.get('/feedbacks/analysis', feedbackController.getFeedbackAnalysis);
 module.exports = router;

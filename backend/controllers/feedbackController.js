@@ -14,6 +14,7 @@ exports.submitTheoryFeedback = async (req, res) => {
     await Feedback.insertMany(
       feedbackEntries.map((entry) => ({
         studentId,
+        type: 'theory', // Set the type field
         ...entry,
       }))
     );
@@ -40,6 +41,7 @@ exports.submitPracticalFeedback = async (req, res) => {
     await Feedback.insertMany(
       feedbackEntries.map((entry) => ({
         studentId,
+        type: 'practical', // Set the type field
         ...entry,
       }))
     );
@@ -53,6 +55,7 @@ exports.submitPracticalFeedback = async (req, res) => {
       .json({ message: "Error submitting practical feedback", error });
   }
 };
+
 
 // Get feedback by student ID
 exports.getFeedbackByStudent = async (req, res) => {
@@ -113,9 +116,6 @@ exports.getFacultyNamesFromFeedbacks = async (req, res) => {
   }
 };
 
-
-
-
 exports.getCourseNamesFromFeedbacks = async (req, res) => {
   try {
     const courseNames = await Feedback.distinct("courseName");
@@ -129,12 +129,6 @@ exports.getCourseNamesFromFeedbacks = async (req, res) => {
   }
 };
 
-
-
-
-
-
-
 exports.getCourseNamesFromFeedbacks = async (req, res) => {
   try {
     const courseNames = await Feedback.distinct("courseName");
@@ -144,11 +138,11 @@ exports.getCourseNamesFromFeedbacks = async (req, res) => {
       res.status(404).json({ message: "No course names found" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Error fetching course names from feedbacks", error });
+    res
+      .status(500)
+      .json({ message: "Error fetching course names from feedbacks", error });
   }
 };
-
-
 
 exports.getBranchesFromFeedbacks = async (req, res) => {
   try {
@@ -159,11 +153,27 @@ exports.getBranchesFromFeedbacks = async (req, res) => {
       res.status(404).json({ message: "No branches found" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Error fetching branches from feedbacks", error });
+    res
+      .status(500)
+      .json({ message: "Error fetching branches from feedbacks", error });
   }
 };
+// Add this function in your feedbackController.js
 
-
+exports.getTypesFromFeedbacks = async (req, res) => {
+  try {
+    const types = await Feedback.distinct("type");
+    if (types.length > 0) {
+      res.json(types);
+    } else {
+      res.status(404).json({ message: "No types found" });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error fetching types from feedbacks", error });
+  }
+};
 
 exports.getSemestersFromFeedbacks = async (req, res) => {
   try {
@@ -174,11 +184,11 @@ exports.getSemestersFromFeedbacks = async (req, res) => {
       res.status(404).json({ message: "No semesters found" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Error fetching semesters from feedbacks", error });
+    res
+      .status(500)
+      .json({ message: "Error fetching semesters from feedbacks", error });
   }
 };
-
-
 
 exports.getSectionsFromFeedbacks = async (req, res) => {
   try {
@@ -189,11 +199,11 @@ exports.getSectionsFromFeedbacks = async (req, res) => {
       res.status(404).json({ message: "No sections found" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Error fetching sections from feedbacks", error });
+    res
+      .status(500)
+      .json({ message: "Error fetching sections from feedbacks", error });
   }
 };
-
-
 
 exports.getSubjectNamesFromFeedbacks = async (req, res) => {
   try {
@@ -204,12 +214,15 @@ exports.getSubjectNamesFromFeedbacks = async (req, res) => {
       res.status(404).json({ message: "No subject names found" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Error fetching subject names from feedbacks", error });
+    res
+      .status(500)
+      .json({ message: "Error fetching subject names from feedbacks", error });
   }
 };
 exports.getFilteredFeedback = async (req, res) => {
   try {
-    const { semester, branch, section, subjectName, courseName, facultyName } = req.query;
+    const { semester, branch, section, subjectName, courseName, facultyName } =
+      req.query;
 
     // Construct filter object
     const filter = {};
@@ -224,7 +237,7 @@ exports.getFilteredFeedback = async (req, res) => {
     const feedbacks = await Feedback.find(filter)
       .populate({
         path: "studentId",
-        select: "username" // Only select the username field
+        select: "username", // Only select the username field
       })
       .exec();
 
@@ -234,10 +247,11 @@ exports.getFilteredFeedback = async (req, res) => {
       res.status(404).json({ message: "No feedback found" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Error fetching filtered feedback", error });
+    res
+      .status(500)
+      .json({ message: "Error fetching filtered feedback", error });
   }
 };
-
 
 // Function to delete feedback
 exports.deleteFeedback = async (req, res) => {
@@ -257,3 +271,100 @@ exports.deleteFeedback = async (req, res) => {
   }
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+// feedbackController.js
+
+exports.getFeedbackAnalysis = async (req, res) => {
+  try {
+    const { facultyName, courseName, type, semester, branch } = req.query;
+
+    // Check for required parameters
+    if (!facultyName || !courseName || !type || !semester || !branch) {
+      return res.status(400).json({ message: "Faculty Name, Course Name, Type, Semester, and Branch are required" });
+    }
+
+    // Fetch feedbacks based on all criteria
+    const feedbacks = await Feedback.find({
+      facultyName,
+      courseName,
+      type,
+      semester,
+      branch
+    });
+
+    // Check if feedbacks are found
+    if (feedbacks.length === 0) {
+      return res.status(404).json({ message: "No feedback found for the given criteria" });
+    }
+
+    // Initialize variables for analysis
+    let totalScores = 0;
+    let count = 0;
+    let goodFeedbacks = 0;
+    let badFeedbacks = 0;
+
+    const questionScores = {};
+    const questionCounts = {};
+
+    // Process each feedback
+    feedbacks.forEach(feedback => {
+      const responses = Object.fromEntries(feedback.responses);
+      const keys = Object.keys(responses);
+
+      keys.forEach(key => {
+        const score = parseFloat(responses[key]);
+
+        if (!isNaN(score)) {
+          totalScores += score;
+          count++;
+
+          if (score >= 4) {
+            goodFeedbacks++;
+          } else if (score <= 2) {
+            badFeedbacks++;
+          }
+
+          if (!questionScores[key]) {
+            questionScores[key] = 0;
+            questionCounts[key] = 0;
+          }
+
+          questionScores[key] += score;
+          questionCounts[key]++;
+        }
+      });
+    });
+
+    // Calculate average score
+    const averageScore = count > 0 ? ((totalScores / count) / 5 * 100).toFixed(2) : 0;
+
+    // Calculate question averages
+    const questionAverages = Object.keys(questionScores).reduce((acc, key) => {
+      acc[key] = ((questionScores[key] / questionCounts[key]) / 5 * 100).toFixed(2) + '%';
+      return acc;
+    }, {});
+
+    // Respond with analysis data
+    res.json({
+      averageScore: `${averageScore}%`,
+      goodFeedbacks,
+      badFeedbacks,
+      totalFeedbacks: count,
+      questionAverages
+    });
+  } catch (error) {
+    console.error('Error analyzing feedback:', error);
+    res.status(500).json({ message: "Error analyzing feedback", error });
+  }
+};
