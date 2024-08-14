@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import ReactToPrint from "react-to-print";
 import styles from "./css/FacultyFeedback.module.css"; // Adjust the path as needed
+
+// PDF Document Component
+import FeedbackPDF from "./FeedbackPDF"; // Ensure this path is correct
 
 const FeedbackStats = () => {
   const [semesters, setSemesters] = useState([]);
   const [branches, setBranches] = useState([]);
-  const [types, setTypes] = useState([]); // Changed from sections to types
+  const [types, setTypes] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [courses, setCourses] = useState([]);
   const [faculties, setFaculties] = useState([]);
 
   const [selectedSemester, setSelectedSemester] = useState("");
   const [selectedBranch, setSelectedBranch] = useState("");
-  const [selectedType, setSelectedType] = useState(""); // Changed from selectedSection to selectedType
+  const [selectedType, setSelectedType] = useState("");
   const [selectedSubject, setSelectedSubject] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedFaculty, setSelectedFaculty] = useState("");
@@ -20,7 +25,9 @@ const FeedbackStats = () => {
   const [feedbacks, setFeedbacks] = useState([]);
   const [analysisData, setAnalysisData] = useState(null);
   const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState(""); // 'success' or 'error'
+  const [messageType, setMessageType] = useState("");
+
+  const componentRef = useRef();
 
   useEffect(() => {
     const fetchOptions = async () => {
@@ -28,14 +35,14 @@ const FeedbackStats = () => {
         const [
           semestersRes,
           branchesRes,
-          typesRes, // Fetch types instead of sections
+          typesRes,
           subjectsRes,
           coursesRes,
           facultiesRes,
         ] = await Promise.all([
           axios.get("http://localhost:4000/api/feedback/feedbacks/semesters"),
           axios.get("http://localhost:4000/api/feedback/feedbacks/branches"),
-          axios.get("http://localhost:4000/api/feedback/feedbacks/types"), // Fetch types
+          axios.get("http://localhost:4000/api/feedback/feedbacks/types"),
           axios.get("http://localhost:4000/api/feedback/feedbacks/subject-names"),
           axios.get("http://localhost:4000/api/feedback/feedbacks/course-names"),
           axios.get("http://localhost:4000/api/feedback/feedbacks/faculty-names"),
@@ -43,7 +50,7 @@ const FeedbackStats = () => {
 
         setSemesters(semestersRes.data);
         setBranches(branchesRes.data);
-        setTypes(typesRes.data); // Set types
+        setTypes(typesRes.data);
         setSubjects(subjectsRes.data);
         setCourses(coursesRes.data);
         setFaculties(facultiesRes.data);
@@ -62,7 +69,7 @@ const FeedbackStats = () => {
       const params = {
         semester: selectedSemester,
         branch: selectedBranch,
-        type: selectedType, // Use type instead of section
+        type: selectedType,
         subjectName: selectedSubject,
         courseName: selectedCourse,
         facultyName: selectedFaculty,
@@ -73,7 +80,10 @@ const FeedbackStats = () => {
         { params }
       );
 
-      const analysisResponse = await axios.get("http://localhost:4000/api/feedback/feedbacks/analysis", { params });
+      const analysisResponse = await axios.get(
+        "http://localhost:4000/api/feedback/feedbacks/analysis",
+        { params }
+      );
 
       setFeedbacks(feedbackResponse.data);
       setAnalysisData(analysisResponse.data);
@@ -99,7 +109,6 @@ const FeedbackStats = () => {
     );
   };
 
-  // Convert analysis data for display
   const convertAnalysisData = (data) => {
     if (!data) return { averageScore: 'N/A', goodFeedbackPercentage: 'N/A', badFeedbackPercentage: 'N/A', questionAverages: {} };
 
@@ -119,7 +128,7 @@ const FeedbackStats = () => {
 
   return (
     <div style={{ marginTop: '70px', marginLeft: '70px' }} className={styles.container}>
-      <div className={styles.feedbackCard}>
+      <div className={styles.feedbackCard} ref={componentRef}>
         <h2>Feedback Statistics</h2>
         <p>Filter and review feedback statistics based on various criteria.</p>
         {message && (
@@ -131,7 +140,7 @@ const FeedbackStats = () => {
           {[
             { id: 'semester', label: 'Semester', options: semesters },
             { id: 'branch', label: 'Branch', options: branches },
-            { id: 'type', label: 'Type', options: types }, // Changed section to type
+            { id: 'type', label: 'Type', options: types },
             { id: 'subject', label: 'Subject', options: subjects },
             { id: 'course', label: 'Course', options: courses },
             { id: 'faculty', label: 'Faculty', options: faculties },
@@ -160,7 +169,6 @@ const FeedbackStats = () => {
         )}
         {feedbacks.length > 0 ? (
           <div>
-            {/* Existing Table for Faculty Feedback */}
             <div className={styles.feedbackTableWrapper}>
               <table className={styles.feedbackTable}>
                 <thead>
@@ -181,8 +189,6 @@ const FeedbackStats = () => {
                 </tbody>
               </table>
             </div>
-
-            {/* New Table for Question Averages */}
             <div className={styles.questionTableWrapper}>
               <h3>Question Averages</h3>
               <table className={styles.questionTable}>
@@ -202,6 +208,22 @@ const FeedbackStats = () => {
                 </tbody>
               </table>
             </div>
+            <div className={styles.pdfPrintButtons}>
+      <PDFDownloadLink
+        document={<FeedbackPDF feedbacks={feedbacks} analysisData={formattedAnalysisData} />}
+        fileName="feedback-stats.pdf"
+      >
+        {({ loading }) => (
+          <button className={styles.pdfDownloadLink}>
+            {loading ? 'Generating PDF...' : 'Download PDF'}
+          </button>
+        )}
+      </PDFDownloadLink>
+      <ReactToPrint
+        trigger={() => <button>Print</button>}
+        content={() => componentRef.current}
+      />
+    </div>
           </div>
         ) : (
           <p>No feedback data available for the selected filters.</p>
