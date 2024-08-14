@@ -40,7 +40,7 @@ const Sidebar = () => {
       <div className="menu-links">
         <ul className="links-list">
           <li className="dashboard-link">
-            <Link to="/student-dashboard">
+            <Link to="/">
               <img className="icon" src={DashboardIcon} alt="dashboard" />
               <span className={`${isOpen ? "" : "hideElement"}`}>
                 Daaa
@@ -59,7 +59,7 @@ const Sidebar = () => {
           </li>
 
           <li className="feedback-link">
-            <Link to="/student-dashboard/Feedback">
+            <Link to="/admin-dashboard/Feedback">
               <img className="icon" src={FeedbackIcon} alt="feedback" />
               <span className={`${isOpen ? "" : "hideElement"}`}>Feedback</span>
             </Link>

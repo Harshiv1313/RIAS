@@ -26,6 +26,7 @@ import FacultyPooostTimetable from "./components/FacultyDashboard/FacultyPostTim
 import FacultyFeedback from "./components/FacultyDashboard/FacultyFeedback";
 import Antiragging from "./components/Studentdashobard/Antiragging";
 import Adashboard from "./components/AdminDashboard/dashboard";
+import Afedback from "./components/AdminDashboard/AdminFeedback";
 
 const AuthRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -75,12 +76,13 @@ function App() {
           />
           <Route path="/register" element={<Register />} />
           <Route
-            path="/admin-dashboard"
+            path="/admin-dashboard/*"
             element={
               <ProtectedRoute allowedRoles={["admin"]}>
                 <AdminDashboard>
                   <Routes>
                     <Route path="" element={<Adashboard />} />
+                    <Route path="Feedback" element={<Afedback />} />
                   </Routes>
                 </AdminDashboard>
               </ProtectedRoute>
