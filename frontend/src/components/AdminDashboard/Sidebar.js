@@ -48,7 +48,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="timetables-link">
-            <Link to="/admin-dashboard/Stats">
+            <Link to="/admin-dashboard/Feedback">
               {" "}
               {/* Updated path */}
               <img className="icon" src={TimetablesIcon} alt="timetables" />
@@ -59,7 +59,7 @@ const Sidebar = () => {
           </li>
 
           <li className="feedback-link">
-            <Link to="/admin-dashboard/Feedback">
+            <Link to="/admin-dashboard/Stats">
               <img className="icon" src={FeedbackIcon} alt="feedback" />
               <span className={`${isOpen ? "" : "hideElement"}`}>Feedback</span>
             </Link>
