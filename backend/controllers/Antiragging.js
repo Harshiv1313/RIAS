@@ -1,19 +1,33 @@
-const AntiRagging = require('../models/AntiRagging');
-const User = require('../models/User'); // Assuming you have a User model
+const AntiRagging = require('../models/Antiragging');
+const User = require('../models/User');
 
 // Submit a new complaint
 exports.submitComplaint = async (req, res) => {
   try {
     const { studentId, complaint } = req.body;
-    
+
     if (!studentId || !complaint) {
       return res.status(400).json({ message: "Student ID and complaint text are required" });
     }
 
-    // Create a new anti-ragging complaint
+    // Validate if studentId exists and fetch user information
+    const student = await User.findById(studentId);
+    if (!student) {
+      return res.status(400).json({ message: "Invalid Student ID" });
+    }
+
+    // Create a new anti-ragging complaint with user information
     const newComplaint = new AntiRagging({
       studentId,
-      complaint
+      complaint,
+      username: student.username,
+      email: student.email,
+      mobileNumber: student.mobileNumber,
+      registrationNumber: student.registrationNumber,
+      semester: student.semester,
+      branch: student.branch,
+      section: student.section,
+      rollNumber: student.rollNumber
     });
 
     await newComplaint.save();
