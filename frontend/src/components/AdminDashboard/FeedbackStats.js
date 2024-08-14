@@ -15,12 +15,14 @@ const FeedbackStats = () => {
   const [courses, setCourses] = useState([]);
   const [faculties, setFaculties] = useState([]);
 
-  const [selectedSemester, setSelectedSemester] = useState("");
-  const [selectedBranch, setSelectedBranch] = useState("");
-  const [selectedType, setSelectedType] = useState("");
-  const [selectedSubject, setSelectedSubject] = useState("");
-  const [selectedCourse, setSelectedCourse] = useState("");
-  const [selectedFaculty, setSelectedFaculty] = useState("");
+  const [selectedFilters, setSelectedFilters] = useState({
+    semester: "",
+    branch: "",
+    type: "",
+    subject: "",
+    course: "",
+    faculty: ""
+  });
 
   const [feedbacks, setFeedbacks] = useState([]);
   const [analysisData, setAnalysisData] = useState(null);
@@ -66,13 +68,14 @@ const FeedbackStats = () => {
 
   const fetchFeedbacks = async () => {
     try {
+      const { semester, branch, type, subject, course, faculty } = selectedFilters;
       const params = {
-        semester: selectedSemester,
-        branch: selectedBranch,
-        type: selectedType,
-        subjectName: selectedSubject,
-        courseName: selectedCourse,
-        facultyName: selectedFaculty,
+        semester,
+        branch,
+        type,
+        subjectName: subject,
+        courseName: course,
+        facultyName: faculty
       };
 
       const feedbackResponse = await axios.get(
@@ -94,19 +97,20 @@ const FeedbackStats = () => {
     }
   };
 
+  const handleFilterChange = (e) => {
+    const { id, value } = e.target;
+    setSelectedFilters((prev) => ({
+      ...prev,
+      [id]: value
+    }));
+  };
+
   const handleFilterApply = () => {
     fetchFeedbacks();
   };
 
   const allDropdownsSelected = () => {
-    return (
-      selectedSemester &&
-      selectedBranch &&
-      selectedType &&
-      selectedSubject &&
-      selectedCourse &&
-      selectedFaculty
-    );
+    return Object.values(selectedFilters).every(value => value);
   };
 
   const convertAnalysisData = (data) => {
@@ -149,8 +153,8 @@ const FeedbackStats = () => {
               <label htmlFor={id}>{label}:</label>
               <select
                 id={id}
-                value={eval(`selected${label}`)}
-                onChange={(e) => eval(`setSelected${label}`)(e.target.value)}
+                value={selectedFilters[id] || ""}
+                onChange={handleFilterChange}
               >
                 <option value="">Select {label}</option>
                 {options.map((option, index) => (
@@ -209,21 +213,21 @@ const FeedbackStats = () => {
               </table>
             </div>
             <div className={styles.pdfPrintButtons}>
-      <PDFDownloadLink
-        document={<FeedbackPDF feedbacks={feedbacks} analysisData={formattedAnalysisData} />}
-        fileName="feedback-stats.pdf"
-      >
-        {({ loading }) => (
-          <button className={styles.pdfDownloadLink}>
-            {loading ? 'Generating PDF...' : 'Download PDF'}
-          </button>
-        )}
-      </PDFDownloadLink>
-      <ReactToPrint
-        trigger={() => <button>Print</button>}
-        content={() => componentRef.current}
-      />
-    </div>
+              <PDFDownloadLink
+                document={<FeedbackPDF feedbacks={feedbacks} analysisData={formattedAnalysisData} />}
+                fileName="feedback-stats.pdf"
+              >
+                {({ loading }) => (
+                  <button className={styles.pdfDownloadLink}>
+                    {loading ? 'Generating PDF...' : 'Download PDF'}
+                  </button>
+                )}
+              </PDFDownloadLink>
+              <ReactToPrint
+                trigger={() => <button>Print</button>}
+                content={() => componentRef.current}
+              />
+            </div>
           </div>
         ) : (
           <p>No feedback data available for the selected filters.</p>
