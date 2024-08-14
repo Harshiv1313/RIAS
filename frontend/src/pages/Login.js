@@ -61,40 +61,40 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
+    <div className="login-container">
       {error && (
-        <div className="error-popup">
-          <div className="error-content">
+        <div className="login-error-popup">
+          <div className="login-error-content">
             <p><b>{error}</b></p>
             <button onClick={closeError}>Close</button>
           </div>
         </div>
       )}
-      <div className="card-container">
-        <div className="role-card">
+      <div className="login-card-container">
+        <div className="login-role-card">
           <img
             src={FacultyImage}
             alt="Faculty Role"
-            className={`role-button ${role === 'faculty' ? 'selected-role-button' : ''}`}
+            className={`login-role-button ${role === 'faculty' ? 'login-selected-role-button' : ''}`}
             onClick={() => selectRole('faculty')}
           />
           <img
             src={StudentImage}
             alt="Student Role"
-            className={`role-button ${role === 'student' ? 'selected-role-button' : ''}`}
+            className={`login-role-button ${role === 'student' ? 'login-selected-role-button' : ''}`}
             onClick={() => selectRole('student')}
           />
         </div>
         <div className="login-card">
-          <img src={RIASLogo} alt="RIAS Logo" className="logo" />
-          <div className="title"><b>Login Page</b></div>
+          <img src={RIASLogo} alt="RIAS Logo" className="login-logo" />
+          <div className="login-title"><b>Login Page</b></div>
           <form onSubmit={onSubmit}>
-            <label htmlFor="email" className="label">Email</label>
-            <input type="email" name="email" value={email} onChange={onChange} placeholder="Email" className="input" />
-            <label htmlFor="password" className="label">Password</label>
-            <input type="password" name="password" value={password} onChange={onChange} placeholder="Password" className="input" />
-            <button type="submit" className="button">Login</button>
-            <button type="button" onClick={() => navigate('/register')} className="register-button">Register</button>
+            <label htmlFor="email" className="login-label">Email</label>
+            <input type="email" name="email" value={email} onChange={onChange} placeholder="Email" className="login-input" />
+            <label htmlFor="password" className="login-label">Password</label>
+            <input type="password" name="password" value={password} onChange={onChange} placeholder="Password" className="login-input" />
+            <button type="submit" className="login-button">Login</button>
+            <button type="button" onClick={() => navigate('/register')} className="login-register-button">Register</button>
           </form>
         </div>
       </div>

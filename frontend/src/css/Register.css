@@ -1,12 +1,21 @@
-.container {
+/* General body styling */
+body {
+  margin: 0;
+  overflow: hidden;
+  background: url('../assets/bglogin.png') no-repeat center center;
+}
+
+/* Container for the entire register page */
+.register-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #ffffff;
+  background: url('../assets/bglogin.png') no-repeat center center;
 }
 
-.card-container {
+/* Container for the card elements */
+.register-card-container {
   display: flex;
   width: 1000px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
@@ -16,12 +25,14 @@
   max-height: 1000px; /* Adjust as needed */
 }
 
-.column {
+/* Column styling for different sections */
+.register-column {
   flex: 1;
   background-color: #fff;
 }
 
-.role-column {
+/* Column for role selection */
+.register-role-column {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,7 +40,8 @@
   padding: 10px;
 }
 
-.role-card {
+/* Role card styling */
+.register-role-card {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,7 +49,8 @@
   border-right: 1px solid #000000;
 }
 
-.role-button {
+/* Role button styling */
+.register-role-button {
   width: 200px;
   height: 200px;
   margin: 15px;
@@ -47,55 +60,59 @@
   transition: border-color 0.3s;
 }
 
-.selected-role-button {
+/* Styling for selected role button */
+.register-selected-role-button {
   border-color: #000;
 }
 
-.register-column {
+/* Column for the registration form */
+.register-form-column {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 15px;
+  
+  
 }
 
-.register-card {
-  width: 100%;
+/* Register card styling */
+.register-register-card {
+  width: 120%;
   max-width: 600px;
   overflow-y: auto;
+  overflow-x: hidden; /* Hide horizontal scrollbar */
   max-height: 600px;
   background-color: #fff;
+  margin-right: 80px;
 }
 
-.logo-container {
-  text-align: center;
-  margin-bottom: 30px;
-}
 
-.logo {
-  width: 150px;
-}
-
-.title {
+/* Title styling */
+.register-title {
   font-size: 28px;
   margin-bottom: 10px;
   text-align: center;
 }
-.form-wrapper {
+
+/* Wrapper for the form */
+.register-form-wrapper {
   max-height: 400px; /* Adjust as needed */
   overflow-y: scroll; /* Ensure scrolling is enabled */
   background-color: #ffffff;
   border-color: #ffffff;
   scrollbar-width: none; /* For Firefox */
-  -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
   margin-bottom: 30px;
+  width: 100%;
 }
 
-.form-wrapper::-webkit-scrollbar {
+/* Hide scrollbar for webkit browsers */
+.register-form-wrapper::-webkit-scrollbar {
   display: none; /* For Chrome, Safari, and Opera */
 }
 
-
-.label {
+/* Label styling */
+.register-label {
   display: block;
   text-align: left;
   margin-bottom: 5px;
@@ -103,7 +120,8 @@
   font-size: 16px;
 }
 
-.input {
+/* Input field styling */
+.register-input {
   width: 100%;
   padding: 10px;
   margin: 2px 0;
@@ -113,8 +131,9 @@
   margin-bottom: 10px;
 }
 
-.button, .login-button {
-  width: 90%;
+/* Button styling */
+.register-button, .register-login-button {
+  width: 100%;
   padding: 10px;
   background-color: #000;
   color: #fff;
@@ -125,10 +144,7 @@
   margin-top: 10px;
 }
 
-.login-button {
+/* Login button styling */
+.register-login-button {
   background-color: #00bfff;
-}
-
-.regbuttom{
-  margin-top: 20px;
 }

@@ -3,7 +3,7 @@ body {
     overflow: hidden;
 }
 
-.container {
+.login-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,7 +15,7 @@ body {
     margin-top: -2%;
 }
 
-.card-container {
+.login-card-container {
     display: flex;
     width: 1100px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
@@ -24,7 +24,7 @@ body {
     overflow: hidden;
 }
 
-.role-card {
+.login-role-card {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -34,7 +34,7 @@ body {
     width: 50%;
 }
 
-.role-button {
+.login-role-button {
     width: 200px;
     height: 200px;
     margin: 15px;
@@ -44,7 +44,7 @@ body {
     transition: border-color 0.3s;
 }
 
-.selected-role-button {
+.login-selected-role-button {
     border-color: #000;
 }
 
@@ -56,19 +56,19 @@ body {
     width: 50%;
 }
 
-.logo {
+.login-logo {
     width: 150px;
     margin-bottom: 3px;
     margin-left: 0px;
     align-items: center;
 }
 
-.title {
+.login-title {
     font-size: 28px;
     margin-bottom: 30px;
 }
 
-.label {
+.login-label {
     display: block;
     text-align: left;
     margin-bottom: 10px;
@@ -76,7 +76,7 @@ body {
     font-size: 16px;
 }
 
-.input {
+.login-input {
     width: 100%;
     padding: 12px;
     margin: 12px 0;
@@ -85,9 +85,9 @@ body {
     font-size: 16px;
 }
 
-.button {
+.login-button {
     width: 100%;
-    padding: 14px;
+    padding: 16px;
     background-color: #000;
     color: #ffffff;
     border: none;
@@ -98,7 +98,7 @@ body {
     text-align: center;
 }
 
-.register-button {
+.login-register-button {
     width: 100%;
     padding: 12px;
     background-color: #00bfff;
@@ -109,11 +109,12 @@ body {
     font-size: 16px;
 }
 
-.button:hover, .register-button:hover {
+.login-button:hover,
+.login-register-button:hover {
     opacity: 0.9;
 }
 
-.error-popup {
+.login-error-popup {
     position: fixed;
     top: 0;
     left: 0;
@@ -126,7 +127,7 @@ body {
     z-index: 9999;
 }
 
-.error-content {
+.login-error-content {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -136,13 +137,13 @@ body {
     width: 100%;
 }
 
-.error-content p {
+.login-error-content p {
     margin-bottom: 15px;
     font-size: 16px;
     color: #111111;
 }
 
-.error-content button {
+.login-error-content button {
     padding: 10px 20px;
     background-color: #ff0000;
     color: #fff;
@@ -153,6 +154,6 @@ body {
     transition: background-color 0.3s;
 }
 
-.error-content button:hover {
+.login-error-content button:hover {
     background-color: #cc0000;
 }

@@ -1,65 +1,101 @@
-.dashboard-container {
+.userdashboard-container {
     padding: 20px;
     background-color: #252323;
-    border-radius: 8px;
-    max-width: 120%;
+    border-radius: 10px;
+    width: 96%;
     margin: 20px auto;
-    margin-left: -5%;
-    margin-right: -40%;
-    margin-bottom: 40%;
-}
-.heading {
-    margin-left: 100%;
-    margin-top: 10%;
-    margin-right: 10%;
-    color: #fff;
+    max-height: 90vh;
+    overflow-y: auto; /* Ensure vertical scrolling for the container */
+    margin-top: 100px;
 }
 
-.user-table {
-    width: 180%;
+.userdashboard-table-wrapper {
+    display: flex; /* Use flexbox to arrange children horizontally */
+    justify-content: space-between; /* Space between tables */
+    gap: 10px; /* Space between the two tables */
+    flex-wrap: nowrap; /* Prevent wrapping */
+    overflow-x: auto; /* Enable horizontal scrolling for the wrapper */
+}
+
+.userdashboard-table-container {
+    flex: 1 1 45%; /* Allow each table container to take up to 45% of the width */
+    min-width: 0; /* Prevent overflow issues */
+    overflow-y: auto; /* Enable horizontal scrolling if needed */
+    margin-bottom: 20px;
+    height: 1000px;
+}
+
+.userdashboard-heading {
+    color: #ffffff;
+    margin-bottom: 10px; /* Space below the heading */
+    font-size: 1rem; /* Smaller font size for headings */
+}
+
+.userdashboard-table {
     border-collapse: collapse;
-    margin-top: 20px;
-    margin-left: 50%;
+    width: 100%; /* Ensure table takes up full container width */
 }
 
-.user-table th,
-.user-table td {
-    padding: 12px;
+.userdashboard-table th,
+.userdashboard-table td {
+    padding: 6px; /* Further reduced padding for smaller tables */
     border: 1px solid #000000;
     background-color: #e6e6e6;
     color: #000000;
     text-align: left;
+    font-size: 0.8rem; /* Smaller font size for better fit */
 }
 
-.user-table th {
-    background-color: #ffffff00;
-    color: #000000;
+.userdashboard-table th {
     background-color: rgb(243, 224, 13);
 }
 
-.user-table tr:nth-child(even) {
-    background-color: #ffffff;
-    color: #ffffff;
-}
-
-.user-table tr:hover {
+.userdashboard-table tr:nth-child(even) {
     background-color: #ffffff;
 }
 
-.approve-button {
-    padding: 8px 16px;
+.userdashboard-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.userdashboard-approve-button,
+.userdashboard-select-button {
+    padding: 4px 8px; /* Further reduced button padding */
     border: none;
     border-radius: 4px;
-    background-color: #28a745; /* Green background */
-    color: #fff; /* White text */
+    background-color: #28a745;
+    color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-size: 0.7rem; /* Smaller font size for buttons */
 }
 
-.approve-button:hover {
-    background-color: #218838; /* Darker green on hover */
+.userdashboard-approve-button:hover,
+.userdashboard-select-button:hover {
+    background-color: #218838;
 }
 
-.error-message {
-    color: red;
+.userdashboard-reject-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 4px 8px; /* Further reduced button padding */
+    cursor: pointer;
+    font-size: 0.7rem; /* Smaller font size for buttons */
+}
+
+.userdashboard-reject-button:hover {
+    background-color: #d32f2f;
+}
+
+.userdashboard-error-message {
+    color: #ff0000;
+    font-size: 0.8rem; /* Smaller font size for error messages */
+}
+
+.userdashboard-search-bar {
+    padding: 10px;
+    width: 100%; /* Ensure search bar takes full width of its container */
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
