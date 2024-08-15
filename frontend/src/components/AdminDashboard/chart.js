@@ -4,6 +4,8 @@ import { Bar, Line, Pie } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import styles from "./css/FacultyFeedback.module.css"; // Adjust the path as needed
 
+
+
 const FeedbackStats = () => {
   const [semesters, setSemesters] = useState([]);
   const [branches, setBranches] = useState([]);
@@ -126,6 +128,11 @@ const FeedbackStats = () => {
     return Object.values(selectedFilters).every((value) => value);
   };
 
+  const removePrefix = (text) => {
+    return text.startsWith("0_") ? text.substring(2) : text;
+  };
+  
+
   const convertAnalysisData = (data) => {
     if (!data)
       return {
@@ -181,7 +188,7 @@ const FeedbackStats = () => {
       x: {
         beginAtZero: true,
         ticks: {
-          color: "rgb(0, 0, 0)", // Color for x-axis ticks
+          color: "rgb(75, 0, 130)", // Color for x-axis ticks
           callback: (value) => {
             if (value >= 0 && value <= 10) {
               return value;
@@ -191,8 +198,8 @@ const FeedbackStats = () => {
           stepSize: 1, // Ensure the ticks are spaced by 1
         },
         grid: {
-          color: "rgba(0, 0, 0, 0.1)", // Light grid lines color
-          borderColor: "#4B9CD3", // Color for x-axis border line
+          color: "rgb(75, 0, 130)", // Light grid lines color
+          borderColor: "rgb(75, 0, 130)", // Color for x-axis border line
           borderWidth: 2, // Increase the thickness of the x-axis border line
         },
         min: 0,
@@ -201,18 +208,18 @@ const FeedbackStats = () => {
       y: {
         beginAtZero: true,
         ticks: {
-          color: "rgb(0, 0, 0)", // Color for y-axis ticks
+          color: "rgb(75, 0, 130)", // Color for y-axis ticks
         },
         grid: {
-          color: "rgba(0, 0, 0, 0.1)", // Light grid lines color
+          color: "rgb(75, 0, 130)", // Light grid lines color
           borderColor: "#4B9CD3", // Color for y-axis border line
         },
       },
     },
     plugins: {
       tooltip: {
-        backgroundColor: "rgba(0, 0, 0, 0.8)", // Slightly darker background
-        titleColor: "rgb(0, 0, 0)",
+        backgroundColor: "rgb(255, 255, 255)", // Slightly darker background
+        titleColor: "rgb(0,0,0)",
         bodyColor: "#fff",
         borderColor: "rgba(255, 99, 132, 0.8)", // Border color for tooltip
         borderWidth: 1, // Border width of the tooltip
@@ -244,7 +251,7 @@ const FeedbackStats = () => {
   const pieChartOptions = {
     plugins: {
       tooltip: {
-        backgroundColor: "rgba(0, 0, 0, 0.8)", // Slightly darker background
+        backgroundColor: "rgb(255, 255, 255)", // Slightly darker background
         titleColor: "rgb(0, 0, 0)",
         bodyColor: "rgb(0, 0, 0)",
         borderColor: "rgba(255, 99, 132, 0.8)", // Border color for tooltip
@@ -271,8 +278,8 @@ const FeedbackStats = () => {
           },
           padding: 20, // Adjust padding around the legend items
         },
-        align: 'start', // Align legend items to start
       },
+      align: 'start', // Align legend items to start
       datalabels: {
         display: true, // Show data labels
         color: '#fff', // Color of the data labels
@@ -286,9 +293,23 @@ const FeedbackStats = () => {
       },
     },
     responsive: true, // Make chart responsive
-    maintainAspectRatio: false, // Allow chart to adapt to container size
+    maintainAspectRatio: false, // Allow chart to adapt to container size,
+    // Add the gridLines configuration to set the grid color to black
+    scales: {
+      xAxes: [{
+        gridLines: {
+          color: 'black', // Set grid color to black
+          display: true, // Ensure grid lines are displayed (optional)
+        },
+      }],
+      yAxes: [{
+        gridLines: {
+          color: 'black', // Set grid color to black
+          display: true, // Ensure grid lines are displayed (optional)
+        },
+      }]
+    }
   };
-  
   
 
   const getXAxisNote = () => {
@@ -363,37 +384,35 @@ const FeedbackStats = () => {
             </div>
 
             {feedbacks.length > 0 && (
-              <div
-                style={{
-                  fontSize: "14px",
-                  marginTop: "20px",
-                  marginBottom: "20px",
-                  border: "1px solid #ccc", // Example border style
-                  padding: "10px", // Example padding
-                  borderRadius: "5px", // Example border radius
-                  boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)", // Example box shadow
-                  width: "700px", // Fixed width
-                  height: "200px", // Fixed height
-                  overflow: "auto", // Scroll if content exceeds size
-                  // Add more styles as needed
-                }}
-                className={styles.analysisContainer}
-              >
-                <div className={styles.chartNote}>{getXAxisNote()}</div>
-                {Object.keys(formattedAnalysisData.questionAverages).length >
-                  0 && (
-                  <ul style={{ padding: 0, margin: 0 }}>
-                    {Object.entries(formattedAnalysisData.questionAverages).map(
-                      ([question, avg]) => (
-                        <li key={question}>
-                          {question}: {avg}
-                        </li>
-                      )
-                    )}
-                  </ul>
-                )}
-              </div>
-            )}
+  <div
+    style={{
+      fontSize: "14px",
+      marginTop: "0px",
+      marginBottom: "20px",
+      border: "1px solid #ccc", // Example border style
+      padding: "10px", // Example padding
+      borderRadius: "5px", // Example border radius
+      boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)", // Example box shadow
+      width: "700px", // Fixed width
+      height: "200px", // Fixed height
+      overflow: "auto", // Scroll if content exceeds size
+      // Add more styles as needed
+    }}
+    className={styles.analysisContainer}
+  >
+    <div className={styles.chartNote}>{getXAxisNote()}</div>
+    {Object.keys(formattedAnalysisData.questionAverages).length > 0 && (
+      <ul style={{ padding: 0, margin: 0 }}>
+        {Object.entries(formattedAnalysisData.questionAverages).map(([question, avg]) => (
+          <li key={question}>
+            {removePrefix(question)}: {avg}
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+)}
+
           </div>
         )}
       </div>
