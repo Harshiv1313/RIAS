@@ -1,10 +1,10 @@
-// D:\RIAS\backend\routes\antiragging.js
+// backend/routes/adminAnalysis.js
+
 const express = require('express');
 const router = express.Router();
-const AntiraggingController = require('../controllers/Antiragging');
+const { getFeedbackAnalysis } = require('../controllers/adminAnalysis'); // Adjust path as necessary
 
-// Define routes with correct handlers
-router.post('/submit', AntiraggingController.submitComplaint);
-router.get('/all', AntiraggingController.getAllComplaints);
+// Route to get feedback analysis
+router.get('/feedback-analysis', getFeedbackAnalysis);
 
 module.exports = router;

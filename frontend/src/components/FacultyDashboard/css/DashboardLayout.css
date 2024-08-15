@@ -73,8 +73,8 @@
 .main-content {
   display: flex;
   flex-direction: row; /* Horizontal layout */
-  margin-left: 20px; /* 20px margin from the left edge of the screen */
-  margin-top: 60px; /* Align below the upper navbar */
+  margin-left: -5px; /* 20px margin from the left edge of the screen */
+  margin-top: 70px; /* Align below the upper navbar */
   position: relative; /* Ensure positioning context */
   width: calc(100%); /* Full width minus 20px margin */
   background-color: #252323;
@@ -96,9 +96,9 @@
   overflow-y: auto; /* Adds scroll if content overflows */
   background-color: #202027;
   box-sizing: border-box; /* Ensure padding is included in width */
-  margin-left: -1%;
+  margin-left: -2%;
   margin-bottom: 10%;
-  margin-top: 30px;
+  margin-top: 40px;
   margin-right: 0%;
   background-color: #252323;
 }

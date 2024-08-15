@@ -20,7 +20,7 @@
 
 /* Style for each feedback card */
 .feedbackCard {
-    background-color: #fff;
+    background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -156,4 +156,80 @@
     overflow-y: auto; /* Add vertical scroll bar */
     overflow-x: hidden; /* Hide horizontal scroll bar if not needed */
     margin-top: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.chartContainer {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.chartWrapper {
+    flex: 1 1 calc(50% - 15px); /* Adjust width for 2x2 layout */
+    width: 150%;
+    max-width: 600px;
+    height: 200px; /* Adjust height */
+    background: linear-gradient(135deg, rgb(255, 255, 255), rgb(194, 194, 194)); /* Gradient background for a colorful effect */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center-align contents horizontally */
+    justify-content: center; /* Center-align contents vertically */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.chartWrapper:hover {
+    background-color: #f1f1f1; /* Slightly darker background on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+.chartTitle {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #000000; /* White text color for contrast */
+}
+
+.xAxisNote {
+    margin-top: 10px;
+    font-style: italic;
+    color: #fff; /* White text color for contrast */
+}
+
+.statsContainer {
+    margin-top: 2px;
+    display: flex;
+    gap: 15px;
+}
+
+.statItem {
+    background: #ab1818; /* Strong red background */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    flex: 1;
+    color: #fff; /* White text color for contrast */
+}
+
+.statItem:nth-child(even) {
+    background: #18ab18; /* Green background for even items */
+}
+
+.statItem:nth-child(odd) {
+    background: #1818ab; /* Blue background for odd items */
 }

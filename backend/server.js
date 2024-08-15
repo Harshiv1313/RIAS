@@ -18,6 +18,7 @@ const timetableRoutes = require("./routes/timetableRoutes");
 const facultytt = require("./routes/facultytimetable");
 const feedbackRoutes = require("./routes/feedbackRoutes");
 const antiRaggingRoutes = require('./routes/aa');
+const adminchart = require('./routes/adminAnalysis');
 
 
 
@@ -32,6 +33,7 @@ app.use("/api", timetableRoutes); // Update route prefix as needed
 app.use("/api", facultytt);
 app.use("/api/feedback", feedbackRoutes);
 app.use('/api/antiragging', antiRaggingRoutes);
+app.use('/api/admin', adminchart);
 
 // Connect to MongoDB
 mongoose

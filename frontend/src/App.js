@@ -28,6 +28,8 @@ import Antiragging from "./components/Studentdashobard/Antiragging";
 import Adashboard from "./components/AdminDashboard/dashboard";
 import Afedback from "./components/AdminDashboard/AdminFeedback";
 import Stats from "./components/AdminDashboard/FeedbackStats";
+import Adminchart from "./components/AdminDashboard/chart";
+
 
 const AuthRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -85,6 +87,7 @@ function App() {
                     <Route path="" element={<Adashboard />} />
                     <Route path="Feedback" element={<Afedback />} />
                     <Route path="Stats" element={<Stats />} />
+                    <Route path="adminchart" element={<Adminchart />} />
                   </Routes>
                 </AdminDashboard>
               </ProtectedRoute>
