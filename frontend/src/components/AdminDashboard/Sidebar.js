@@ -85,13 +85,13 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="rewards-link">
-            <Link to="/student-dashboard/rewards">
+            <Link to="/admin-dashboard/adminuser">
               <img className="icon" src={RewardsIcon} alt="rewards" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>Rewards</span>
+              <span className={`${isOpen ? "" : "hideElement"}`}>Users</span>
             </Link>
           </li>
           <li className="settings-link">
-            <Link to="/student-dashboard/settings">
+            <Link to="/admin-dashboard/samesubject">
               <img className="icon" src={SettingsIcon} alt="settings" />
               <span className={`${isOpen ? "" : "hideElement"}`}>Settings</span>
             </Link>

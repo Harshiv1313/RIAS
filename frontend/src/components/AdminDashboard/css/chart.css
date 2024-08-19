@@ -1,168 +1,249 @@
-/* Center the feedback container */
+/* Style for chart container */
 .chartContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    /* Full viewport height */
-    padding: 2px;
-    flex-wrap: wrap;
-    /* Allows wrapping of cards if there's not enough space */
-    width: 1400px;
-    /* Optional: Set a max width for better control */
-    margin: 0 auto;
-    /* Center container horizontally */
-    margin-left: 120px;
-    margin-top: 20px;
-    /* Updated margin-top for better spacing */
-    margin-bottom: 0;
+  margin-top: 70px;
+  margin-left: 70px;
 }
 
-/* Style for each feedback card */
-.chartCard {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 10px;
-    max-width: 100%;
-    /* Set a maximum height and enable scrolling */
-    
-    /* Responsive design: Ensure cards don't overflow */
-    flex: 1;
-    box-sizing: border-box;
-    margin-top: 10px;
+/* Style for chart feedback card */
+.chartFeedbackCard {
+  background-color: #333;
+  border: 1px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 10px;
+  max-width: 95%;
+  margin-left: 4px;
+  color: #ccc;
 }
 
-/* Add specific styles for the faculty feedback page */
-.chartFacultyFeedback {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* Style for chart message */
+.chartMessage {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
 }
 
-/* Style for dropdown containers */
+.chartMessage.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.chartMessage.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Style for dropdown container */
 .chartDropdownContainer {
-    display: flex;
-    flex-direction: row;
-    /* Arrange items horizontally */
-    flex-wrap: wrap;
-    /* Allow items to wrap if necessary */
-    gap: 15px;
-    /* Space between each dropdown item */
-    max-width: 100%;
-    /* Ensure container fits within its parent */
-    margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  max-width: 100%;
+  margin-bottom: 20px;
 }
 
 /* Style for dropdown items */
 .chartDropdownItem {
-    flex: 1;
-    /* Ensure each dropdown item takes equal space */
-    min-width: 150px;
-    /* Minimum width for dropdown items */
+  flex: 1;
+  min-width: 150px;
 }
 
-/* Style for dropdown selects */
 .chartDropdownItem select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    /* Ensure padding does not affect width */
-    height: 40px;
-    /* Set a fixed height for dropdowns */
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  height: 40px;
 }
 
-/* Style for filter button */
+/* Style for apply button */
 .chartApplyButton {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-    /* Space above the button */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
-/* Style for feedback table */
-.chartFeedbackTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+/* Style for chart container */
+.chartChartContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
-.chartFeedbackTable th,
-.chartFeedbackTable td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+/* Style for chart wrappers */
+.chartChartWrapper {
+  flex: 1 1 calc(50% - 15px);
+  width: 150%;
+  max-width: 660px;
+  height: 200px;
+  background-color: #505050;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.chartFeedbackTable th {
-    background-color: #f4f4f4;
+.chartChartWrapper:hover {
+  background-color: #f1f1f1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Style for delete button */
-.chartDeleteButton {
-    background-color: #e63946;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
+.chartChartTitle {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #000000;
 }
 
-.chartMessage {
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 4px;
-    width: 100%;
-    max-width: 600px;
-    text-align: center;
+/* Style for analysis container */
+.chartAnalysisContainer {
+  font-size: 14px;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 660px;
+  height: 200px;
+  overflow: auto;
 }
 
-.chartMessage.success {
-    background-color: #d4edda;
-    color: #155724;
+/* Style for x-axis note */
+.chartChartNote {
+  margin-top: 10px;
+  font-style: italic;
+  color: #000; /* Changed to black for better visibility */
 }
 
-.chartMessage.error {
-    background-color: #f8d7da;
-    color: #721c24;
+/* Additional styles for feedback cards, faculty feedback, and feedback tables */
+.feedbackContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 2px;
+  flex-wrap: wrap;
+  width: 1400px;
+  margin: 0 auto;
+  margin-left: 120px;
+  margin-top: 20px;
+  margin-bottom: 0;
 }
 
-.chartFeedbackTableWrapper {
-    max-height: 450px; /* Adjust as needed */
-    overflow-y: auto; /* Add vertical scroll bar */
-    overflow-x: hidden; /* Hide horizontal scroll bar if not needed */
-    margin-top: 20px;
+.feedbackCard {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 10px;
+  max-width: 100%;
+  flex: 1;
+  box-sizing: border-box;
+  margin-top: 10px;
 }
 
-.chartWrapper {
-    width: 80%;
-    height: 220px;
+.facultyFeedback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.chartXAxisNote {
-    margin-top: 10px;
-    font-style: italic;
+.dropdownContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 15px;
+  max-width: 100%;
+  margin-bottom: 20px;
 }
 
-.chartStatsContainer {
-    margin-top: 20px;
-    display: flex;
-    gap: 15px;
+.dropdownItem {
+  flex: 1;
+  min-width: 150px;
 }
 
-.chartStatItem {
-    background: #f9f9f9;
-    border: 1px solid #320505;
-    border-radius: 5px;
-    padding: 1000px;
-    flex: 1;
-    gap: 100px;
+.dropdownItem select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  height: 40px;
+}
+
+.filterButton {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.feedbackTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.feedbackTable th,
+.feedbackTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.feedbackTable th {
+  background-color: #f4f4f4;
+}
+
+.deleteButton {
+  background-color: #e63946;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.feedbackMessage {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.feedbackMessage.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.feedbackMessage.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.feedbackTableWrapper {
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-top: 20px;
 }

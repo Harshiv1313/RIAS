@@ -90,6 +90,7 @@
 }
 
 /* Style for filter button */
+/* Style for filter button */
 .filterButton {
     background-color: #007bff;
     color: #fff;
@@ -99,7 +100,18 @@
     cursor: pointer;
     margin-top: 10px;
     /* Space above the button */
+    opacity: 1; /* Fully opaque */
+    transition: opacity 0.3s ease; /* Smooth transition for disabled state */
 }
+
+/* Style for disabled filter button */
+.filterButton:disabled {
+    background-color: #d0d0d0; /* Light gray background */
+    color: #aaa; /* Light gray text */
+    cursor: not-allowed; /* Change cursor to indicate disabled state */
+    opacity: 0.6; /* Reduced opacity */
+}
+
 
 
 
@@ -179,7 +191,7 @@
 .chartWrapper {
     flex: 1 1 calc(50% - 15px); /* Adjust width for 2x2 layout */
     width: 150%;
-    max-width: 685px;
+    max-width: 660px;
     height: 200px; /* Adjust height */
     background: linear-gradient(135deg, rgb(255, 255, 255), rgb(194, 194, 194)); /* Gradient background for a colorful effect */
     border: 1px solid #ddd;

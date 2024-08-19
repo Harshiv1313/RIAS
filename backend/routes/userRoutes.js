@@ -11,6 +11,7 @@ router.post('/login', userController.login);
 
 // Get All Users
 router.get('/', authMiddleware, userController.getUsers);
+router.get('/notadmin', authMiddleware, userController.getnotadmin);
 
 // Get User by ID
 router.get('/user/:id', authMiddleware, userController.getUserById);

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Bar, Line, Pie } from "react-chartjs-2";
 import Chart from "chart.js/auto";
-import styles from "./css/FacultyFeedback.module.css"; // Adjust the path as needed
+import styles from "./css/chart.css"; // Adjust the path as needed
 
 
 
@@ -174,7 +174,7 @@ const FeedbackStats = () => {
         {
           label: "Feedback Scores",
           data: averages,
-          backgroundColor: "rgb(75, 0, 130)", // Strong red
+          backgroundColor: " rgb(0, 0, 139)", // Strong red
           borderColor: "rgb(255, 255, 255)", // Stronger red
           borderWidth: 2, // Thicker border
         },
@@ -321,103 +321,99 @@ const FeedbackStats = () => {
     return "";
   };
 
-  return (
-    <div
-      style={{ marginTop: "70px", marginLeft: "70px" }}
-      className={styles.container}
-    >
-      <div className={styles.feedbackCard} ref={componentRef}>
-        <h2>Feedback Statistics</h2>
-        <p>Filter and review feedback statistics based on various criteria.</p>
-        {message && (
-          <div className={`${styles.message} ${styles[messageType]}`}>
-            {message}
-          </div>
-        )}
-        <div className={styles.dropdownContainer}>
-          {[
-            { id: "semester", label: "Semester", options: semesters },
-            { id: "branch", label: "Branch", options: branches },
-            { id: "type", label: "Type", options: types },
-            { id: "subject", label: "Subject", options: subjects },
-            { id: "course", label: "Course", options: courses },
-            { id: "faculty", label: "Faculty", options: faculties },
-          ].map(({ id, label, options }) => (
-            <div key={id} className={styles.dropdownItem}>
-              <label htmlFor={id}>{label}:</label>
-              <select
-                id={id}
-                value={selectedFilters[id] || ""}
-                onChange={handleFilterChange}
-              >
-                <option value="">Select {label}</option>
-                {options.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
+
+    return (
+      <div style={{ marginTop: "70px", marginLeft: "70px" }} className="chartContainer">
+        <div className="chartFeedbackCard" ref={componentRef}>
+          <h2>Feedback Statistics</h2>
+          <p>Filter and review feedback statistics based on various criteria.</p>
+          {message && (
+            <div className={`chartMessage ${messageType}`}>
+              {message}
             </div>
-          ))}
-          <button
-            onClick={handleFilterApply}
-            disabled={!allDropdownsSelected()}
-            className={styles.applyButton}
-          >
-            Apply Filters
-          </button>
+          )}
+          <div className="chartDropdownContainer">
+            {[
+              { id: "semester", label: "Semester", options: semesters },
+              { id: "branch", label: "Branch", options: branches },
+              { id: "type", label: "Type", options: types },
+              { id: "subject", label: "Subject", options: subjects },
+              { id: "course", label: "Course", options: courses },
+              { id: "faculty", label: "Faculty", options: faculties },
+            ].map(({ id, label, options }) => (
+              <div key={id} className="chartDropdownItem">
+                <label htmlFor={id}>{label}:</label>
+                <select
+                  id={id}
+                  value={selectedFilters[id] || ""}
+                  onChange={handleFilterChange}
+                >
+                  <option value="">Select {label}</option>
+                  {options.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ))}
+            <button
+              onClick={handleFilterApply}
+              disabled={!allDropdownsSelected()}
+              className="filterButton"
+            >
+              Apply Filters
+            </button>
+          </div>
+          {loading && <div>Loading...</div>}
+          {!loading && (
+            <div className="chartChartContainer">
+              <div className="chartChartWrapper">
+                <div className="chartChartTitle">Bar Chart</div>
+                <Bar data={chartData} options={chartOptions} />
+              </div>
+              <div className="chartChartWrapper">
+                <div className="chartChartTitle">Line Chart</div>
+                <Line data={chartData} options={chartOptions} />
+              </div>
+              <div className="chartChartWrapper">
+                <div className="chartChartTitle">Pie Chart</div>
+                <Pie data={chartData} options={pieChartOptions} />
+              </div>
+  
+              {feedbacks.length > 0 && (
+                <div
+                  style={{
+                    fontSize: "14px",
+                    marginTop: "0px",
+                    marginBottom: "20px",
+                    border: "1px solid #ccc",
+                    padding: "10px",
+                    borderRadius: "5px",
+                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+                    width: "660px",
+                    height: "200px",
+                    overflow: "auto",
+                  }}
+                  className="chartAnalysisContainer"
+                >
+                  <div className="chartChartNote">{getXAxisNote()}</div>
+                  {Object.keys(formattedAnalysisData.questionAverages).length > 0 && (
+                    <ul style={{ padding: 0, margin: 0 }}>
+                      {Object.entries(formattedAnalysisData.questionAverages).map(([question, avg]) => (
+                        <li key={question}>
+                          {removePrefix(question)}: {avg}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
         </div>
-        {loading && <div>Loading...</div>}
-        {!loading && (
-          <div className={styles.chartContainer}>
-            <div className={styles.chartWrapper}>
-              <div className={styles.chartTitle}>Bar Chart</div>
-              <Bar data={chartData} options={chartOptions} />
-            </div>
-            <div className={styles.chartWrapper}>
-              <div className={styles.chartTitle}>Line Chart</div>
-              <Line data={chartData} options={chartOptions} />
-            </div>
-            <div className={styles.chartWrapper}>
-              <div className={styles.chartTitle}>Pie Chart</div>
-              <Pie data={chartData} options={pieChartOptions} />
-            </div>
-
-            {feedbacks.length > 0 && (
-  <div
-    style={{
-      fontSize: "14px",
-      marginTop: "0px",
-      marginBottom: "20px",
-      border: "1px solid #ccc", // Example border style
-      padding: "10px", // Example padding
-      borderRadius: "5px", // Example border radius
-      boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)", // Example box shadow
-      width: "700px", // Fixed width
-      height: "200px", // Fixed height
-      overflow: "auto", // Scroll if content exceeds size
-      // Add more styles as needed
-    }}
-    className={styles.analysisContainer}
-  >
-    <div className={styles.chartNote}>{getXAxisNote()}</div>
-    {Object.keys(formattedAnalysisData.questionAverages).length > 0 && (
-      <ul style={{ padding: 0, margin: 0 }}>
-        {Object.entries(formattedAnalysisData.questionAverages).map(([question, avg]) => (
-          <li key={question}>
-            {removePrefix(question)}: {avg}
-          </li>
-        ))}
-      </ul>
-    )}
-  </div>
-)}
-
-          </div>
-        )}
       </div>
-    </div>
-  );
-};
-
-export default FeedbackStats;
+    );
+  };
+  
+  export default FeedbackStats;

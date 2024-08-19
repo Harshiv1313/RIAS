@@ -1,9 +1,9 @@
 .userdashboard-container {
-    padding: 20px;
+    padding: 0px;
     background-color: #252323;
     border-radius: 10px;
     width: 90%;
-    margin: 20px auto;
+    margin: 0px auto;
     max-height: 90vh;
     overflow-y: auto; /* Ensure vertical scrolling for the container */
     margin-top: 100px;
@@ -21,7 +21,7 @@
 
 /* General table container styles */
 .userdashboard-table-container {
-    flex: 1 1 45%; /* Allow each container to take up to 45% of the width */
+    flex: 1 1 48%; /* Allow each container to take up to 45% of the width */
     min-width: 0; /* Prevent overflow issues */
     overflow-y: auto; /* Enable vertical scrolling if needed */
     margin-bottom: 20px;
@@ -51,7 +51,7 @@
     background-color: #e6e6e6;
     color: #000000;
     text-align: left;
-    font-size: 0.6rem; /* Adjusted font size for better fit */
+    font-size: 0.8rem; /* Adjusted font size for better fit */
 }
 
 /* Specific styles for Not Approved Users table */

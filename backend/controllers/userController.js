@@ -78,6 +78,19 @@ exports.getUsers = async (req, res) => {
   }
 };
 
+
+exports.getnotadmin = async (req, res) => {
+  try {
+    // Fetch users except those with the role 'admin'
+    const users = await User.find({ role: { $ne: 'admin' } }).select('-password');
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+
 // Get User by ID
 exports.getUserById = async (req, res) => {
   try {

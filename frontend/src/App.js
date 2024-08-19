@@ -14,7 +14,7 @@ import Timetable from "./components/Studentdashobard/Timetable"; // Updated impo
 import DashboardLayout from "./components/Studentdashobard/DashboardLayout"; // Updated import path
 import DashboardLayoutf from "./components/FacultyDashboard/DashboardLayout"; // Updated import path
 import StudentProfile from "./components/Studentdashobard/StudentProfile"; // Updated import path
-import Users from "./components/FacultyDashboard/User"; // Updated import path
+import Users from "./components/FacultyDashboard/users"; // Updated import path
 import Survey from "./components/FacultyDashboard/FacultySurvey";
 import Surveyf from "./components/FacultyDashboard/SurveyForm";
 import Facultyimetable from "./components/FacultyDashboard/StudentTable";
@@ -29,6 +29,9 @@ import Adashboard from "./components/AdminDashboard/dashboard";
 import Afedback from "./components/AdminDashboard/AdminFeedback";
 import Stats from "./components/AdminDashboard/FeedbackStats";
 import Adminchart from "./components/AdminDashboard/chart";
+import Adminusers from "./components/AdminDashboard/users"; // Updated import path
+import Samesubject from "./components/AdminDashboard/Samesubjectanalysis"; // Updated import path
+
 
 
 const AuthRoute = ({ children }) => {
@@ -88,6 +91,8 @@ function App() {
                     <Route path="Feedback" element={<Afedback />} />
                     <Route path="Stats" element={<Stats />} />
                     <Route path="adminchart" element={<Adminchart />} />
+                    <Route path="adminuser" element={<Adminusers />} />
+                    <Route path="samesubject" element={<Samesubject />} />
                   </Routes>
                 </AdminDashboard>
               </ProtectedRoute>
