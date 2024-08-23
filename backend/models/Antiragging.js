@@ -11,7 +11,8 @@ const antiRaggingSchema = new mongoose.Schema({
   semester: { type: String },
   branch: { type: String },
   section: { type: String },
-  rollNumber: { type: String }
+  rollNumber: { type: String },
+  batch: { type: String }
 });
 
 module.exports = mongoose.model('AntiRagging', antiRaggingSchema);

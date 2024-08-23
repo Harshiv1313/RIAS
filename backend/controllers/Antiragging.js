@@ -27,7 +27,8 @@ exports.submitComplaint = async (req, res) => {
       semester: student.semester,
       branch: student.branch,
       section: student.section,
-      rollNumber: student.rollNumber
+      rollNumber: student.rollNumber,
+      batch: student.batch
     });
 
     await newComplaint.save();
