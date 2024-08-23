@@ -4,7 +4,7 @@ const timetableSchema = new mongoose.Schema({
   branch: { type: String, required: true },
   section: { type: String, required: true },
   semester: { type: String, required: true },
-  batch: { type: String, required: true },
+  batch: { type: String},
   timetable: { type: String, required: false },
   facultyName: { type: String, required: true },
   subjectName: { type: String, required: true },

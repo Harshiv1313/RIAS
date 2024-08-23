@@ -245,11 +245,12 @@ const FacultyPostTimetable = () => {
             <select
               value={batch}
               onChange={(e) => setBatch(e.target.value)}
-              required
+              
             >
               <option value="" disabled>
                 Select type
               </option>
+              <option value="Not Required">Not Required</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>

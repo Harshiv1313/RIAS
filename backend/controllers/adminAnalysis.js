@@ -1,5 +1,9 @@
 const Feedback = require('../models/Feedback'); // Adjust path as necessary
 
+
+
+
+
 exports.getFeedbackAnalysis = async (req, res) => {
   try {
     const { facultyName, courseName, type, semester, branch } = req.query;
@@ -49,9 +53,9 @@ exports.getFeedbackAnalysis = async (req, res) => {
           totalScores += score;
           count++;
 
-          if (score >= 4) {
+          if (score >= 3) {  // Adjust the threshold based on 0 to 4 scale
             goodFeedbacks++;
-          } else if (score <= 2) {
+          } else if (score <= 1) {  // Adjust the threshold based on 0 to 4 scale
             badFeedbacks++;
           }
 
@@ -66,20 +70,24 @@ exports.getFeedbackAnalysis = async (req, res) => {
       });
     });
 
-    // Calculate average score
-    const averageScore = count > 0 ? ((totalScores / count) / 5 * 100).toFixed(2) : 0;
+    // Calculate average score as percentage
+    const averageScore = count > 0 ? ((totalScores / (count * maxScore)) * 100).toFixed(2) : '0.00';
 
-    // Calculate question averages
+    // Calculate question averages as percentage
     const questionAverages = Object.keys(questionScores).reduce((acc, key) => {
-      acc[key] = ((questionScores[key] / questionCounts[key]) / 5 * 100).toFixed(2) + '%';
+      acc[key] = ((questionScores[key] / (questionCounts[key] * maxScore)) * 100).toFixed(2) + '%';
       return acc;
     }, {});
+
+    // Calculate percentages for good and bad feedbacks
+    const goodFeedbacksPercentage = count > 0 ? ((goodFeedbacks / count) * 100).toFixed(2) + '%' : '0.00%';
+    const badFeedbacksPercentage = count > 0 ? ((badFeedbacks / count) * 100).toFixed(2) + '%' : '0.00%';
 
     // Respond with analysis data
     res.json({
       averageScore: `${averageScore}%`,
-      goodFeedbacks,
-      badFeedbacks,
+      goodFeedbacks: goodFeedbacksPercentage,
+      badFeedbacks: badFeedbacksPercentage,
       totalFeedbacks: count,
       questionAverages
     });
@@ -95,11 +103,8 @@ exports.getFeedbackAnalysis = async (req, res) => {
 
 
 
-
-
-
 // Maximum score used for percentage calculation
-const maxScore = 5;
+const maxScore = 4;
 
 exports.getFeedbackAnalysisBySubject = async (req, res) => {
   try {

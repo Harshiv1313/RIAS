@@ -120,12 +120,17 @@ const FeedbackStats = () => {
     const goodFeedbacks = data.goodFeedbacks || 0;
     const badFeedbacks = data.badFeedbacks || 0;
 
-    return {
-      averageScore: data.averageScore || 'N/A',
-      goodFeedbackPercentage: totalFeedbacks > 0 ? ((goodFeedbacks / totalFeedbacks) * 100).toFixed(2) + '%' : 'N/A',
-      badFeedbackPercentage: totalFeedbacks > 0 ? ((badFeedbacks / totalFeedbacks) * 100).toFixed(2) + '%' : 'N/A',
-      questionAverages: data.questionAverages || {}
-    };
+  return {
+  averageScore: data.averageScore || 'N/A',
+  goodFeedbackPercentage: totalFeedbacks > 0 
+    ? ((goodFeedbacks / totalFeedbacks) * 100).toFixed(2) + '%' 
+    : 'N/A',
+  badFeedbackPercentage: totalFeedbacks > 0 
+    ? ((badFeedbacks / totalFeedbacks) * 100).toFixed(2) + '%' 
+    : 'N/A',
+  questionAverages: data.questionAverages || {}
+};
+
   };
 
   const formattedAnalysisData = convertAnalysisData(analysisData);

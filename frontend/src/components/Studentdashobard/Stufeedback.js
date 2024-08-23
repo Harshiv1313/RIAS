@@ -112,7 +112,10 @@ const FeedbackForm = () => {
             item.branch === profileData.branch &&
             item.section === profileData.section &&
             item.semester === profileData.semester &&
-            item.batch === profileData.batch // Added batch filter
+            (!profileData.batch ||
+              item.batch === "" ||
+              item.batch === "Not Required" ||
+              item.batch === profileData.batch)
         );
       };
 
@@ -144,7 +147,7 @@ const FeedbackForm = () => {
       ).map((item, timetableIndex) => ({
         facultyName: item.facultyName,
         courseName: item.subjectName,
-        branch:item.branch,
+        branch: item.branch,
         section: item.section,
         semester: item.semester,
         batch: item.batch,
@@ -207,15 +210,15 @@ const FeedbackForm = () => {
   };
 
   return (
-    <div style={{ height: '690px' }}  className="feedback-card" >
+    <div style={{ height: "690px" }} className="feedback-card">
       {success && <p className="success-message">{success}</p>}
       <div className="feedback-content">
-
-      <h2 style={{ marginBottom: '20px', textAlign: 'center' }}>RIAS Feedback Form</h2>
+        <h2 style={{ marginBottom: "20px", textAlign: "center" }}>
+          RIAS Feedback Form
+        </h2>
         {error && <p className="error-message">{error}</p>}
         {profileData && (
           <div className="profile-info">
-            
             <p>
               <strong>Student Name:</strong> {profileData.username}
             </p>
@@ -229,7 +232,8 @@ const FeedbackForm = () => {
               <strong>Semester:</strong> {profileData.semester}
             </p>
             <p>
-              <strong>registrationNumber:</strong> {profileData.registrationNumber}
+              <strong>registrationNumber:</strong>{" "}
+              {profileData.registrationNumber}
             </p>
           </div>
         )}
@@ -258,7 +262,9 @@ const FeedbackForm = () => {
                 ))}
               </tbody>
             </table>
-            <h2 style={{ textAlign: 'center', marginTop:'60px' }} >Theory Feedback Form</h2>
+            <h2 style={{ textAlign: "center", marginTop: "60px" }}>
+              Theory Feedback Form
+            </h2>
             <form onSubmit={(e) => handleSubmit(e, "theory")}>
               <table className="feedback-table">
                 <thead>
@@ -276,7 +282,7 @@ const FeedbackForm = () => {
                   {theoryQuestions.map((question, questionIndex) => (
                     <tr key={questionIndex}>
                       <td style={styles.td}>{questionIndex + 1}</td>
-                      <td style={{ textAlign: 'left' }}>{question}</td>
+                      <td style={{ textAlign: "left" }}>{question}</td>
                       {filteredTheoryTimetable.map((item, timetableIndex) => (
                         <td
                           key={`${timetableIndex}_${questionIndex}`}
@@ -286,7 +292,11 @@ const FeedbackForm = () => {
                             value={
                               responses[
                                 `theory_${timetableIndex}_${questionIndex}`
-                              ] || ""
+                              ] !== undefined
+                                ? responses[
+                                    `theory_${timetableIndex}_${questionIndex}`
+                                  ]
+                                : ""
                             }
                             onChange={(event) =>
                               handleChange(
@@ -299,7 +309,7 @@ const FeedbackForm = () => {
                             style={styles.select}
                           >
                             <option value="">Select</option>
-                            {[1, 2, 3, 4, 5].map((num) => (
+                            {[0, 1, 2, 3, 4].map((num) => (
                               <option key={num} value={num}>
                                 {num}
                               </option>
@@ -311,14 +321,16 @@ const FeedbackForm = () => {
                   ))}
                 </tbody>
               </table>
-              <button type="submit" >Submit Theory Feedback</button>
+              <button type="submit">Submit Theory Feedback</button>
             </form>
             {success && <p className="success-message">{success}</p>}
           </>
         )}
         {filteredPracticalTimetable.length > 0 && (
           <>
-            <h2 style={{ textAlign: 'left', marginTop:'50px' }} >Practical Timetable</h2>
+            <h2 style={{ textAlign: "left", marginTop: "50px" }}>
+              Practical Timetable
+            </h2>
             <table className="timetable-table">
               <thead>
                 <tr>
@@ -341,7 +353,9 @@ const FeedbackForm = () => {
                 ))}
               </tbody>
             </table>
-            <h2 style={{ textAlign: 'center', marginTop:'50px' }} >Practical Feedback Form</h2>
+            <h2 style={{ textAlign: "center", marginTop: "50px" }}>
+              Practical Feedback Form
+            </h2>
             <form onSubmit={(e) => handleSubmit(e, "practical")}>
               <table className="feedback-table">
                 <thead>
@@ -359,7 +373,7 @@ const FeedbackForm = () => {
                   {practicalQuestions.map((question, questionIndex) => (
                     <tr key={questionIndex}>
                       <td style={styles.td}>{questionIndex + 1}</td>
-                      <td style={{ textAlign: 'left' }}>{question}</td>
+                      <td style={{ textAlign: "left" }}>{question}</td>
 
                       {filteredPracticalTimetable.map(
                         (item, timetableIndex) => (
@@ -371,7 +385,11 @@ const FeedbackForm = () => {
                               value={
                                 responses[
                                   `practical_${timetableIndex}_${questionIndex}`
-                                ] || ""
+                                ] !== undefined
+                                  ? responses[
+                                      `practical_${timetableIndex}_${questionIndex}`
+                                    ]
+                                  : ""
                               }
                               onChange={(event) =>
                                 handleChange(
@@ -384,7 +402,7 @@ const FeedbackForm = () => {
                               style={styles.select}
                             >
                               <option value="">Select</option>
-                              {[1, 2, 3, 4, 5].map((num) => (
+                              {[0, 1, 2, 3, 4].map((num) => (
                                 <option key={num} value={num}>
                                   {num}
                                 </option>
@@ -402,7 +420,6 @@ const FeedbackForm = () => {
             </form>
           </>
         )}
-        
       </div>
     </div>
   );

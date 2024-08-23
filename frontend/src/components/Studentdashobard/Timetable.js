@@ -68,11 +68,12 @@ const StudentTimetable = () => {
         entry.branch === profileData.branch &&
         entry.section === profileData.section &&
         entry.semester === profileData.semester &&
-        entry.batch === profileData.batch // Added batch filter
+        (entry.batch === "Not Required" || entry.batch === profileData.batch || entry.batch==="")
       );
       setFilteredTimetable(filtered);
     }
   }, [profileData, timetableData]);
+  
 
   // Fetch both profile and timetable data on component mount
   useEffect(() => {

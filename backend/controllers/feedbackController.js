@@ -347,11 +347,11 @@ exports.getFeedbackAnalysis = async (req, res) => {
     });
 
     // Calculate average score
-    const averageScore = count > 0 ? ((totalScores / count) / 5 * 100).toFixed(2) : 0;
+    const averageScore = count > 0 ? ((totalScores / count) / 4 * 100).toFixed(2) : 0;
 
     // Calculate question averages
     const questionAverages = Object.keys(questionScores).reduce((acc, key) => {
-      acc[key] = ((questionScores[key] / questionCounts[key]) / 5 * 100).toFixed(2) + '%';
+      acc[key] = ((questionScores[key] / questionCounts[key]) / 4 * 100).toFixed(2) + '%';
       return acc;
     }, {});
 
