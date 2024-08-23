@@ -1,10 +1,11 @@
-// backend/routes/adminAnalysis.js
-
 const express = require('express');
 const router = express.Router();
-const { getFeedbackAnalysis } = require('../controllers/adminAnalysis'); // Adjust path as necessary
+const antiRaggingController = require('../controllers/Antiragging');
 
-// Route to get feedback analysis
-router.get('/feedback-analysis', getFeedbackAnalysis);
+// Route to submit a new complaint
+router.post('/submit', antiRaggingController.submitComplaint);
+
+// (Optional) Route to get all complaints, accessible to admin
+router.get('/complaints', antiRaggingController.getAllComplaints);
 
 module.exports = router;
