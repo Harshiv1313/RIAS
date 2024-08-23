@@ -103,8 +103,8 @@ const Samesubjectanalysis = () => {
                   <tr key={index}>
                     <td>{data.facultyName}</td>
                     <td>{data.branch}</td>
-                    <td>{data.averageRating !== '0.00' ? data.averageRating : "No Ratings"}</td>
-                    <td>{data.averagePercentage !== '0.00' ? `${data.averagePercentage}%` : "No Ratings"}</td>
+                    <td>{data.averageRating !== '0.00' ? data.averageRating : "0"}</td>
+                    <td>{data.averagePercentage !== '0.00' ? `${data.averagePercentage}%` : "0"}</td>
                   </tr>
                 ))}
               </tbody>
