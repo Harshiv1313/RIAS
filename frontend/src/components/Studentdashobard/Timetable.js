@@ -67,7 +67,8 @@ const StudentTimetable = () => {
       const filtered = timetableData.filter(entry =>
         entry.branch === profileData.branch &&
         entry.section === profileData.section &&
-        entry.semester === profileData.semester
+        entry.semester === profileData.semester &&
+        entry.batch === profileData.batch // Added batch filter
       );
       setFilteredTimetable(filtered);
     }
