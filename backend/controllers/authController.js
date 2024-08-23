@@ -2,12 +2,11 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-
 exports.register = async (req, res) => {
   const {
     username, email, password, role,
-    mobileNumber, registrationNumber, semester, branch, section, rollNumber
-  } = req.body;
+    mobileNumber, registrationNumber, semester, branch, section, rollNumber, batch
+  } = req.body; // Added batch to destructuring
 
   try {
     let user = await User.findOne({ email });
@@ -17,8 +16,8 @@ exports.register = async (req, res) => {
 
     user = new User({
       username, email, password, role,
-      mobileNumber, registrationNumber, semester, branch, section, rollNumber
-    });
+      mobileNumber, registrationNumber, semester, branch, section, rollNumber, batch
+    }); // Added batch field
 
     await user.save();
     res.status(201).json({ msg: 'User registered successfully' });
@@ -27,6 +26,7 @@ exports.register = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+
 // Login User
 exports.login = async (req, res) => {
   const { email, password } = req.body;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./css/FacultyFeedback.module.css"; // Adjust the path as needed
 
@@ -7,11 +7,28 @@ const Samesubjectanalysis = () => {
   const [analysisData, setAnalysisData] = useState([]);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
+  const [subjects, setSubjects] = useState([]);
+
+  // Fetch subject names from the API
+  useEffect(() => {
+    const fetchSubjects = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/api/feedback/feedbacks/subject-names");
+        setSubjects(response.data);
+      } catch (error) {
+        console.error("Error fetching subjects:", error);
+        setMessage("Failed to load subjects.");
+        setMessageType("error");
+      }
+    };
+
+    fetchSubjects();
+  }, []);
 
   const fetchAnalysis = async () => {
     try {
       if (!subjectName) {
-        setMessage("Please enter a subject name.");
+        setMessage("Please select a subject.");
         setMessageType("error");
         return;
       }
@@ -25,7 +42,7 @@ const Samesubjectanalysis = () => {
         setMessage("");
       } else {
         setAnalysisData([]);
-        setMessage("No analysis data available for the entered subject.");
+        setMessage("No analysis data available for the selected subject.");
         setMessageType("info");
       }
     } catch (error) {
@@ -47,20 +64,25 @@ const Samesubjectanalysis = () => {
     <div style={{ marginTop: '70px', marginLeft: '70px' }} className={styles.container}>
       <div className={styles.feedbackCard}>
         <h2>Same Subject Feedback Analysis</h2>
-        <p>Enter a subject name to analyze feedback.</p>
+        <p>Select a subject to analyze feedback.</p>
         {message && (
           <div className={`${styles.message} ${styles[messageType]}`}>
             {message}
           </div>
         )}
         <div className={styles.inputContainer}>
-          <input
-            type="text"
+          <select
             value={subjectName}
             onChange={handleSubjectChange}
-            placeholder="Enter Subject Name"
-            className={styles.subjectInput}
-          />
+            className={styles.subjectDropdown}
+          >
+            <option value="">Select Subject</option>
+            {subjects.map((subject, index) => (
+              <option key={index} value={subject}>
+                {subject}
+              </option>
+            ))}
+          </select>
           <button onClick={handleSearch} className={styles.searchButton}>
             Search
           </button>
@@ -89,7 +111,7 @@ const Samesubjectanalysis = () => {
             </table>
           </div>
         ) : (
-          messageType !== "error" && <p>No analysis data available for the entered subject.</p>
+          messageType !== "error" && <p>No analysis data available for the selected subject.</p>
         )}
       </div>
     </div>

@@ -110,12 +110,12 @@ exports.getFeedbackAnalysisBySubject = async (req, res) => {
       return res.status(400).json({ message: "Subject Name is required" });
     }
 
-    console.log("Subject Name Query:", subjectName);
+
 
     // Fetch feedbacks based on the subject name
     const feedbacks = await Feedback.find({ subjectName });
 
-    console.log("Fetched Feedbacks:", feedbacks);
+
 
     // Check if feedbacks are found
     if (feedbacks.length === 0) {
@@ -130,7 +130,7 @@ exports.getFeedbackAnalysisBySubject = async (req, res) => {
       const { facultyName, branch, responses } = feedback;
       if (!responses) return;
 
-      console.log("Processing Feedback:", feedback);
+
 
       // Convert responses from Map to an object
       const responsesObj = Object.fromEntries(responses);
@@ -141,8 +141,7 @@ exports.getFeedbackAnalysisBySubject = async (req, res) => {
       const totalScore = validScores.reduce((acc, score) => acc + score, 0);
       const count = validScores.length;
 
-      console.log("Scores:", scores);
-      console.log("Valid Scores:", validScores);
+ 
 
       if (count === 0) return;
 
@@ -169,7 +168,7 @@ exports.getFeedbackAnalysisBySubject = async (req, res) => {
       facultyAnalysis[facultyName].count += 1;
     });
 
-    console.log("Faculty Analysis:", facultyAnalysis);
+
 
     // Calculate average score and percentage per faculty per branch
     const result = Object.keys(facultyAnalysis).map(facultyName => {
@@ -191,7 +190,6 @@ exports.getFeedbackAnalysisBySubject = async (req, res) => {
 
     // Respond with analysis data
     res.json(result);
-    console.log("Feedback analysis result:", result);
   } catch (error) {
     console.error("Error analyzing feedback:", error);
     res.status(500).json({ message: "Error analyzing feedback", error });

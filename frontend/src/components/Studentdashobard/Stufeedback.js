@@ -111,7 +111,8 @@ const FeedbackForm = () => {
           (item) =>
             item.branch === profileData.branch &&
             item.section === profileData.section &&
-            item.semester === profileData.semester
+            item.semester === profileData.semester &&
+            item.batch === profileData.batch // Added batch filter
         );
       };
 

@@ -16,16 +16,21 @@ const Register = () => {
     section: '',
     rollNumber: '',
     password: '',
-    role: ''
+    role: '',
+    batch: '' // Added state for batch dropdown
   });
   const navigate = useNavigate();
 
   const {
     username, email, mobileNumber, registrationNumber,
-    semester, branch, section, rollNumber, password, role
+    semester, branch, section, rollNumber, password, role, batch
   } = formData;
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const handleBatchChange = (e) => {
+    setFormData({ ...formData, batch: e.target.value });
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -80,13 +85,42 @@ const Register = () => {
                 <input type="text" name="registrationNumber" value={registrationNumber} onChange={onChange} placeholder="Registration Number" className="register-input" />
 
                 <label htmlFor="semester" className="register-label">Semester</label>
-                <input type="text" name="semester" value={semester} onChange={onChange} placeholder="Semester" className="register-input" />
+                <select name="semester" value={semester} onChange={onChange} className="register-input">
+                  <option value="">Select Semester</option>
+                  {[...Array(8)].map((_, i) => (
+                    <option key={i + 1} value={i + 1}>{i + 1}</option>
+                  ))}
+                </select>
 
                 <label htmlFor="branch" className="register-label">Branch</label>
-                <input type="text" name="branch" value={branch} onChange={onChange} placeholder="Branch" className="register-input" />
+                <select name="branch" value={branch} onChange={onChange} className="register-input">
+                  <option value="">Select Branch</option>
+                  <option value="CSE">CSE</option>
+                  <option value="IOT">IOT</option>
+                  <option value="AIML">AIML</option>
+                  <option value="AI">AI</option>
+                  <option value="DATA SCIENCE">DATA SCIENCE</option>
+                  <option value="MECHANICAL">MECHANICAL</option>
+                  <option value="CIVIL">CIVIL</option>
+                  <option value="ELECTRICAL">ELECTRICAL</option>
+                  <option value="ETRX">ETRX</option>
+                </select>
 
                 <label htmlFor="section" className="register-label">Section</label>
-                <input type="text" name="section" value={section} onChange={onChange} placeholder="Section" className="register-input" />
+                <select name="section" value={section} onChange={onChange} className="register-input">
+                  <option value="">Select Section</option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                </select>
+
+                <label htmlFor="batch" className="register-label">Batch</label>
+                <select name="batch" value={batch} onChange={handleBatchChange} className="register-input">
+                  <option value="">Select Batch</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select>
 
                 <label htmlFor="rollNumber" className="register-label">Roll Number</label>
                 <input type="text" name="rollNumber" value={rollNumber} onChange={onChange} placeholder="Roll Number" className="register-input" />
@@ -96,6 +130,7 @@ const Register = () => {
 
                 <label htmlFor="role" className="register-label">Role</label>
                 <input type="text" name="role" value={role} readOnly className="register-input" />
+
                 <div className='regbutton'>
                   <button type="submit" className="register-button">Register</button>
                 </div>
