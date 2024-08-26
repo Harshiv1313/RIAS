@@ -43,7 +43,7 @@ const Sidebar = () => {
             <Link to="/">
               <img className="icon" src={DashboardIcon} alt="dashboard" />
               <span className={`${isOpen ? "" : "hideElement"}`}>
-                Daaa
+                Dashboard
               </span>
             </Link>
           </li>
