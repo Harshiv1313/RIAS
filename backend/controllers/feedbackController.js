@@ -218,6 +218,12 @@ exports.getSectionsFromFeedbacks = async (req, res) => {
   }
 };
 
+
+
+
+
+
+
 exports.getSubjectNamesFromFeedbacks = async (req, res) => {
   try {
     const subjectNames = await Feedback.distinct("subjectName");

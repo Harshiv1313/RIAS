@@ -11,6 +11,7 @@ import RewardsIcon from "../../assets/reward.svg";
 import SettingsIcon from "../../assets/Subject Analysis.svg";
 import LogoutIcon from "../../assets/log-out.svg";
 import SameFacultyDifferentSubjectsAnalysis from "../../assets/SameFacultyDifferentSubjectsAnalysis.svg";
+import BranchAnalysis from "../../assets/BranchAnalysis.svg";
 import "./css/Sidebar.css";
 
 const Sidebar = () => {
@@ -88,6 +89,13 @@ const Sidebar = () => {
           <li className="settings-link">
             <Link to="/admin-dashboard/samefaculty">
               <img className="icon" src={SameFacultyDifferentSubjectsAnalysis} alt="settings" />
+              <span className={`${isOpen ? "" : "hideElement"}`}>faculty Analysis</span>
+            </Link>
+          </li>
+          
+          <li className="settings-link">
+            <Link to="/admin-dashboard/Department-Analysis">
+              <img className="icon" src={BranchAnalysis} alt="settings" />
               <span className={`${isOpen ? "" : "hideElement"}`}>faculty Analysis</span>
             </Link>
           </li>

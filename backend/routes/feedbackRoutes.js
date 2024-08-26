@@ -17,6 +17,9 @@ router.get('/feedbacks/all', feedbackController.getAllFeedback);
 router.get('/feedbacks/all', feedbackController.getAllFeedback);
 
 
+
+
+
 // Route to get all feedback entries
 router.get('/feedbacks', feedbackController.getAllFeedback);
 

@@ -32,6 +32,7 @@ import Adminchart from "./components/AdminDashboard/chart";
 import Adminusers from "./components/AdminDashboard/users"; // Updated import path
 import Samesubject from "./components/AdminDashboard/Samesubjectanalysis"; // Updated import path
 import Samefaculty from "./components/AdminDashboard/SameFacultyDifferentSubjectsAnalysis"; // Updated import path
+import Deptanalysis from "./components/AdminDashboard/BranchAnalysis"; // Updated import path
 
 
 
@@ -95,6 +96,7 @@ function App() {
                     <Route path="adminuser" element={<Adminusers />} />
                     <Route path="samesubject" element={<Samesubject />} />
                     <Route path="samefaculty" element={<Samefaculty />} />
+                    <Route path="Department-Analysis" element={<Deptanalysis />} />
                   </Routes>
                 </AdminDashboard>
               </ProtectedRoute>

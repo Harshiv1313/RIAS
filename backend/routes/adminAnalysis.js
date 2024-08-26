@@ -9,6 +9,11 @@ router.get('/feedback-analysis', adminAnalysisController.getFeedbackAnalysis);
 router.get('/by-same-subject', adminAnalysisController.getFeedbackAnalysisBySubject);
 
 
+// adminAnalysis.js
+// adminAnalysis.js
+
+router.get('/feedback-analysis-by-branch', adminAnalysisController.getFeedbackAnalysisByBranch);
+
 
 
 // Route for same faculty different subjects analysis

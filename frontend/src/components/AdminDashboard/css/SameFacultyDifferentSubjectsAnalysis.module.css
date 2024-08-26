@@ -12,6 +12,15 @@
     margin: 0 auto;
     border: 1px solid #e0e0e0;
   }
+
+
+  .SameFacultyDifferentSubjectsAnalysi_finalAverage {
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
   
   .SameFacultyDifferentSubjectsAnalysi_card h2 {
     margin-bottom: 15px;
@@ -115,3 +124,27 @@
     background-color: #f1f1f1;
   }
   
+
+
+
+
+
+
+
+
+  /* SameFacultyDifferentSubjectsAnalysis.module.css */
+
+/* SameFacultyDifferentSubjectsAnalysis.module.css */
+
+.SameFacultyDifferentSubjectsAnalysi_averages {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.SameFacultyDifferentSubjectsAnalysi_averageItem {
+  flex: 1;
+  text-align: center;
+  margin: 0 10px;
+  font-weight: bold; /* Makes text bold */
+}
