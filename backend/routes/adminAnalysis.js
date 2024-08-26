@@ -7,4 +7,10 @@ router.get('/feedback-analysis', adminAnalysisController.getFeedbackAnalysis);
 
 
 router.get('/by-same-subject', adminAnalysisController.getFeedbackAnalysisBySubject);
+
+
+
+
+// Route for same faculty different subjects analysis
+router.get('/by-faculty', adminAnalysisController.getFeedbackAnalysisByFaculty);
 module.exports = router;

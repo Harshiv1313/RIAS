@@ -110,6 +110,7 @@ const AntiRaggingForm = () => {
         <h1 className="anti-heading">Anti-Ragging Complaint Form</h1>
         <p className="anti-disclaimer">
           * All complaints are anonymous and will be handled with strict confidentiality.
+          <br></br>*Misuse of this feature will be a punishable offense
         </p>
         <form onSubmit={handleSubmit}>
           <div className="anti-form-group">

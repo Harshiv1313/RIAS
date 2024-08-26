@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import styles from "./css/FacultyFeedback.module.css"; // Adjust the path as needed
+import styles from "./css/Samesubjectanalysis.module.css"; // Adjust the path as needed
 
 const Samesubjectanalysis = () => {
   const [subjectName, setSubjectName] = useState("");
@@ -9,7 +9,6 @@ const Samesubjectanalysis = () => {
   const [messageType, setMessageType] = useState("");
   const [subjects, setSubjects] = useState([]);
 
-  // Fetch subject names from the API
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
@@ -61,20 +60,20 @@ const Samesubjectanalysis = () => {
   };
 
   return (
-    <div style={{ marginTop: '70px', marginLeft: '70px' }} className={styles.container}>
-      <div className={styles.feedbackCard}>
-        <h2>Same Subject Feedback Analysis</h2>
-        <p>Select a subject to analyze feedback.</p>
+    <div className={styles.samesubjectanalysisContainer}>
+      <div className={styles.samesubjectanalysisCard}>
+        <h2 className={styles.samesubjectanalysisTitle}>Same Subject Feedback Analysis</h2>
+        <p className={styles.samesubjectanalysisDescription}>Select a subject to analyze feedback.</p>
         {message && (
-          <div className={`${styles.message} ${styles[messageType]}`}>
+          <div className={`${styles.samesubjectanalysisMessage} ${styles[messageType]}`}>
             {message}
           </div>
         )}
-        <div className={styles.inputContainer}>
+        <div className={styles.samesubjectanalysisInputContainer}>
           <select
             value={subjectName}
             onChange={handleSubjectChange}
-            className={styles.subjectDropdown}
+            className={styles.samesubjectanalysisDropdown}
           >
             <option value="">Select Subject</option>
             {subjects.map((subject, index) => (
@@ -83,13 +82,13 @@ const Samesubjectanalysis = () => {
               </option>
             ))}
           </select>
-          <button onClick={handleSearch} className={styles.searchButton}>
+          <button onClick={handleSearch} className={styles.samesubjectanalysisButton}>
             Search
           </button>
         </div>
         {analysisData.length > 0 ? (
-          <div className={styles.analysisTableWrapper}>
-            <table className={styles.analysisTable}>
+          <div className={styles.samesubjectanalysisTableWrapper}>
+            <table className={styles.samesubjectanalysisTable}>
               <thead>
                 <tr>
                   <th>Faculty Name</th>

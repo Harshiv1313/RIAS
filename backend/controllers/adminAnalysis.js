@@ -200,3 +200,102 @@ exports.getFeedbackAnalysisBySubject = async (req, res) => {
     res.status(500).json({ message: "Error analyzing feedback", error });
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+exports.getFeedbackAnalysisByFaculty = async (req, res) => {
+  try {
+    const { facultyName } = req.query;
+
+    // Check for required parameter
+    if (!facultyName) {
+      return res.status(400).json({ message: "Faculty Name is required" });
+    }
+
+    // Fetch feedbacks based on the faculty name
+    const feedbacks = await Feedback.find({ facultyName });
+
+    // Check if feedbacks are found
+    if (feedbacks.length === 0) {
+      return res.status(404).json({ message: "No feedback found for the given faculty" });
+    }
+
+    // Initialize variables for analysis
+    const subjectAnalysis = {};
+
+    // Process each feedback
+    feedbacks.forEach(feedback => {
+      const { subjectName, responses } = feedback;
+      if (!responses) return;
+
+      // Convert responses from Map to an object
+      const responsesObj = Object.fromEntries(responses);
+
+      // Get all scores
+      const scores = Object.values(responsesObj).map(score => parseFloat(score));
+      const validScores = scores.filter(score => !isNaN(score));
+      const totalScore = validScores.reduce((acc, score) => acc + score, 0);
+      const count = validScores.length;
+
+      if (count === 0) return;
+
+      const averageScore = totalScore / count;
+
+      if (!subjectAnalysis[subjectName]) {
+        subjectAnalysis[subjectName] = {
+          totalScore: 0,
+          count: 0
+        };
+      }
+
+      subjectAnalysis[subjectName].totalScore += averageScore;
+      subjectAnalysis[subjectName].count += 1;
+    });
+
+    // Calculate average score and percentage per subject
+    const result = Object.keys(subjectAnalysis).map(subjectName => {
+      const subjectData = subjectAnalysis[subjectName];
+      const averageScore = subjectData.count > 0 ? (subjectData.totalScore / subjectData.count).toFixed(2) : '0.00';
+      const averagePercentage = ((subjectData.totalScore / (subjectData.count * maxScore)) * 100).toFixed(2);
+      return {
+        facultyName,
+        subjectName,
+        averageRating: averageScore,
+        averagePercentage: averagePercentage
+      };
+    });
+
+    // Respond with analysis data
+    res.json(result);
+  } catch (error) {
+    console.error("Error analyzing feedback:", error);
+    res.status(500).json({ message: "Error analyzing feedback", error });
+  }
+};
+

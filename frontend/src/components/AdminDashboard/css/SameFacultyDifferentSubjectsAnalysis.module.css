@@ -1,0 +1,117 @@
+.SameFacultyDifferentSubjectsAnalysi_container {
+    margin-top: 7%;
+    margin-left: 7%;
+  }
+  
+  .SameFacultyDifferentSubjectsAnalysi_card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    max-width: 900px;
+    margin: 0 auto;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .SameFacultyDifferentSubjectsAnalysi_card h2 {
+    margin-bottom: 15px;
+    font-size: 26px;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+  }
+  
+  .SameFacultyDifferentSubjectsAnalysi_card p {
+    margin-bottom: 25px;
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .SameFacultyDifferentSubjectsAnalysi_message {
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .SameFacultyDifferentSubjectsAnalysi_message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  .SameFacultyDifferentSubjectsAnalysi_message.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+  }
+  
+  .SameFacultyDifferentSubjectsAnalysi_inputcontainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+  
+  .SameFacultyDifferentSubjectsAnalysi_subjectDropdown {
+    flex-grow: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #333;
+    transition: border-color 0.3s;
+  }
+  
+  .SameFacultyDifferentSubjectsAnalysi_subjectDropdown:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .SameFacultyDifferentSubjectsAnalysi_searchButton {
+    padding: 12px 25px;
+    margin-left: 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .SameFacultyDifferentSubjectsAnalysi_searchButton:hover {
+    background-color: #0056b3;
+  }
+  
+  .SameFacultyDifferentSubjectsAnalysi_analysisTableWrapper {
+    margin-top: 25px;
+    overflow-x: auto;
+  }
+  
+  .SameFacultyDifferentSubjectsAnalysi_analysisTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .SameFacultyDifferentSubjectsAnalysi_analysisTable th, 
+  .SameFacultyDifferentSubjectsAnalysi_analysisTable td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 15px;
+    color: #333;
+  }
+  
+  .SameFacultyDifferentSubjectsAnalysi_analysisTable th {
+    background-color: #f7f7f7;
+    font-weight: bold;
+  }
+  
+  .SameFacultyDifferentSubjectsAnalysi_analysisTable tbody tr:nth-child(even) {
+    background-color: #fbfbfb;
+  }
+  
+  .SameFacultyDifferentSubjectsAnalysi_analysisTable tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  

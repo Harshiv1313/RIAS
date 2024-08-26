@@ -10,6 +10,7 @@ import AntiRaggingIcon from "../../assets/ragging.svg";
 import RewardsIcon from "../../assets/reward.svg";
 import SettingsIcon from "../../assets/Subject Analysis.svg";
 import LogoutIcon from "../../assets/log-out.svg";
+import SameFacultyDifferentSubjectsAnalysis from "../../assets/SameFacultyDifferentSubjectsAnalysis.svg";
 import "./css/Sidebar.css";
 
 const Sidebar = () => {
@@ -82,6 +83,12 @@ const Sidebar = () => {
             <Link to="/admin-dashboard/samesubject">
               <img className="icon" src={SettingsIcon} alt="settings" />
               <span className={`${isOpen ? "" : "hideElement"}`}>Subject Analysis</span>
+            </Link>
+          </li>
+          <li className="settings-link">
+            <Link to="/admin-dashboard/samefaculty">
+              <img className="icon" src={SameFacultyDifferentSubjectsAnalysis} alt="settings" />
+              <span className={`${isOpen ? "" : "hideElement"}`}>faculty Analysis</span>
             </Link>
           </li>
         </ul>
