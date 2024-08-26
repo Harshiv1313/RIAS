@@ -8,7 +8,7 @@ import ReportsIcon from "../../assets/report.svg";
 import SurveysIcon from "../../assets/survey.svg";
 import AntiRaggingIcon from "../../assets/ragging.svg";
 import RewardsIcon from "../../assets/reward.svg";
-import SettingsIcon from "../../assets/settings.svg";
+import SettingsIcon from "../../assets/Subject Analysis.svg";
 import LogoutIcon from "../../assets/log-out.svg";
 import "./css/Sidebar.css";
 
@@ -93,7 +93,7 @@ const Sidebar = () => {
           <li className="settings-link">
             <Link to="/admin-dashboard/samesubject">
               <img className="icon" src={SettingsIcon} alt="settings" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>Settings</span>
+              <span className={`${isOpen ? "" : "hideElement"}`}>Subject Analysis</span>
             </Link>
           </li>
         </ul>
