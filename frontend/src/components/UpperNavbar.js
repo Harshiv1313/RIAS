@@ -23,12 +23,6 @@ const UpperNavbar = ({ isClosed }) => {
           </span>
         </div>
       </div>
-      <div className="search-bar">
-        <div className="search-container">
-          <img src={SearchIcon} alt="Search Icon" className="search-icon" />
-          <input type="search" placeholder="Search" className="search-input" />
-        </div>
-      </div>
       <div className="navbar-right">
         <a href="/student-dashboard/profile" className="profile-link">
           <img src={ProfileIcon} alt="Profile" className="nav-icon" />

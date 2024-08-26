@@ -70,12 +70,6 @@ const Sidebar = () => {
               <span className={`${isOpen ? "" : "hideElement"}`}>Reports</span>
             </Link>
           </li>
-          <li className="surveys-link">
-            <Link to="/student-dashboard/Surveystu">
-              <img className="icon" src={SurveysIcon} alt="surveys" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>Surveys</span>
-            </Link>
-          </li>
           <li className="anti-ragging-link">
             <Link to="/student-dashboard/Antiragging">
               <img className="icon" src={AntiRaggingIcon} alt="anti-ragging" />
