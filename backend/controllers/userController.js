@@ -81,13 +81,30 @@ exports.getUsers = async (req, res) => {
 
 exports.getnotadmin = async (req, res) => {
   try {
-    // Fetch users except those with the role 'admin'
-    const users = await User.find({ role: { $ne: 'admin' } }).select('-password');
-    res.status(200).json(users);
+    // Assuming req.user contains the logged-in user's details
+    const loggedInUser = req.user;
+
+    // Check if the logged-in user is a class teacher
+    if (loggedInUser.role === 'faculty' && loggedInUser.isApproved) {
+      // Fetch students with the same branch, section, and semester as the class teacher
+      const students = await User.find({
+        role: 'student',
+        branch: loggedInUser.branch,
+        section: loggedInUser.section,
+        semester: loggedInUser.semester,
+        isApproved: true // Optional: Only fetch approved students
+      }).select('-password');
+
+      res.status(200).json(students);
+    } else {
+      // Return error if the user is not a class teacher or is not approved
+      res.status(403).json({ error: 'Unauthorized access' });
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 
 

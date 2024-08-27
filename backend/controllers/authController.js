@@ -5,8 +5,8 @@ const jwt = require('jsonwebtoken');
 exports.register = async (req, res) => {
   const {
     username, email, password, role,
-    mobileNumber, registrationNumber, semester, branch, section, rollNumber, batch
-  } = req.body; // Added batch to destructuring
+    mobileNumber, registrationNumber, semester, branch, section, rollNumber, batch, session
+  } = req.body; // Added session to destructuring
 
   try {
     let user = await User.findOne({ email });
@@ -16,8 +16,8 @@ exports.register = async (req, res) => {
 
     user = new User({
       username, email, password, role,
-      mobileNumber, registrationNumber, semester, branch, section, rollNumber, batch
-    }); // Added batch field
+      mobileNumber, registrationNumber, semester, branch, section, rollNumber, batch, session // Added session field
+    });
 
     await user.save();
     res.status(201).json({ msg: 'User registered successfully' });
@@ -26,6 +26,7 @@ exports.register = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+
 
 // Login User
 exports.login = async (req, res) => {
@@ -43,7 +44,17 @@ exports.login = async (req, res) => {
       return res.status(403).json({ msg: 'User not approved' });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    // Handle both plaintext and hashed passwords
+    let isMatch = false;
+    const passwordIsHashed = user.password.startsWith('$2a$') || user.password.startsWith('$2b$');
+
+    if (passwordIsHashed) {
+      isMatch = await bcrypt.compare(password, user.password);
+    } else {
+      // If the password is stored in plaintext, directly compare it
+      isMatch = password === user.password;
+    }
+
     console.log('Password match:', isMatch);
     if (!isMatch) {
       console.log('Password incorrect');

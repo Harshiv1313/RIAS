@@ -272,7 +272,7 @@ const FacultyPostTimetable = () => {
                 fontSize: "16px",
               }}
             >
-              Post Timetable
+              Post Mapping
             </button>
           </div>
         </div>
@@ -283,7 +283,7 @@ const FacultyPostTimetable = () => {
 
       {/* Timetable Filter and Table Section */}
       <div className="timetable-container">
-        <h2 className="timetable-title">Filtered Timetables</h2>
+        <h2 className="timetable-title">Filtered Mapping</h2>
         {error && <div className="error-message">{error}</div>}
 
         <div className="filter-container">

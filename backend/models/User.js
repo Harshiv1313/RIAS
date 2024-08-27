@@ -9,10 +9,11 @@ const UserSchema = new mongoose.Schema({
   semester: { type: String },
   branch: { type: String },
   section: { type: String },
-  batch: { type: String }, // Added batch field
+  batch: { type: String },
   rollNumber: { type: String },
   password: { type: String, required: true },
   role: { type: String, required: true },
+  session: { type: String }, // Added session field
   isApproved: { type: Boolean, default: false }
 });
 

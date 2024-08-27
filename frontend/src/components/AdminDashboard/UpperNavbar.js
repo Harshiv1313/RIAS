@@ -28,6 +28,10 @@ const UpperNavbar = ({ isClosed }) => {
           <img src={ProfileIcon} alt="Profile" className="nav-icon" />
         </a>
 
+        <a href="/student-dashboard/profile" className="profile-link">
+          <img src={ProfileIcon} alt="Profile" className="nav-icon" />
+        </a>
+
         <img
           src={LogoutIcon}
           alt="Logout"

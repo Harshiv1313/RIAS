@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Bar, Line, Pie } from "react-chartjs-2";
+import ReactToPrint from "react-to-print";
 import Chart from "chart.js/auto";
 import styles from "./css/chart.css"; // Adjust the path as needed
 
@@ -408,10 +409,17 @@ const FeedbackStats = () => {
                     </ul>
                   )}
                 </div>
+                
               )}
+              
             </div>
+            
           )}
         </div>
+        <ReactToPrint
+                trigger={() => <button>Print</button>}
+                content={() => componentRef.current}
+              />
       </div>
     );
   };

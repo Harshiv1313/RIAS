@@ -33,7 +33,7 @@ import Adminusers from "./components/AdminDashboard/users"; // Updated import pa
 import Samesubject from "./components/AdminDashboard/Samesubjectanalysis"; // Updated import path
 import Samefaculty from "./components/AdminDashboard/SameFacultyDifferentSubjectsAnalysis"; // Updated import path
 import Deptanalysis from "./components/AdminDashboard/BranchAnalysis"; // Updated import path
-
+import Aaadmincsv from "./components/AdminDashboard/admincsv"; // Updated import path
 
 
 const AuthRoute = ({ children }) => {
@@ -97,6 +97,7 @@ function App() {
                     <Route path="samesubject" element={<Samesubject />} />
                     <Route path="samefaculty" element={<Samefaculty />} />
                     <Route path="Department-Analysis" element={<Deptanalysis />} />
+                    <Route path="admin-csv" element={<Aaadmincsv />} />
                   </Routes>
                 </AdminDashboard>
               </ProtectedRoute>

@@ -273,7 +273,7 @@ const FeedbackForm = () => {
                     <th style={styles.th}>Theory Factors</th>
                     {filteredTheoryTimetable.map((item, index) => (
                       <th key={item._id} style={styles.th}>
-                        {index + 1}
+                        {item.subjectName}
                       </th>
                     ))}
                   </tr>
@@ -364,7 +364,7 @@ const FeedbackForm = () => {
                     <th style={styles.th}>Practical Factors</th>
                     {filteredPracticalTimetable.map((item, index) => (
                       <th key={item._id} style={styles.th}>
-                        {index + 1}
+                        {item.subjectName}
                       </th>
                     ))}
                   </tr>

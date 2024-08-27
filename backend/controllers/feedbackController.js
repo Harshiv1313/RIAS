@@ -46,8 +46,32 @@ exports.submitTheoryFeedback = async (req, res) => {
 exports.submitPracticalFeedback = async (req, res) => {
   try {
     const { studentId, feedbackEntries } = req.body;
+
     if (!feedbackEntries || !Array.isArray(feedbackEntries)) {
       return res.status(400).json({ message: "Invalid feedback data" });
+    }
+
+    // Define the required fields for feedback entries
+    const requiredFields = ['questionId', 'response']; // Adjust based on your actual fields
+
+    // Check if all feedback entries have the required fields and are not empty
+    const areEntriesValid = feedbackEntries.every(entry => 
+      requiredFields.every(field => entry[field] !== undefined && entry[field] !== '')
+    );
+
+    if (!areEntriesValid) {
+      return res.status(400).json({ message: "All feedback questions must be answered" });
+    }
+
+    // Check if the student has already submitted feedback
+    const existingFeedback = await Feedback.findOne({
+      studentId: studentId,
+      type: 'practical',
+    });
+
+    if (existingFeedback) {
+      console.log("Feedback has already been submitted by this student.");
+      return res.status(400).json({ message: "Feedback cannot be submitted twice." });
     }
 
     // Save all practical feedback entries
@@ -63,11 +87,13 @@ exports.submitPracticalFeedback = async (req, res) => {
       .status(201)
       .json({ message: "Practical feedback submitted successfully!" });
   } catch (error) {
+    console.error("Error submitting practical feedback:", error);
     res
       .status(500)
       .json({ message: "Error submitting practical feedback", error });
   }
 };
+
 
 
 // Get feedback by student ID

@@ -17,19 +17,24 @@ const Register = () => {
     rollNumber: '',
     password: '',
     role: '',
-    batch: '' // Added state for batch dropdown
+    batch: '',
+    session: '' // Added state for session dropdown
   });
   const navigate = useNavigate();
 
   const {
     username, email, mobileNumber, registrationNumber,
-    semester, branch, section, rollNumber, password, role, batch
+    semester, branch, section, rollNumber, password, role, batch, session
   } = formData;
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleBatchChange = (e) => {
     setFormData({ ...formData, batch: e.target.value });
+  };
+
+  const handleSessionChange = (e) => {
+    setFormData({ ...formData, session: e.target.value });
   };
 
   const onSubmit = async (e) => {
@@ -90,6 +95,13 @@ const Register = () => {
                   {[...Array(8)].map((_, i) => (
                     <option key={i + 1} value={i + 1}>{i + 1}</option>
                   ))}
+                </select>
+
+                <label htmlFor="session" className="register-label">Session</label>
+                <select name="session" value={session} onChange={handleSessionChange} className="register-input">
+                  <option value="">Select Session</option>
+                  <option value="Winter">Winter</option>
+                  <option value="Summer">Summer</option>
                 </select>
 
                 <label htmlFor="branch" className="register-label">Branch</label>

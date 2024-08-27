@@ -1,11 +1,24 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const multer = require('multer');
 require("dotenv").config();
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+// Set up Multer for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+
+const upload = multer({ storage });
 
 // Import and use routes
 const authRoutes = require("./routes/authRoutes");
@@ -19,9 +32,7 @@ const facultytt = require("./routes/facultytimetable");
 const feedbackRoutes = require("./routes/feedbackRoutes");
 const antiRaggingRoutes = require('./routes/aa');
 const adminchart = require('./routes/adminAnalysis');
-
-
-
+const csv = require('./routes/adminRoutes');
 
 app.use("/api", authRoutes); // Authentication routes
 app.use("/api/class-schedules", classSchedulesRoutes); // Class schedules routes
@@ -34,6 +45,7 @@ app.use("/api", facultytt);
 app.use("/api/feedback", feedbackRoutes);
 app.use('/api/antiragging', antiRaggingRoutes);
 app.use('/api/admin', adminchart);
+app.use('/api/csv', csv);
 
 // Connect to MongoDB
 mongoose

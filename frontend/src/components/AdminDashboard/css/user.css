@@ -30,12 +30,12 @@
 
 /* Specific styles for Not Approved Users table container */
 .userdashboard-not-approved-table-container {
-    max-width: 900px; /* Set maximum width for the Not Approved Users table container */
+    max-width: 700px; /* Set maximum width for the Not Approved Users table container */
 }
 
 /* Specific styles for Approved Users table container */
 .userdashboard-approved-table-container {
-    max-width: 650px; /* Set maximum width for the Approved Users table container */
+    max-width: 850px; /* Set maximum width for the Approved Users table container */
 }
 
 /* General table styles */

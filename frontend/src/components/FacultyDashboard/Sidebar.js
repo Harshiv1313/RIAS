@@ -51,28 +51,13 @@ const Sidebar = () => {
             <Link to="/faculty-dashboard/faculty-timetable">
               <img className="icon" src={TimetablesIcon} alt="Timetables" />
               <span className={`${isOpen ? "" : "hideElement"}`}>
-                Timetables
+                Mapping Course
               </span>
             </Link>
           </li>
-          <li className="feedback-link">
-            <Link to="/faculty-dashboard/Feedback">
-              <img className="icon" src={FeedbackIcon} alt="Feedback" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>Feedback</span>
-            </Link>
-          </li>
-          <li className="reports-link">
-            <Link to="/faculty-dashboard/reports">
-              <img className="icon" src={ReportsIcon} alt="Reports" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>Reports</span>
-            </Link>
-          </li>
-          <li className="surveys-link">
-            <Link to="/faculty-dashboard/Survey">
-              <img className="icon" src={SurveysIcon} alt="Surveys" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>Surveys</span>
-            </Link>
-          </li>
+          
+          
+          
           <li className="anti-ragging-link">
             <Link to="/faculty-dashboard/users">
               <img className="icon" src={AntiRaggingIcon} alt="Anti-Ragging" />
@@ -81,18 +66,8 @@ const Sidebar = () => {
               </span>
             </Link>
           </li>
-          <li className="rewards-link">
-            <Link to="/faculty-dashboard/Surveyf">
-              <img className="icon" src={RewardsIcon} alt="Rewards" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>Rewards</span>
-            </Link>
-          </li>
-          <li className="settings-link">
-            <Link to="/faculty-dashboard/Surveyform">
-              <img className="icon" src={SettingsIcon} alt="Settings" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>Settings</span>
-            </Link>
-          </li>
+          
+
         </ul>
       </div>
       <div className="bottom-content">

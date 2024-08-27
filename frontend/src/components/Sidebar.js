@@ -64,12 +64,7 @@ const Sidebar = () => {
               <span className={`${isOpen ? "" : "hideElement"}`}>Feedback</span>
             </Link>
           </li>
-          <li className="reports-link">
-            <Link to="/student-dashboard/reports">
-              <img className="icon" src={ReportsIcon} alt="reports" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>Reports</span>
-            </Link>
-          </li>
+         
           <li className="anti-ragging-link">
             <Link to="/student-dashboard/Antiragging">
               <img className="icon" src={AntiRaggingIcon} alt="anti-ragging" />
@@ -78,18 +73,8 @@ const Sidebar = () => {
               </span>
             </Link>
           </li>
-          <li className="rewards-link">
-            <Link to="/student-dashboard/rewards">
-              <img className="icon" src={RewardsIcon} alt="rewards" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>Rewards</span>
-            </Link>
-          </li>
-          <li className="settings-link">
-            <Link to="/student-dashboard/settings">
-              <img className="icon" src={SettingsIcon} alt="settings" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>Settings</span>
-            </Link>
-          </li>
+      
+         
         </ul>
       </div>
       <div className="bottom-content">
