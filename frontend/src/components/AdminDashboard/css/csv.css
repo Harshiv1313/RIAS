@@ -1,59 +1,62 @@
+/* General container styles */
 .csv-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f4f4; /* Light background color for better contrast */
-    margin-left: 10%;
-  }
-  
-  .csv-content {
-    text-align: center;
-    background: #fff; /* White background for the content box */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-  }
-  
-  .csv-title {
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333; /* Dark text color for readability */
-  }
-  
-  .csv-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .csv-input {
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-    max-width: 400px; /* Restrict width for better appearance */
-  }
-  
-  .csv-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff; /* Primary color */
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .csv-button:hover {
-    background-color: #0056b3; /* Darker color on hover */
-  }
-  
-  .csv-message {
-    margin-top: 20px;
-    font-size: 16px;
-    color: #e74c3c; /* Red color for error messages */
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #252323; /* Corrected color code */
+  padding: 20px;
+  margin-left: 30%;
+}
+
+.csv-content {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.csv-title {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.csv-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.csv-input {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 15px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.csv-button {
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.csv-button:hover {
+  background-color: #0056b3;
+}
+
+.csv-message {
+  margin-top: 15px;
+  color: #0e99d4;
+  text-align: center;
+}

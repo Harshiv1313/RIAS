@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import ProfileIcon from "../../assets/profile-icon.svg";
 import LogoutIcon from "../../assets/log-out.svg";
-import SearchIcon from "../../assets/search.svg";
+import Csv from "../../assets/csv.svg";
 import "../AdminDashboard/css/UpperNavbar.css";
 
 const UpperNavbar = ({ isClosed }) => {
@@ -24,13 +24,17 @@ const UpperNavbar = ({ isClosed }) => {
         </div>
       </div>
       <div className="navbar-right">
+
+      <a href="/admin-dashboard/admin-csv" className="profile-link">
+          <img src={Csv} alt="Profile" className="nav-icon" />
+        </a>
+
+        
         <a href="/student-dashboard/profile" className="profile-link">
           <img src={ProfileIcon} alt="Profile" className="nav-icon" />
         </a>
 
-        <a href="/student-dashboard/profile" className="profile-link">
-          <img src={ProfileIcon} alt="Profile" className="nav-icon" />
-        </a>
+        
 
         <img
           src={LogoutIcon}
