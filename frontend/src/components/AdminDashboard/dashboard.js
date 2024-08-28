@@ -12,7 +12,7 @@ const Adashboard = () => {
       <div className="admin-dashboard-container">
         {/* Dashboard title */}
         <div className="admin-dashboard-header">
-          <h1>Admin Dashboard</h1>
+         
         </div>
         
         {/* Cards container */}

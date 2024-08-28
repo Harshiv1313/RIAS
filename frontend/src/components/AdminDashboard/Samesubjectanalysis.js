@@ -3,7 +3,7 @@ import axios from "axios";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import FeedbackPDFsame from "./pdfSamesubjectanalysis.js";
+import FeedbackPDFsame from "./pdf/pdfSamesubjectanalysis.js";
 import styles from "./css/Samesubjectanalysis.module.css"; // Adjust the path as needed
 
 const Samesubjectanalysis = () => {

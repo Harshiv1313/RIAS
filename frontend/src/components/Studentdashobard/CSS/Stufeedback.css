@@ -1,4 +1,4 @@
-.feedback-card {
+.student-dashboard-feedback-card {
   position: relative;
   width: 100%;
   /* Adjust width as needed */
@@ -18,21 +18,18 @@
   /* Add vertical scrollbar when content exceeds height */
 }
 
-
-
-.feedback-content {
+.student-dashboard-feedback-content {
   max-height: calc(100% - 100px);
   /* Adjust height based on card padding and other elements */
 }
 
-.feedback-form-container {
+.student-dashboard-feedback-form-container {
   margin-top: 20px;
   max-height: calc(100% - 200px);
   /* Adjust height based on card padding and other elements */
 }
 
-
-.submit-button {
+.student-dashboard-submit-button {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -44,39 +41,38 @@
   cursor: pointer;
 }
 
-.submit-button:hover {
+.student-dashboard-submit-button:hover {
   background-color: #0056b3;
 }
 
-.timetable-table {
+.student-dashboard-timetable-table {
   width: 100%;
   margin-top: 20px;
   border-collapse: collapse;
 }
 
-.timetable-table th,
-.timetable-table td {
+.student-dashboard-timetable-table th,
+.student-dashboard-timetable-table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
 
-.timetable-table th {
+.student-dashboard-timetable-table th {
   background-color: #f2f2f2;
 }
 
-
-.error-message {
+.student-dashboard-error-message {
   color: red;
   margin-top: 20px;
 }
 
-.success-message {
+.student-dashboard-success-message {
   color: green;
   margin-top: 20px;
 }
 
-.profile-info {
+.student-dashboard-profile-info {
   display: flex;
   justify-content: space-between;
   /* Space out the items */
@@ -88,7 +84,7 @@
   /* Add padding for spacing around the profile info */
 }
 
-.profile-info p {
+.student-dashboard-profile-info p {
   margin: 0;
   /* Remove default margin */
   flex: 1;
@@ -97,33 +93,31 @@
   /* Align text to the left */
 }
 
-
-
-.feedback-form-container {
+.student-dashboard-feedback-form-container {
   margin-top: 20px;
 }
 
-.feedback-form {
+.student-dashboard-feedback-form {
   width: 100%;
 }
 
-.feedback-table {
+.student-dashboard-feedback-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-.feedback-table th,
-.feedback-table td {
+.student-dashboard-feedback-table th,
+.student-dashboard-feedback-table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
 
-.feedback-table th {
+.student-dashboard-feedback-table th {
   background-color: #f2f2f2;
 }
 
-.feedback-table select {
+.student-dashboard-feedback-table select {
   width: 100%;
 }

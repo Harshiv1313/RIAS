@@ -5,7 +5,7 @@ import ReactToPrint from "react-to-print";
 import styles from "./css/FacultyFeedback.module.css"; // Adjust the path as needed
 
 // PDF Document Component
-import FeedbackPDF from "./FeedbackPDF"; // Ensure this path is correct
+import FeedbackPDF from "./pdf/FeedbackPDF"; // Ensure this path is correct
 
 const FeedbackStats = () => {
   const [semesters, setSemesters] = useState([]);

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import FeedbackPDFsame from "./FeedbackPDFsame";
+import FeedbackPDFsame from "./pdf/FeedbackPDFsame";
 import styles from "./css/SameFacultyDifferentSubjectsAnalysis.module.css"; // Adjust the path as needed
 
 const SameFacultyDifferentSubjectsAnalysis = () => {

@@ -217,15 +217,15 @@ const FeedbackForm = () => {
     select: { width: "100px" },
   };
   return (
-    <div style={{ height: "690px" }} className="feedback-card">
-      {success && <p className="success-message">{success}</p>}
-      <div className="feedback-content">
-        <h2 style={{ marginBottom: "20px", textAlign: "center" }}>
+    <div style={{ height: "690px" }} className="student-dashboard-feedback-card">
+      {success && <p className="student-dashboard-success-message">{success}</p>}
+      <div className="student-dashboard-feedback-content">
+        <h2 className="student-dashboard-feedback-title">
           RIAS Feedback Form
         </h2>
-        {error && <p className="error-message">{error}</p>}
+        {error && <p className="student-dashboard-error-message">{error}</p>}
         {profileData && (
-          <div className="profile-info">
+          <div className="student-dashboard-profile-info">
             <p>
               <strong>Student Name:</strong> {profileData.username}
             </p>
@@ -239,47 +239,47 @@ const FeedbackForm = () => {
               <strong>Semester:</strong> {profileData.semester}
             </p>
             <p>
-              <strong>registrationNumber:</strong>{" "}
+              <strong>Registration Number:</strong>{" "}
               {profileData.registrationNumber}
             </p>
           </div>
         )}
         {filteredTheoryTimetable.length > 0 && (
           <>
-            <h4>Theory Timetable</h4>
-            <table className="timetable-table">
+            <h4 className="student-dashboard-timetable-title">Theory Timetable</h4>
+            <table className="student-dashboard-timetable-table">
               <thead>
                 <tr>
-                  <th style={styles.th}>S.N.</th>
-                  <th style={styles.th}>Subject</th>
-                  <th style={styles.th}>Faculty</th>
-                  <th style={styles.th}>Type</th>
-                  <th style={styles.th}>Course Code</th>
+                  <th className="student-dashboard-timetable-th">S.N.</th>
+                  <th className="student-dashboard-timetable-th">Subject</th>
+                  <th className="student-dashboard-timetable-th">Faculty</th>
+                  <th className="student-dashboard-timetable-th">Type</th>
+                  <th className="student-dashboard-timetable-th">Course Code</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredTheoryTimetable.map((item, index) => (
                   <tr key={item._id}>
-                    <td style={styles.td}>{index + 1}</td>
-                    <td style={styles.td}>{item.subjectName}</td>
-                    <td style={styles.td}>{item.facultyName}</td>
-                    <td style={styles.td}>{item.type}</td>
-                    <td style={styles.td}>{item.courseCode}</td>
+                    <td className="student-dashboard-timetable-td">{index + 1}</td>
+                    <td className="student-dashboard-timetable-td">{item.subjectName}</td>
+                    <td className="student-dashboard-timetable-td">{item.facultyName}</td>
+                    <td className="student-dashboard-timetable-td">{item.type}</td>
+                    <td className="student-dashboard-timetable-td">{item.courseCode}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <h2 style={{ textAlign: "center", marginTop: "60px" }}>
+            <h2 className="student-dashboard-feedback-form-title">
               Theory Feedback Form
             </h2>
             <form onSubmit={(e) => handleSubmit(e, "theory")}>
-              <table className="feedback-table">
+              <table className="student-dashboard-feedback-table">
                 <thead>
                   <tr>
-                    <th style={styles.th}>S.N.</th>
-                    <th style={styles.th}>Theory Factors</th>
+                    <th className="student-dashboard-feedback-th">S.N.</th>
+                    <th className="student-dashboard-feedback-th">Theory Factors</th>
                     {filteredTheoryTimetable.map((item, index) => (
-                      <th key={item._id} style={styles.th}>
+                      <th key={item._id} className="student-dashboard-feedback-th">
                         {item.subjectName}
                       </th>
                     ))}
@@ -288,12 +288,12 @@ const FeedbackForm = () => {
                 <tbody>
                   {theoryQuestions.map((question, questionIndex) => (
                     <tr key={questionIndex}>
-                      <td style={styles.td}>{questionIndex + 1}</td>
-                      <td style={{ textAlign: "left" }}>{question}</td>
+                      <td className="student-dashboard-feedback-td">{questionIndex + 1}</td>
+                      <td className="student-dashboard-feedback-question">{question}</td>
                       {filteredTheoryTimetable.map((item, timetableIndex) => (
                         <td
                           key={`${timetableIndex}_${questionIndex}`}
-                          style={styles.td}
+                          className="student-dashboard-feedback-td"
                         >
                           <select
                             value={
@@ -313,7 +313,7 @@ const FeedbackForm = () => {
                                 "theory"
                               )
                             }
-                            style={styles.select}
+                            className="student-dashboard-feedback-select"
                           >
                             <option value="">Select</option>
                             {[0, 1, 2, 3, 4].map((num) => (
@@ -329,47 +329,45 @@ const FeedbackForm = () => {
                 </tbody>
               </table>
             </form>
-            {success && <p className="success-message">{success}</p>}
+            {success && <p className="student-dashboard-success-message">{success}</p>}
           </>
         )}
         {filteredPracticalTimetable.length > 0 && (
           <>
-            <h2 style={{ textAlign: "left", marginTop: "50px" }}>
-              Practical Timetable
-            </h2>
-            <table className="timetable-table">
+            <h2 className="student-dashboard-timetable-title">Practical Timetable</h2>
+            <table className="student-dashboard-timetable-table">
               <thead>
                 <tr>
-                  <th style={styles.th}>S.N.</th>
-                  <th style={styles.th}>Subject</th>
-                  <th style={styles.th}>Faculty</th>
-                  <th style={styles.th}>Type</th>
-                  <th style={styles.th}>Course Code</th>
+                  <th className="student-dashboard-timetable-th">S.N.</th>
+                  <th className="student-dashboard-timetable-th">Subject</th>
+                  <th className="student-dashboard-timetable-th">Faculty</th>
+                  <th className="student-dashboard-timetable-th">Type</th>
+                  <th className="student-dashboard-timetable-th">Course Code</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredPracticalTimetable.map((item, index) => (
                   <tr key={item._id}>
-                    <td style={styles.td}>{index + 1}</td>
-                    <td style={styles.td}>{item.subjectName}</td>
-                    <td style={styles.td}>{item.facultyName}</td>
-                    <td style={styles.td}>{item.type}</td>
-                    <td style={styles.td}>{item.courseCode}</td>
+                    <td className="student-dashboard-timetable-td">{index + 1}</td>
+                    <td className="student-dashboard-timetable-td">{item.subjectName}</td>
+                    <td className="student-dashboard-timetable-td">{item.facultyName}</td>
+                    <td className="student-dashboard-timetable-td">{item.type}</td>
+                    <td className="student-dashboard-timetable-td">{item.courseCode}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <h2 style={{ textAlign: "center", marginTop: "50px" }}>
+            <h2 className="student-dashboard-feedback-form-title">
               Practical Feedback Form
             </h2>
             <form onSubmit={(e) => handleSubmit(e, "practical")}>
-              <table className="feedback-table">
+              <table className="student-dashboard-feedback-table">
                 <thead>
                   <tr>
-                    <th style={styles.th}>S.N.</th>
-                    <th style={styles.th}>Practical Factors</th>
+                    <th className="student-dashboard-feedback-th">S.N.</th>
+                    <th className="student-dashboard-feedback-th">Practical Factors</th>
                     {filteredPracticalTimetable.map((item, index) => (
-                      <th key={item._id} style={styles.th}>
+                      <th key={item._id} className="student-dashboard-feedback-th">
                         {item.subjectName}
                       </th>
                     ))}
@@ -378,14 +376,13 @@ const FeedbackForm = () => {
                 <tbody>
                   {practicalQuestions.map((question, questionIndex) => (
                     <tr key={questionIndex}>
-                      <td style={styles.td}>{questionIndex + 1}</td>
-                      <td style={{ textAlign: "left" }}>{question}</td>
-
+                      <td className="student-dashboard-feedback-td">{questionIndex + 1}</td>
+                      <td className="student-dashboard-feedback-question">{question}</td>
                       {filteredPracticalTimetable.map(
                         (item, timetableIndex) => (
                           <td
                             key={`${timetableIndex}_${questionIndex}`}
-                            style={styles.td}
+                            className="student-dashboard-feedback-td"
                           >
                             <select
                               value={
@@ -405,7 +402,7 @@ const FeedbackForm = () => {
                                   "practical"
                                 )
                               }
-                              style={styles.select}
+                              className="student-dashboard-feedback-select"
                             >
                               <option value="">Select</option>
                               {[0, 1, 2, 3, 4].map((num) => (
@@ -421,35 +418,25 @@ const FeedbackForm = () => {
                   ))}
                 </tbody>
               </table>
-              {success && <p className="success-message">{success}</p>}
+              {success && <p className="student-dashboard-success-message">{success}</p>}
             </form>
           </>
         )}
         <form onSubmit={handleSubmit}>
-          {/* Theory and Practical feedback inputs go here */}
           <button
             type="submit"
-            style={{
-              backgroundColor: "#007bff",
-              color: "white",
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-              padding: "10px 20px",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              marginTop: "20px"
-            }}
+            className="student-dashboard-submit-button"
           >
             Submit Feedback
           </button>
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          {success && <p style={{ color: "green" }}>{success}</p>}
+          {error && <p className="student-dashboard-error-message">{error}</p>}
+          {success && <p className="student-dashboard-success-message">{success}</p>}
         </form>
       </div>
     </div>
   );
+  
+  
 };
 
 export default FeedbackForm;
