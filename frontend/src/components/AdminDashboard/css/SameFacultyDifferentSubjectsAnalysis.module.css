@@ -1,7 +1,16 @@
 .SameFacultyDifferentSubjectsAnalysi_container {
-    margin-top: 7%;
-    margin-left: 7%;
-  }
+  margin-top: 7%;
+  margin-left: 7%;
+  overflow-y: scroll; /* Ensure the content is scrollable */
+  max-height: 80vh; /* Adjust the max height to limit the container size */
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+}
+
+.SameFacultyDifferentSubjectsAnalysi_container::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
   
   .SameFacultyDifferentSubjectsAnalysi_card {
     background-color: #ffffff;
@@ -29,6 +38,16 @@
     color: #333;
     border-bottom: 2px solid #f0f0f0;
     padding-bottom: 10px;
+  }
+  .SameFacultyDifferentSubjectsAnalysi_card h3 {
+    margin-bottom: 15px;
+    font-size: 26px;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 2px solid #ffffff;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: -10px;
   }
   
   .SameFacultyDifferentSubjectsAnalysi_card p {

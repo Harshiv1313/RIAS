@@ -27,7 +27,6 @@ const practicalQuestions = [
   "Adequate time was given for practical tasks and exercises",
   "The practical sessions were integrated well with the theoretical concepts taught",
 ];
-
 const FeedbackForm = () => {
   const [profileData, setProfileData] = useState(null);
   const [theoryTimetableData, setTheoryTimetableData] = useState([]);
@@ -132,7 +131,7 @@ const FeedbackForm = () => {
     }));
   };
 
-  const handleSubmit = async (event, type) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
@@ -142,33 +141,44 @@ const FeedbackForm = () => {
       const decodedToken = JSON.parse(atob(token.split(".")[1]));
       const studentId = decodedToken.id;
 
-      const feedbackEntries = (
-        type === "theory" ? filteredTheoryTimetable : filteredPracticalTimetable
-      ).map((item, timetableIndex) => ({
-        facultyName: item.facultyName,
-        courseName: item.subjectName,
-        branch: item.branch,
-        section: item.section,
-        semester: item.semester,
-        batch: item.batch,
-        subjectName: item.subjectName,
-        courseCode: item.courseCode,
-        responses: (type === "theory"
-          ? theoryQuestions
-          : practicalQuestions
-        ).reduce(
-          (acc, question, questionIndex) => ({
-            ...acc,
-            [`${timetableIndex}_${question}`]:
-              responses[`${type}_${timetableIndex}_${questionIndex}`] || 0,
-          }),
-          {}
-        ),
-      }));
+      // Function to generate feedback entries
+      const generateFeedbackEntries = (filteredTimetable, questions, type) => {
+        return filteredTimetable.map((item, timetableIndex) => ({
+          facultyName: item.facultyName,
+          courseName: item.subjectName,
+          branch: item.branch,
+          section: item.section,
+          semester: item.semester,
+          batch: item.batch,
+          subjectName: item.subjectName,
+          courseCode: item.courseCode,
+          responses: questions.reduce(
+            (acc, question, questionIndex) => ({
+              ...acc,
+              [`${timetableIndex}_${question}`]:
+                responses[`${type}_${timetableIndex}_${questionIndex}`] || 0,
+            }),
+            {}
+          ),
+        }));
+      };
 
-      const response = await fetch(
-        `http://localhost:4000/api/feedback/${type}/submit`,
-        {
+      // Generate entries for both theory and practical
+      const theoryFeedbackEntries = generateFeedbackEntries(
+        filteredTheoryTimetable,
+        theoryQuestions,
+        "theory"
+      );
+
+      const practicalFeedbackEntries = generateFeedbackEntries(
+        filteredPracticalTimetable,
+        practicalQuestions,
+        "practical"
+      );
+
+      // Submit both feedbacks in parallel
+      await Promise.all([
+        fetch("http://localhost:4000/api/feedback/theory/submit", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -176,39 +186,36 @@ const FeedbackForm = () => {
           },
           body: JSON.stringify({
             studentId,
-            feedbackEntries,
+            feedbackEntries: theoryFeedbackEntries,
           }),
-        }
-      );
+        }),
+        fetch("http://localhost:4000/api/feedback/practical/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            studentId,
+            feedbackEntries: practicalFeedbackEntries,
+          }),
+        }),
+      ]);
 
-      if (!response.ok) {
-        // Handle HTTP error responses
-        const errorText = await response.text();
-        throw new Error(
-          `HTTP error! status: ${response.status}, message: ${errorText}`
-        );
-      }
-
-      // Assuming the response is JSON on success
-      const responseData = await response.json();
-      setSuccess(
-        `${
-          type.charAt(0).toUpperCase() + type.slice(1)
-        } feedback submitted successfully!`
-      );
+      setSuccess("Theory and Practical feedback submitted successfully!");
       setError("");
     } catch (err) {
       console.error("Error:", err);
-      setError(`Error submitting ${type} feedback. Please try again.`);
+      setError("Error submitting feedback. Please try again.");
       setSuccess("");
     }
   };
+
   const styles = {
     th: { padding: "10px", border: "1px solid #ddd" },
     td: { padding: "10px", border: "1px solid #ddd" },
     select: { width: "100px" },
   };
-
   return (
     <div style={{ height: "690px" }} className="feedback-card">
       {success && <p className="success-message">{success}</p>}
@@ -321,7 +328,6 @@ const FeedbackForm = () => {
                   ))}
                 </tbody>
               </table>
-              <button type="submit">Submit Theory Feedback</button>
             </form>
             {success && <p className="success-message">{success}</p>}
           </>
@@ -416,10 +422,31 @@ const FeedbackForm = () => {
                 </tbody>
               </table>
               {success && <p className="success-message">{success}</p>}
-              <button type="submit">Submit Practical Feedback</button>
             </form>
           </>
         )}
+        <form onSubmit={handleSubmit}>
+          {/* Theory and Practical feedback inputs go here */}
+          <button
+            type="submit"
+            style={{
+              backgroundColor: "#007bff",
+              color: "white",
+              position: "absolute",
+              top: "10px",
+              right: "10px",
+              padding: "10px 20px",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              marginTop: "20px"
+            }}
+          >
+            Submit Feedback
+          </button>
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          {success && <p style={{ color: "green" }}>{success}</p>}
+        </form>
       </div>
     </div>
   );

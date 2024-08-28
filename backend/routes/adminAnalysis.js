@@ -6,7 +6,8 @@ const adminAnalysisController = require('../controllers/adminAnalysis');
 router.get('/feedback-analysis', adminAnalysisController.getFeedbackAnalysis);
 
 
-router.get('/by-same-subject', adminAnalysisController.getFeedbackAnalysisBySubject);
+router.get('/by-same-subject', adminAnalysisController.getFeedbackAnalysisBySubjectAndType);
+
 
 
 // adminAnalysis.js

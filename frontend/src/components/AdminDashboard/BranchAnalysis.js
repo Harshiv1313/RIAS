@@ -79,6 +79,16 @@ const BranchAnalysis = () => {
     // Implement your logout logic here
   };
 
+
+  const getFeedbackRemark = (percentage) => {
+    if (percentage >= 90) return "Excellent";
+    if (percentage >= 80) return "Very Good";
+    if (percentage >= 70) return "Good";
+    if (percentage >= 60) return "Satisfactory";
+    if (percentage >= 40) return "Bad";
+    return "Very Bad";
+  };
+
   return (
     <div className={styles.BranchAnalysis_container}>
       <div className={styles.BranchAnalysis_card}>
@@ -117,6 +127,7 @@ const BranchAnalysis = () => {
                   <th>Student Count</th>
                   <th>Average Rating</th>
                   <th>Average Percentage</th>
+                  <th>Feedback Remark</th>
                 </tr>
               </thead>
               <tbody>
@@ -127,6 +138,7 @@ const BranchAnalysis = () => {
                     <td>{data.studentCount}</td>
                     <td>{data.averageRating !== '0.00' ? data.averageRating : "0"}</td>
                     <td>{data.averagePercentage !== '0.00' ? data.averagePercentage : "0%"}</td>
+                    <td>{getFeedbackRemark(data.averagePercentage)}</td>
                   </tr>
                 ))}
               </tbody>

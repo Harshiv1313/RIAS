@@ -24,7 +24,7 @@ const UpperNavbar = ({ isClosed }) => {
         </div>
       </div>
       <div className="navbar-right">
-        <a href="/student-dashboard/profile" className="profile-link">
+        <a href="/faculty-dashboard/F-profile" className="profile-link">
           <img src={ProfileIcon} alt="Profile" className="nav-icon" />
         </a>
 

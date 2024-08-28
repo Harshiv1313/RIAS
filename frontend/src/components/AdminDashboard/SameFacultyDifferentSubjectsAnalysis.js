@@ -1,5 +1,8 @@
+// SameFacultyDifferentSubjectsAnalysis.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import FeedbackPDFsame from "./FeedbackPDFsame";
 import styles from "./css/SameFacultyDifferentSubjectsAnalysis.module.css"; // Adjust the path as needed
 
 const SameFacultyDifferentSubjectsAnalysis = () => {
@@ -71,35 +74,8 @@ const SameFacultyDifferentSubjectsAnalysis = () => {
     fetchAnalysis();
   };
 
-  // Function to calculate final theory average
-  const calculateFinalTheoryAverage = () => {
-    const theoryData = analysisData.filter(data => data.type === 'theory');
-    if (theoryData.length === 0) return null;
-    const totalTheoryPercentage = theoryData.reduce((sum, data) => sum + parseFloat(data.averagePercentage), 0);
-    const averageTheoryPercentage = totalTheoryPercentage / theoryData.length;
-    return averageTheoryPercentage.toFixed(2);
-  };
-
-  // Function to calculate final practical average
-  const calculateFinalPracticalAverage = () => {
-    const practicalData = analysisData.filter(data => data.type === 'practical');
-    if (practicalData.length === 0) return null;
-    const totalPracticalPercentage = practicalData.reduce((sum, data) => sum + parseFloat(data.averagePercentage), 0);
-    const averagePracticalPercentage = totalPracticalPercentage / practicalData.length;
-    return averagePracticalPercentage.toFixed(2);
-  };
-
-  // Function to calculate final average percentage
-  const calculateFinalAveragePercentage = () => {
-    if (analysisData.length === 0) return null;
-    const totalPercentage = analysisData.reduce((sum, data) => sum + parseFloat(data.averagePercentage), 0);
-    const averagePercentage = totalPercentage / analysisData.length;
-    return averagePercentage.toFixed(2);
-  };
-
-  const finalAveragePercentage = calculateFinalAveragePercentage();
-  const finalTheoryAverage = calculateFinalTheoryAverage();
-  const finalPracticalAverage = calculateFinalPracticalAverage();
+  const theoryData = analysisData.filter(data => data.type.toLowerCase() === 'theory');
+  const practicalData = analysisData.filter(data => data.type.toLowerCase() === 'practical');
 
   return (
     <div className={styles.SameFacultyDifferentSubjectsAnalysi_container}>
@@ -128,50 +104,95 @@ const SameFacultyDifferentSubjectsAnalysis = () => {
             Search
           </button>
         </div>
-        <div className={styles.SameFacultyDifferentSubjectsAnalysi_averages}>
-          <div className={styles.SameFacultyDifferentSubjectsAnalysi_averageItem}>
-            <p>Final Average: {finalAveragePercentage || "N/A"}</p>
-          </div>
-          <div className={styles.SameFacultyDifferentSubjectsAnalysi_averageItem}>
-            <p>Theory Average: {finalTheoryAverage || "N/A"}</p>
-          </div>
-          <div className={styles.SameFacultyDifferentSubjectsAnalysi_averageItem}>
-            <p>Practical Average: {finalPracticalAverage || "N/A"}</p>
-          </div>
-        </div>
-        {analysisData.length > 0 ? (
-          <div className={styles.SameFacultyDifferentSubjectsAnalysi_analysisTableWrapper}>
-            <table className={styles.SameFacultyDifferentSubjectsAnalysi_analysisTable}>
-              <thead>
-                <tr>
-                  <th>Faculty Name</th>
-                  <th>Subject Name</th>
-                  <th>Branch</th>
-                  <th>Type</th>
-                  <th>Average Rating</th>
-                  <th>Average Percentage</th>
-                </tr>
-              </thead>
-              <tbody>
-                {analysisData.map((data, index) => (
-                  <tr key={index}>
-                    <td>{data.facultyName}</td>
-                    <td>{data.subjectName}</td>
-                    <td>{data.branch}</td>
-                    <td>{data.type}</td>
-                    <td>{data.averageRating !== '0.00' ? data.averageRating : "0"}</td>
-                    <td>{data.averagePercentage !== '0.00' ? `${data.averagePercentage}%` : "0"}</td>
+
+        {theoryData.length > 0 && (
+          <>
+            <h3>Theory Subjects</h3>
+            <div className={styles.SameFacultyDifferentSubjectsAnalysi_analysisTableWrapper}>
+              <table className={styles.SameFacultyDifferentSubjectsAnalysi_analysisTable}>
+                <thead>
+                  <tr>
+                    <th>Faculty Name</th>
+                    <th>Subject Name</th>
+                    <th>Branch</th>
+                    <th>Type</th>
+                    <th>Average Rating</th>
+                    <th>Average Percentage</th>
+                    <th>Feedback Remark</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          messageType !== "error" && <p>No analysis data available for the selected faculty.</p>
+                </thead>
+                <tbody>
+                  {theoryData.map((data, index) => (
+                    <tr key={index}>
+                      <td>{data.facultyName}</td>
+                      <td>{data.subjectName}</td>
+                      <td>{data.branch}</td>
+                      <td>{data.type}</td>
+                      <td>{data.averageRating !== '0.00' ? data.averageRating : "0"}</td>
+                      <td>{data.averagePercentage !== '0.00' ? `${data.averagePercentage}%` : "0"}</td>
+                      <td>{getFeedbackRemark(data.averagePercentage)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
+
+        {practicalData.length > 0 && (
+          <>
+            <h3>Practical Subjects</h3>
+            <div className={styles.SameFacultyDifferentSubjectsAnalysi_analysisTableWrapper}>
+              <table className={styles.SameFacultyDifferentSubjectsAnalysi_analysisTable}>
+                <thead>
+                  <tr>
+                    <th>Faculty Name</th>
+                    <th>Subject Name</th>
+                    <th>Branch</th>
+                    <th>Type</th>
+                    <th>Average Rating</th>
+                    <th>Average Percentage</th>
+                    <th>Feedback Remark</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {practicalData.map((data, index) => (
+                    <tr key={index}>
+                      <td>{data.facultyName}</td>
+                      <td>{data.subjectName}</td>
+                      <td>{data.branch}</td>
+                      <td>{data.type}</td>
+                      <td>{data.averageRating !== '0.00' ? data.averageRating : "0"}</td>
+                      <td>{data.averagePercentage !== '0.00' ? `${data.averagePercentage}%` : "0"}</td>
+                      <td>{getFeedbackRemark(data.averagePercentage)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
+
+        {analysisData.length > 0 && (
+          <PDFDownloadLink
+          document={<FeedbackPDFsame analysisData={analysisData} />}
+          fileName="analysis-report.pdf"
+        >
+          {({ loading }) => (loading ? 'Generating PDF...' : 'Download PDF')}
+        </PDFDownloadLink>
         )}
       </div>
     </div>
   );
+};
+
+const getFeedbackRemark = (percentage) => {
+  if (percentage >= 90) return "Excellent";
+  if (percentage >= 80) return "Very Good";
+  if (percentage >= 70) return "Good";
+  if (percentage >= 60) return "Satisfactory";
+  if (percentage >= 40) return "Bad";
+  return "Very Bad";
 };
 
 export default SameFacultyDifferentSubjectsAnalysis;

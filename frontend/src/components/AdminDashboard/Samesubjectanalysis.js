@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import FeedbackPDFsame from "./pdfSamesubjectanalysis.js";
 import styles from "./css/Samesubjectanalysis.module.css"; // Adjust the path as needed
 
 const Samesubjectanalysis = () => {
   const [subjectName, setSubjectName] = useState("");
+  const [type, setType] = useState("");
   const [analysisData, setAnalysisData] = useState([]);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
   const [subjects, setSubjects] = useState([]);
+  const [types, setTypes] = useState([]);
 
   useEffect(() => {
     const fetchSubjects = async () => {
@@ -21,19 +27,31 @@ const Samesubjectanalysis = () => {
       }
     };
 
+    const fetchTypes = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/api/feedback/feedbacks/types");
+        setTypes(response.data);
+      } catch (error) {
+        console.error("Error fetching types:", error);
+        setMessage("Failed to load types.");
+        setMessageType("error");
+      }
+    };
+
     fetchSubjects();
+    fetchTypes();
   }, []);
 
   const fetchAnalysis = async () => {
     try {
-      if (!subjectName) {
-        setMessage("Please select a subject.");
+      if (!subjectName || !type) {
+        setMessage("Please select both a subject and a type.");
         setMessageType("error");
         return;
       }
 
       const response = await axios.get("http://localhost:4000/api/admin/by-same-subject", {
-        params: { subjectName },
+        params: { subjectName, type },
       });
 
       if (response.data && response.data.length > 0) {
@@ -41,7 +59,7 @@ const Samesubjectanalysis = () => {
         setMessage("");
       } else {
         setAnalysisData([]);
-        setMessage("No analysis data available for the selected subject.");
+        setMessage("No analysis data available for the selected subject and type.");
         setMessageType("info");
       }
     } catch (error) {
@@ -55,15 +73,53 @@ const Samesubjectanalysis = () => {
     setSubjectName(e.target.value);
   };
 
+  const handleTypeChange = (e) => {
+    setType(e.target.value);
+  };
+
   const handleSearch = () => {
     fetchAnalysis();
+  };
+
+  const getFeedbackRemark = (percentage) => {
+    if (percentage >= 90) return "Excellent";
+    if (percentage >= 80) return "Very Good";
+    if (percentage >= 70) return "Good";
+    if (percentage >= 60) return "Satisfactory";
+    if (percentage >= 40) return "Bad";
+    return "Very Bad";
+  };
+
+  const downloadPDF = () => {
+    const input = document.getElementById('analysisTable');
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF();
+      const imgWidth = 210; // A4 width in mm
+      const pageHeight = 295; // A4 height in mm
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight;
+
+      let position = 0;
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position -= pageHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      pdf.save('analysis-report.pdf');
+    });
   };
 
   return (
     <div className={styles.samesubjectanalysisContainer}>
       <div className={styles.samesubjectanalysisCard}>
         <h2 className={styles.samesubjectanalysisTitle}>Same Subject Feedback Analysis</h2>
-        <p className={styles.samesubjectanalysisDescription}>Select a subject to analyze feedback.</p>
+        <p className={styles.samesubjectanalysisDescription}>Select a subject and type to analyze feedback.</p>
         {message && (
           <div className={`${styles.samesubjectanalysisMessage} ${styles[messageType]}`}>
             {message}
@@ -82,19 +138,32 @@ const Samesubjectanalysis = () => {
               </option>
             ))}
           </select>
+          <select
+            value={type}
+            onChange={handleTypeChange}
+            className={styles.samesubjectanalysisDropdown}
+          >
+            <option value="">Select Type</option>
+            {types.map((type, index) => (
+              <option key={index} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
           <button onClick={handleSearch} className={styles.samesubjectanalysisButton}>
             Search
           </button>
         </div>
         {analysisData.length > 0 ? (
           <div className={styles.samesubjectanalysisTableWrapper}>
-            <table className={styles.samesubjectanalysisTable}>
+            <table id="analysisTable" className={styles.samesubjectanalysisTable}>
               <thead>
                 <tr>
                   <th>Faculty Name</th>
                   <th>Branch</th>
                   <th>Average Rating</th>
                   <th>Average Percentage</th>
+                  <th>Feedback Remark</th>
                 </tr>
               </thead>
               <tbody>
@@ -104,13 +173,20 @@ const Samesubjectanalysis = () => {
                     <td>{data.branch}</td>
                     <td>{data.averageRating !== '0.00' ? data.averageRating : "0"}</td>
                     <td>{data.averagePercentage !== '0.00' ? `${data.averagePercentage}%` : "0"}</td>
+                    <td>{getFeedbackRemark(data.averagePercentage)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
+            <PDFDownloadLink
+          document={<FeedbackPDFsame analysisData={analysisData} />}
+          fileName="analysis-report.pdf"
+        >
+          {({ loading }) => (loading ? 'Generating PDF...' : 'Download PDF')}
+        </PDFDownloadLink>
           </div>
         ) : (
-          messageType !== "error" && <p>No analysis data available for the selected subject.</p>
+          messageType !== "error" && <p>No analysis data available for the selected subject and type.</p>
         )}
       </div>
     </div>

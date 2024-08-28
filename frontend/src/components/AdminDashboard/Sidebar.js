@@ -96,7 +96,7 @@ const Sidebar = () => {
           <li className="settings-link">
             <Link to="/admin-dashboard/Department-Analysis">
               <img className="icon" src={BranchAnalysis} alt="settings" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>faculty Analysis</span>
+              <span className={`${isOpen ? "" : "hideElement"}`}>Branch Analysis</span>
             </Link>
           </li>
         </ul>
