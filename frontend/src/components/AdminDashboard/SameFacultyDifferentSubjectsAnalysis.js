@@ -178,8 +178,32 @@ const SameFacultyDifferentSubjectsAnalysis = () => {
           document={<FeedbackPDFsame analysisData={analysisData} />}
           fileName="analysis-report.pdf"
         >
-          {({ loading }) => (loading ? 'Generating PDF...' : 'Download PDF')}
+          {({ loading }) => (
+            <button
+              style={{
+                backgroundColor: '#007bff', // Primary blue color
+                border: 'none',
+                color: '#fff',
+                padding: '10px 20px',
+                textAlign: 'center',
+                textDecoration: 'none',
+                display: 'inline-block',
+                fontSize: '16px',
+                margin: '4px 2px',
+                cursor: 'pointer',
+                borderRadius: '5px',
+                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                transition: 'background-color 0.3s ease',
+                marginTop: '10px'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#0056b3'} // Darker blue on hover
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#007bff'} // Original blue
+            >
+              {loading ? 'Generating PDF...' : 'Download PDF'}
+            </button>
+          )}
         </PDFDownloadLink>
+        
         )}
       </div>
     </div>
