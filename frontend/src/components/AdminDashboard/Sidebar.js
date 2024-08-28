@@ -49,37 +49,7 @@ const Sidebar = () => {
               </span>
             </Link>
           </li>
-          <li className="timetables-link">
-            <Link to="/admin-dashboard/Feedback">
-              {" "}
-              {/* Updated path */}
-              <img className="icon" src={TimetablesIcon} alt="timetables" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>
-                Timetables
-              </span>
-            </Link>
-          </li>
 
-          <li className="feedback-link">
-            <Link to="/admin-dashboard/Stats">
-              <img className="icon" src={FeedbackIcon} alt="feedback" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>Feedback</span>
-            </Link>
-          </li>
-          <li className="reports-link">
-            <Link to="/admin-dashboard/adminchart">
-              <img className="icon" src={ReportsIcon} alt="reports" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>Reports</span>
-            </Link>
-          </li>
-          
-          
-          <li className="rewards-link">
-            <Link to="/admin-dashboard/adminuser">
-              <img className="icon" src={RewardsIcon} alt="rewards" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>Users</span>
-            </Link>
-          </li>
           <li className="settings-link">
             <Link to="/admin-dashboard/samesubject">
               <img className="icon" src={SettingsIcon} alt="settings" />
@@ -99,6 +69,40 @@ const Sidebar = () => {
               <span className={`${isOpen ? "" : "hideElement"}`}>faculty Analysis</span>
             </Link>
           </li>
+
+          <li className="feedback-link">
+            <Link to="/admin-dashboard/Stats">
+              <img className="icon" src={FeedbackIcon} alt="feedback" />
+              <span className={`${isOpen ? "" : "hideElement"}`}>Feedback</span>
+            </Link>
+          </li>
+          <li className="reports-link">
+            <Link to="/admin-dashboard/adminchart">
+              <img className="icon" src={ReportsIcon} alt="reports" />
+              <span className={`${isOpen ? "" : "hideElement"}`}>Reports</span>
+            </Link>
+          </li>
+          <li className="timetables-link">
+            <Link to="/admin-dashboard/Feedback">
+              {" "}
+              {/* Updated path */}
+              <img className="icon" src={TimetablesIcon} alt="timetables" />
+              <span className={`${isOpen ? "" : "hideElement"}`}>
+                Timetables
+              </span>
+            </Link>
+          </li>
+
+          
+          
+          
+          <li className="rewards-link">
+            <Link to="/admin-dashboard/adminuser">
+              <img className="icon" src={RewardsIcon} alt="rewards" />
+              <span className={`${isOpen ? "" : "hideElement"}`}>Users</span>
+            </Link>
+          </li>
+          
         </ul>
       </div>
       <div className="bottom-content">

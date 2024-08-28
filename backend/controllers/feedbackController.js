@@ -42,17 +42,16 @@ exports.submitTheoryFeedback = async (req, res) => {
   }
 };
 
-// Submit practical feedback
 exports.submitPracticalFeedback = async (req, res) => {
   try {
     const { studentId, feedbackEntries } = req.body;
 
-    if (!feedbackEntries || !Array.isArray(feedbackEntries)) {
+    if (!feedbackEntries || !Array.isArray(feedbackEntries) || feedbackEntries.length === 0) {
       return res.status(400).json({ message: "Invalid feedback data" });
     }
 
     // Define the required fields for feedback entries
-    const requiredFields = ['questionId', 'response']; // Adjust based on your actual fields
+    const requiredFields = ['facultyName', 'courseName', 'branch', 'section', 'semester', 'batch', 'subjectName', 'courseCode', 'responses'];
 
     // Check if all feedback entries have the required fields and are not empty
     const areEntriesValid = feedbackEntries.every(entry => 
@@ -83,14 +82,10 @@ exports.submitPracticalFeedback = async (req, res) => {
       }))
     );
 
-    res
-      .status(201)
-      .json({ message: "Practical feedback submitted successfully!" });
+    res.status(201).json({ message: "Practical feedback submitted successfully!" });
   } catch (error) {
     console.error("Error submitting practical feedback:", error);
-    res
-      .status(500)
-      .json({ message: "Error submitting practical feedback", error });
+    res.status(500).json({ message: "Error submitting practical feedback", error });
   }
 };
 
