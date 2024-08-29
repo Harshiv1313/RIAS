@@ -14,11 +14,16 @@ const Samesubjectanalysis = () => {
   const [messageType, setMessageType] = useState("");
   const [subjects, setSubjects] = useState([]);
   const [types, setTypes] = useState([]);
+  const closePopup = () => {
+    setMessage(null);
+  };
 
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/feedback/feedbacks/subject-names");
+        const response = await axios.get(
+          "http://localhost:4000/api/feedback/feedbacks/subject-names"
+        );
         setSubjects(response.data);
       } catch (error) {
         console.error("Error fetching subjects:", error);
@@ -29,7 +34,9 @@ const Samesubjectanalysis = () => {
 
     const fetchTypes = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/feedback/feedbacks/types");
+        const response = await axios.get(
+          "http://localhost:4000/api/feedback/feedbacks/types"
+        );
         setTypes(response.data);
       } catch (error) {
         console.error("Error fetching types:", error);
@@ -50,16 +57,21 @@ const Samesubjectanalysis = () => {
         return;
       }
 
-      const response = await axios.get("http://localhost:4000/api/admin/by-same-subject", {
-        params: { subjectName, type },
-      });
+      const response = await axios.get(
+        "http://localhost:4000/api/admin/by-same-subject",
+        {
+          params: { subjectName, type },
+        }
+      );
 
       if (response.data && response.data.length > 0) {
         setAnalysisData(response.data);
         setMessage("");
       } else {
         setAnalysisData([]);
-        setMessage("No analysis data available for the selected subject and type.");
+        setMessage(
+          "No analysis data available for the selected subject and type."
+        );
         setMessageType("info");
       }
     } catch (error) {
@@ -91,40 +103,69 @@ const Samesubjectanalysis = () => {
   };
 
   const downloadPDF = () => {
-    const input = document.getElementById('analysisTable');
+    const input = document.getElementById("analysisTable");
     html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
+      const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF();
       const imgWidth = 210; // A4 width in mm
       const pageHeight = 295; // A4 height in mm
-      const imgHeight = canvas.height * imgWidth / canvas.width;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
       let heightLeft = imgHeight;
 
       let position = 0;
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
 
       while (heightLeft >= 0) {
         position -= pageHeight;
         pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
       }
 
-      pdf.save('analysis-report.pdf');
+      pdf.save("analysis-report.pdf");
     });
   };
 
   return (
     <div className={styles.samesubjectanalysisContainer}>
       <div className={styles.samesubjectanalysisCard}>
-        <h2 className={styles.samesubjectanalysisTitle}>Same Subject Feedback Analysis</h2>
-        <p className={styles.samesubjectanalysisDescription}>Select a subject and type to analyze feedback.</p>
+        <h2 className={styles.samesubjectanalysisTitle}>
+          Same Subject Feedback Analysis
+        </h2>
+        <p className={styles.samesubjectanalysisDescription}>
+          Select a subject and type to analyze feedback.
+        </p>
         {message && (
-          <div className={`${styles.samesubjectanalysisMessage} ${styles[messageType]}`}>
+          <div
+            className={`${styles.samesubjectanalysisMessage} ${styles[messageType]}`}
+          >
             {message}
           </div>
         )}
+        {message && (
+          <div className={styles["admin-Samesubjectanalysis-overlay"]}>
+            <div className={styles["admin-Samesubjectanalysis-popup"]}>
+              {/* Close icon */}
+              <span
+                className={styles["admin-Samesubjectanalysis-closeIcon"]}
+                onClick={closePopup}
+              >
+                &times;
+              </span>
+              <div className={styles[messageType]}>{message}</div>
+
+              {/* Close button */}
+              <button
+                className={styles["admin-Samesubjectanalysis-closeButton"]}
+                onClick={closePopup}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className={styles.samesubjectanalysisInputContainer}>
           <select
             value={subjectName}
@@ -150,13 +191,19 @@ const Samesubjectanalysis = () => {
               </option>
             ))}
           </select>
-          <button onClick={handleSearch} className={styles.samesubjectanalysisButton}>
+          <button
+            onClick={handleSearch}
+            className={styles.samesubjectanalysisButton}
+          >
             Search
           </button>
         </div>
         {analysisData.length > 0 ? (
           <div className={styles.samesubjectanalysisTableWrapper}>
-            <table id="analysisTable" className={styles.samesubjectanalysisTable}>
+            <table
+              id="analysisTable"
+              className={styles.samesubjectanalysisTable}
+            >
               <thead>
                 <tr>
                   <th>Faculty Name</th>
@@ -171,45 +218,56 @@ const Samesubjectanalysis = () => {
                   <tr key={index}>
                     <td>{data.facultyName}</td>
                     <td>{data.branch}</td>
-                    <td>{data.averageRating !== '0.00' ? data.averageRating : "0"}</td>
-                    <td>{data.averagePercentage !== '0.00' ? `${data.averagePercentage}%` : "0"}</td>
+                    <td>
+                      {data.averageRating !== "0.00" ? data.averageRating : "0"}
+                    </td>
+                    <td>
+                      {data.averagePercentage !== "0.00"
+                        ? `${data.averagePercentage}%`
+                        : "0"}
+                    </td>
                     <td>{getFeedbackRemark(data.averagePercentage)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
             <PDFDownloadLink
-  document={<FeedbackPDFsame analysisData={analysisData} />}
-  fileName="analysis-report.pdf"
->
-  {({ loading }) => (
-    <button
-      style={{
-        backgroundColor: '#007bff', // Primary blue color
-        border: 'none',
-        color: '#fff',
-        padding: '10px 20px',
-        textAlign: 'center',
-        textDecoration: 'none',
-        display: 'inline-block',
-        fontSize: '16px',
-        margin: '4px 2px',
-        cursor: 'pointer',
-        borderRadius: '5px',
-        boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-        transition: 'background-color 0.3s ease'
-      }}
-      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#0056b3'} // Darker blue on hover
-      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#007bff'} // Original blue
-    >
-      {loading ? 'Generating PDF...' : 'Download PDF'}
-    </button>
-  )}
-</PDFDownloadLink>
-
+              document={<FeedbackPDFsame analysisData={analysisData} />}
+              fileName="analysis-report.pdf"
+            >
+              {({ loading }) => (
+                <button
+                  style={{
+                    backgroundColor: "#007bff", // Primary blue color
+                    border: "none",
+                    color: "#fff",
+                    padding: "10px 20px",
+                    textAlign: "center",
+                    textDecoration: "none",
+                    display: "inline-block",
+                    fontSize: "16px",
+                    margin: "4px 2px",
+                    cursor: "pointer",
+                    borderRadius: "5px",
+                    boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                    transition: "background-color 0.3s ease",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#0056b3")
+                  } // Darker blue on hover
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#007bff")
+                  } // Original blue
+                >
+                  {loading ? "Generating PDF..." : "Download PDF"}
+                </button>
+              )}
+            </PDFDownloadLink>
           </div>
         ) : (
-          messageType !== "error" && <p>No analysis data available for the selected subject and type.</p>
+          messageType !== "error" && (
+            <p>No analysis data available for the selected subject and type.</p>
+          )
         )}
       </div>
     </div>
