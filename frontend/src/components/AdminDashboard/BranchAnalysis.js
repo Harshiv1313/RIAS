@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 import styles from "./css/BranchAnalysis.module.css"; // Adjust the path as needed
 
 const BranchAnalysis = () => {
@@ -79,14 +81,37 @@ const BranchAnalysis = () => {
     // Implement your logout logic here
   };
 
-
   const getFeedbackRemark = (percentage) => {
     if (percentage >= 90) return "Excellent";
     if (percentage >= 80) return "Very Good";
     if (percentage >= 70) return "Good";
     if (percentage >= 60) return "Satisfactory";
-    if (percentage >= 40) return "Bad";
-    return "Very Bad";
+    
+    return "Need Improvement";
+  };
+
+  const handleDownloadPDF = () => {
+    const input = document.getElementById('analysisTable');
+    html2canvas(input)
+      .then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF();
+        const imgWidth = 210; // A4 width in mm
+        const pageHeight = 295; // A4 height in mm
+        const imgHeight = canvas.height * imgWidth / canvas.width;
+        let heightLeft = imgHeight;
+
+        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+          pdf.addPage();
+          pdf.addImage(imgData, 'PNG', 0, -heightLeft, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+
+        pdf.save("Branch_Analysis_Report.pdf");
+      });
   };
 
   return (
@@ -115,11 +140,13 @@ const BranchAnalysis = () => {
           <button onClick={handleSearch} className={styles.BranchAnalysis_searchButton}>
             Search
           </button>
-          
+          <button onClick={handleDownloadPDF} className={styles.BranchAnalysis_pdfButton}>
+            Download PDF
+          </button>
         </div>
         {analysisData.length > 0 ? (
           <div className={styles.BranchAnalysis_analysisTableWrapper}>
-            <table className={styles.BranchAnalysis_analysisTable}>
+            <table id="analysisTable" className={styles.BranchAnalysis_analysisTable}>
               <thead>
                 <tr>
                   <th>Faculty Name</th>

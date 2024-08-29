@@ -39,14 +39,7 @@ const Sidebar = () => {
       </header>
       <div className="menu-links">
         <ul className="links-list">
-          <li className="dashboard-link">
-            <Link to="/student-dashboard">
-              <img className="icon" src={DashboardIcon} alt="dashboard" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>
-                Dashboard
-              </span>
-            </Link>
-          </li>
+         
           <li className="timetables-link">
             <Link to="/student-dashboard/timetable">
               {" "}

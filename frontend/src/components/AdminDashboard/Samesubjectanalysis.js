@@ -98,8 +98,8 @@ const Samesubjectanalysis = () => {
     if (percentage >= 80) return "Very Good";
     if (percentage >= 70) return "Good";
     if (percentage >= 60) return "Satisfactory";
-    if (percentage >= 40) return "Bad";
-    return "Very Bad";
+    
+    return "Need Improvement";
   };
 
   const downloadPDF = () => {

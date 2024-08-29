@@ -39,14 +39,7 @@ const Sidebar = () => {
       </header>
       <div className="menu-links">
         <ul className="links-list">
-          <li className="dashboard-link">
-            <Link to="/faculty-dashboard">
-              <img className="icon" src={DashboardIcon} alt="Dashboard" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>
-                Dashboard
-              </span>
-            </Link>
-          </li>
+          
           <li className="timetables-link">
             <Link to="/faculty-dashboard/faculty-timetable">
               <img className="icon" src={TimetablesIcon} alt="Timetables" />
@@ -55,7 +48,12 @@ const Sidebar = () => {
               </span>
             </Link>
           </li>
-          
+          <li className="feedback-link">
+            <Link to="/faculty-dashboard/Feedback">
+              <img className="icon" src={FeedbackIcon} alt="Feedback" />
+              <span className={`${isOpen ? "" : "hideElement"}`}>Edit Mapping</span>
+            </Link>
+          </li>
           
           
           <li className="anti-ragging-link">

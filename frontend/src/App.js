@@ -110,7 +110,7 @@ function App() {
               <ProtectedRoute allowedRoles={["faculty"]}>
                 <DashboardLayoutf>
                   <Routes>
-                    <Route path="" element={<StudentMainContentPart1 />} />
+                    <Route path="" element={<Facultyprofilee />} />
                     <Route path="users" element={<Users />} />
                     <Route path="Survey" element={<Survey />} />
                     <Route path="Surveyform" element={<Surveyf />} />
@@ -132,7 +132,7 @@ function App() {
               <ProtectedRoute allowedRoles={["student"]}>
                 <DashboardLayout>
                   <Routes>
-                    <Route path="" element={<StudentMainContentPart1 />} />
+                    <Route path="" element={<StudentProfile />} />
                     <Route path="timetable" element={<Timetable />} />{" "}
                     <Route path="profile" element={<StudentProfile />} />
                     <Route path="Surveystu" element={<Surveystu />} />
