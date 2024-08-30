@@ -37,4 +37,22 @@ router.get('/semesters', authMiddleware, userController.getSemesters);
 
 router.get('/students/criteria', authMiddleware, userController.getStudentsByCriteria);
 
+
+// Define route for fetching academic years
+router.get('/academic-years', userController.getAcademicYears);
+
+
+// Route to get user by session and _id
+router.get('/session', userController.getSessions);
+
+
+
+// Route to get distinct subject names
+router.get('/subject-names', userController.getDistinctSubjectNames);
+
+
+// Route to get distinct subject names
+router.get('/course-code', userController.getDistinctcoursecode);
+
+
 module.exports = router; // Corrected module. Exports

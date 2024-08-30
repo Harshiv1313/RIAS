@@ -3,6 +3,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const Timetable = require('../models/Timetable');
 
 // Register User
 exports.register = async (req, res) => {
@@ -231,3 +232,63 @@ exports.getStudentsByCriteria = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+// Get All Sessions
+exports.getSessions = async (req, res) => {
+  try {
+    // Fetch distinct session values
+    const sessions = await User.distinct('session');
+    res.status(200).json(sessions);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+
+
+// Get All Academic Years
+exports.getAcademicYears = async (req, res) => {
+  try {
+    // Fetch distinct academic year values
+    const academicYears = await User.distinct('academicYear');
+    res.status(200).json(academicYears);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+
+
+
+// Get All Distinct Subject Names
+exports.getDistinctSubjectNames = async (req, res) => {
+  try {
+    // Fetch distinct subjectName values
+    const subjectNames = await Timetable.distinct('subjectName');
+    res.status(200).json(subjectNames);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+
+// Get All Distinct courseode
+exports.getDistinctcoursecode = async (req, res) => {
+  try {
+    // Fetch distinct subjectName values
+    const courseCode = await Timetable.distinct('courseCode');
+    res.status(200).json(courseCode);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+
+
+
+

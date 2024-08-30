@@ -1,11 +1,8 @@
 .student-dashboard-feedback-card {
   position: relative;
   width: 100%;
-  /* Adjust width as needed */
   max-width: 1400px;
-  /* Ensure the card does not exceed this width */
   height: 610px;
-  /* Set a fixed height for the card */
   padding: 20px;
   border: 1px solid #ccc;
   background-color: #fff;
@@ -15,7 +12,6 @@
   margin-left: 80px;
   margin-top: 50px;
   overflow-y: auto;
-  /* Add vertical scrollbar when content exceeds height */
 }
 
 .student-dashboard-feedback-content {
@@ -33,12 +29,13 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  background-color: #007bff;
+  background-color: #1e3a98;
   color: #fff;
   border: none;
   border-radius: 4px;
   padding: 8px 16px;
   cursor: pointer;
+  margin-top: 12px;
 }
 
 .student-dashboard-submit-button:hover {
@@ -105,6 +102,7 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .student-dashboard-feedback-table th,
@@ -120,4 +118,30 @@
 
 .student-dashboard-feedback-table select {
   width: 100%;
+}
+
+
+
+.horizontal-scale-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.horizontal-scale-th, .horizontal-scale-td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  vertical-align: top;
+}
+
+.horizontal-scale-th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  width: 20%;
+}
+
+.horizontal-scale-td {
+  width: 16%;
 }

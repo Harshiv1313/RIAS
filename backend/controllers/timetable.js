@@ -102,7 +102,7 @@ exports.updateUserInfo = async (req, res) => {
   // controllers/userController.js
   
   // Get All Branches
-  exports.getBranches = async (req, res) => {
+  exports.getBrasnches = async (req, res) => {
     try {
       // Fetch all unique branches from the User collection
       const branches = await User.distinct('branch');
@@ -111,6 +111,19 @@ exports.updateUserInfo = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   };
+
+
+
+    // Get All Branches
+    exports.getBranches = async (req, res) => {
+      try {
+        // Fetch all unique branches from the User collection
+        const subjectName = await User.distinct('subjectName');
+        res.status(200).json(subjectName);
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+    };
   
   
   

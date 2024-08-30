@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom"; // Import Link from react-router-dom
+import { useNavigate, Link } from "react-router-dom";
 import MenuIcon from "../assets/menu.svg";
 import DashboardIcon from "../assets/grid.svg";
 import TimetablesIcon from "../assets/tt.svg";
@@ -39,25 +39,20 @@ const Sidebar = () => {
       </header>
       <div className="menu-links">
         <ul className="links-list">
-         
           <li className="timetables-link">
             <Link to="/student-dashboard/timetable">
-              {" "}
-              {/* Updated path */}
               <img className="icon" src={TimetablesIcon} alt="timetables" />
               <span className={`${isOpen ? "" : "hideElement"}`}>
                 Timetables
               </span>
             </Link>
           </li>
-
           <li className="feedback-link">
             <Link to="/student-dashboard/Feedback">
               <img className="icon" src={FeedbackIcon} alt="feedback" />
               <span className={`${isOpen ? "" : "hideElement"}`}>Feedback</span>
             </Link>
           </li>
-         
           <li className="anti-ragging-link">
             <Link to="/student-dashboard/Antiragging">
               <img className="icon" src={AntiRaggingIcon} alt="anti-ragging" />
@@ -66,11 +61,12 @@ const Sidebar = () => {
               </span>
             </Link>
           </li>
-      
-         
         </ul>
       </div>
       <div className="bottom-content">
+        <div className={`developed-by ${isOpen ? "" : "hideElement"}`}>
+          Developed by CSE Department
+        </div>
         <img
           className="logout"
           src={LogoutIcon}

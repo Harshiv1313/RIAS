@@ -20,15 +20,27 @@ const FacultyPostTimetable = () => {
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
   const [facultyNames, setFacultyNames] = useState([]);
+  const [subjectNames, setSubjectNames] = useState([]);
+  const [courseCodes, setCourseCodes] = useState([]); // Add state for course codes
   const [filteredFacultyNames, setFilteredFacultyNames] = useState([]);
-  const [suggestions, setSuggestions] = useState([]); // State for autocomplete suggestions
-  const [showSuggestions, setShowSuggestions] = useState(false); // State to control the visibility of the suggestions
+  const [filteredSubjectNames, setFilteredSubjectNames] = useState([]);
+  const [facultySuggestions, setFacultySuggestions] = useState([]); // State for faculty name autocomplete suggestions
+  const [subjectSuggestions, setSubjectSuggestions] = useState([]); // State for subject name autocomplete suggestions
+  const [courseCodeSuggestions, setCourseCodeSuggestions] = useState([]); // State for course code autocomplete suggestions
+  const [showFacultySuggestions, setShowFacultySuggestions] = useState(false); // State to control the visibility of faculty suggestions
+  const [showSubjectSuggestions, setShowSubjectSuggestions] = useState(false); // State to control the visibility of subject suggestions
+  const [showCourseCodeSuggestions, setShowCourseCodeSuggestions] = useState(false); // State to control the visibility of course code suggestions
+  const [academicYears, setAcademicYears] = useState([]);
+  const [selectedAcademicYear, setSelectedAcademicYear] = useState(""); // State for academic year
+  const [session, setSession] = useState([]);
+  const [SelectedSession, setSectedSession] = useState(""); // State for session
 
   // State for the timetables
   const [timetables, setTimetables] = useState([]);
   const [filteredTimetables, setFilteredTimetables] = useState([]);
   const [error, setError] = useState("");
 
+  // Handle faculty name change
   const handleFacultyNameChange = (e) => {
     const value = e.target.value;
     setFacultyName(value);
@@ -37,26 +49,76 @@ const FacultyPostTimetable = () => {
       const filteredSuggestions = facultyNames.filter((name) =>
         name.toLowerCase().includes(value.toLowerCase())
       );
-      setSuggestions(filteredSuggestions);
-      setShowSuggestions(true);
+      setFacultySuggestions(filteredSuggestions);
+      setShowFacultySuggestions(true);
     } else {
-      setSuggestions([]);
-      setShowSuggestions(false);
+      setFacultySuggestions([]);
+      setShowFacultySuggestions(false);
     }
   };
 
-  // Handle suggestion click
-  const handleSuggestionClick = (name) => {
+  // Handle subject name change
+  const handleSubjectNameChange = (e) => {
+    const value = e.target.value;
+    setSubjectName(value);
+
+    if (value) {
+      const filteredSuggestions = subjectNames.filter((name) =>
+        name.toLowerCase().includes(value.toLowerCase())
+      );
+      setSubjectSuggestions(filteredSuggestions);
+      setShowSubjectSuggestions(true);
+    } else {
+      setSubjectSuggestions([]);
+      setShowSubjectSuggestions(false);
+    }
+  };
+
+  // Handle course code change
+  const handleCourseCodeChange = (e) => {
+    const value = e.target.value;
+    setCourseCode(value);
+
+    if (value) {
+      const filteredSuggestions = courseCodes.filter((code) =>
+        code.toLowerCase().includes(value.toLowerCase())
+      );
+      setCourseCodeSuggestions(filteredSuggestions);
+      setShowCourseCodeSuggestions(true);
+    } else {
+      setCourseCodeSuggestions([]);
+      setShowCourseCodeSuggestions(false);
+    }
+  };
+
+  // Handle suggestion click for faculty name
+  const handleFacultySuggestionClick = (name) => {
     setFacultyName(name);
-    setSuggestions([]);
-    setShowSuggestions(false);
+    setFacultySuggestions([]);
+    setShowFacultySuggestions(false);
+  };
+
+  // Handle suggestion click for subject name
+  const handleSubjectSuggestionClick = (name) => {
+    setSubjectName(name);
+    setSubjectSuggestions([]);
+    setShowSubjectSuggestions(false);
+  };
+
+  // Handle suggestion click for course code
+  const handleCourseCodeSuggestionClick = (code) => {
+    setCourseCode(code);
+    setCourseCodeSuggestions([]);
+    setShowCourseCodeSuggestions(false);
   };
 
   // Close suggestions when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (!event.target.closest(".autocomplete-dropdown")) {
-        setShowSuggestions(false);
+        setShowFacultySuggestions(false);
+        setShowSubjectSuggestions(false);
+        setShowCourseCodeSuggestions(false);
       }
     };
 
@@ -68,18 +130,36 @@ const FacultyPostTimetable = () => {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const [semestersRes, branchesRes, sectionsRes, facultynameRes] =
-          await Promise.all([
-            axios.get("http://localhost:4000/api/semesters"),
-            axios.get("http://localhost:4000/api/branches"),
-            axios.get("http://localhost:4000/api/sections"),
-            axios.get("http://localhost:4000/api/facultyname"),
-          ]);
+        const [
+          semestersRes,
+          branchesRes,
+          sectionsRes,
+          facultynameRes,
+          academicYearsRes,
+          sessionRes,
+          subjectName,
+          coursecode,
+        ] = await Promise.all([
+          axios.get("http://localhost:4000/api/semesters"),
+          axios.get("http://localhost:4000/api/branches"),
+          axios.get("http://localhost:4000/api/sections"),
+          axios.get("http://localhost:4000/api/facultyname"),
+          axios.get("http://localhost:4000/api/users/academic-years"),
+          axios.get("http://localhost:4000/api/users/session"),
+          axios.get("http://localhost:4000/api/users/subject-names"),
+          axios.get("http://localhost:4000/api/users/course-code"),
+          
+          
+        ]);
 
         setSemesters(semestersRes.data);
         setBranches(branchesRes.data);
         setSections(sectionsRes.data);
         setFacultyNames(facultynameRes.data);
+        setSubjectNames(subjectName.data);
+        setCourseCodes(coursecode.data);
+        setAcademicYears(academicYearsRes.data); // Set academic years from API response
+        setSession(sessionRes.data); // Set academic years from API response
       } catch (error) {
         console.error("Error fetching options:", error);
         setMessage("Failed to load options.");
@@ -131,120 +211,100 @@ const FacultyPostTimetable = () => {
     setFilteredTimetables(filtered);
   }, [semester, branch, section, timetables]);
 
-// Handle timetable form submission
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      throw new Error("No authentication token found");
-    }
+  // Handle timetable form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
 
-    const timetableData = {
-      facultyName,
-      subjectName,
-      courseCode,
-      branch,
-      section,
-      semester,
-      type,
-      time,
-      room,
-      batch,
-      createdBy: localStorage.getItem("userId"),
-    };
+      const timetableData = {
+        facultyName,
+        subjectName,
+        courseCode,
+        branch,
+        section,
+        semester,
+        type,
+        time,
+        room,
+        batch,
+        academicYear: selectedAcademicYear, // Include
+        session: SelectedSession, // Include
+        createdBy: localStorage.getItem("userId"),
+      };
 
-    await axios.post(
-      "http://localhost:4000/api/timetables",
-      timetableData,
-      {
+      await axios.post("http://localhost:4000/api/timetables", timetableData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
+      });
+
+      setMessage("Timetable posted successfully");
+      setMessageType("success");
+
+      // Clear form fields
+      setFacultyName("");
+      setSubjectName("");
+      setCourseCode("");
+      setBranch("");
+      setSection("");
+      setSemester("");
+      setType("");
+      setTime("");
+      setRoom("");
+      setBatch("");
+      setSelectedAcademicYear("");
+      setSectedSession("");
+    } catch (error) {
+      console.error("Error posting timetable:", error);
+
+      // Provide more specific error messaging
+      if (error.response && error.response.data) {
+        setMessage(`Failed to post timetable: ${error.response.data.message}`);
+      } else {
+        setMessage("Failed to post timetable. Please try again.");
       }
-    );
-
-    setMessage("Timetable posted successfully");
-    setMessageType("success");
-
-    // Clear form fields
-    setFacultyName("");
-    setSubjectName("");
-    setCourseCode("");
-    setBranch("");
-    setSection("");
-    setSemester("");
-    setType("");
-    setTime("");
-    setRoom("");
-    setBatch("");
-  } catch (error) {
-    console.error("Error posting timetable:", error);
-
-    // Provide more specific error messaging
-    if (error.response && error.response.data) {
-      setMessage(`Failed to post timetable: ${error.response.data.message}`);
-    } else {
-      setMessage("Failed to post timetable. Please try again.");
+      setMessageType("error");
     }
-    setMessageType("error");
-  }
-};
-
+  };
 
   return (
     <div className="faculty-post-timetable-container">
       <form onSubmit={handleSubmit} className="faculty-post-timetable-form">
         <div className="form-grid">
           <div className="form-item row1">
-            <label>Faculty Name:</label>
-            <input
-              type="text"
-              value={facultyName}
-              onChange={handleFacultyNameChange}
+            <label>Academic Year:</label>
+            <select
+              value={selectedAcademicYear}
+              onChange={(e) => setSelectedAcademicYear(e.target.value)}
               required
-            />
-            {showSuggestions && (
-              <ul className="autocomplete-dropdown">
-                {suggestions.length ? (
-                  suggestions.map((name, index) => (
-                    <li key={index} onClick={() => handleSuggestionClick(name)}>
-                      {name}
-                    </li>
-                  ))
-                ) : (
-                  <li>No suggestions</li>
-                )}
-              </ul>
-            )}
+            >
+              <option value="">Select Academic</option>
+              {academicYears.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="form-item row1">
-            <label>Abbreviation:</label>
-            <input
-              type="text"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
+            <label>Session:</label>
+            <select
+              value={SelectedSession}
+              onChange={(e) => setSectedSession(e.target.value)}
               required
-            />
-          </div>
-          <div className="form-item row1">
-            <label>Subject Name:</label>
-            <input
-              type="text"
-              value={subjectName}
-              onChange={(e) => setSubjectName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-item row1">
-            <label>Course Code:</label>
-            <input
-              type="text"
-              value={courseCode}
-              onChange={(e) => setCourseCode(e.target.value)}
-              required
-            />
+            >
+              <option value="">Select Session</option>
+              {session.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="form-item row1">
             <label>Branch:</label>
@@ -261,24 +321,7 @@ const handleSubmit = async (e) => {
               ))}
             </select>
           </div>
-          
-        </div>
-        <div className="form-grid">
-        <div className="form-item row2">
-            <label>Section:</label>
-            <select
-              value={section}
-              onChange={(e) => setSection(e.target.value)}
-              required
-            >
-              <option value="">Select Section</option>
-              {sections.map((section) => (
-                <option key={section} value={section}>
-                  {section}
-                </option>
-              ))}
-            </select>
-          </div>
+
           <div className="form-item row2">
             <label>Semester:</label>
             <select
@@ -294,6 +337,37 @@ const handleSubmit = async (e) => {
               ))}
             </select>
           </div>
+
+          <div className="form-item row2">
+            <label>Section:</label>
+            <select
+              value={section}
+              onChange={(e) => setSection(e.target.value)}
+              required
+            >
+              <option value="">Select Section</option>
+              {sections.map((section) => (
+                <option key={section} value={section}>
+                  {section}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-item row2">
+            <label>Batch:</label>
+            <select value={batch} onChange={(e) => setBatch(e.target.value)}>
+              <option value="" disabled>
+                Select type
+              </option>
+              <option value="Not Required">Not Required</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+        </div>
+        <div className="form-grid">
           <div className="form-item row2">
             <label>Type:</label>
             <select
@@ -308,7 +382,86 @@ const handleSubmit = async (e) => {
               <option value="Theory">Theory</option>
             </select>
           </div>
-          
+
+          <div className="form-item row2">
+        <label>Subject Name:</label>
+        <input
+          type="text"
+          value={subjectName}
+          onChange={handleSubjectNameChange}
+          required
+        />
+        {showSubjectSuggestions && (
+          <ul className="autocomplete-dropdown">
+            {subjectSuggestions.length ? (
+              subjectSuggestions.map((name, index) => (
+                <li key={index} onClick={() => handleSubjectSuggestionClick(name)}>
+                  {name}
+                </li>
+              ))
+            ) : (
+              <li>No suggestions</li>
+            )}
+          </ul>
+        )}
+      </div>
+
+      <div className="form-item row2">
+        <label>Course Code:</label>
+        <input
+          type="text"
+          value={courseCode}
+          onChange={handleCourseCodeChange}
+          required
+        />
+        {showCourseCodeSuggestions && (
+          <ul className="autocomplete-dropdown">
+            {courseCodeSuggestions.length ? (
+              courseCodeSuggestions.map((code, index) => (
+                <li key={index} onClick={() => handleCourseCodeSuggestionClick(code)}>
+                  {code}
+                </li>
+              ))
+            ) : (
+              <li>No suggestions</li>
+            )}
+          </ul>
+        )}
+      </div>
+
+          <div className="form-item row2">
+            <label>Abbreviation:</label>
+            <input
+              type="text"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="form-item row2">
+        <label>Faculty Name:</label>
+        <input
+          type="text"
+          value={facultyName}
+          onChange={handleFacultyNameChange}
+          required
+        />
+        {showFacultySuggestions && (
+          <ul className="autocomplete-dropdown">
+            {facultySuggestions.length ? (
+              facultySuggestions.map((name, index) => (
+                <li key={index} onClick={() => handleFacultySuggestionClick(name)}>
+                  {name}
+                </li>
+              ))
+            ) : (
+              <li>No suggestions</li>
+            )}
+          </ul>
+        )}
+      </div>
+
           <div className="form-item row2">
             <label>Room:</label>
             <input
@@ -317,18 +470,6 @@ const handleSubmit = async (e) => {
               onChange={(e) => setRoom(e.target.value)}
               required
             />
-          </div>
-          <div className="form-item row2">
-            <label>Batch:</label>
-            <select value={batch} onChange={(e) => setBatch(e.target.value)}>
-              <option value="" disabled>
-                Select type
-              </option>
-              <option value="Not Required">Not Required</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
           </div>
         </div>
         <div className="form-grid">

@@ -3,8 +3,10 @@ const Timetable = require('../models/Timetable');
 // Create a new timetable
 exports.createTimetable = async (req, res) => {
   try {
-    const { branch, section, semester, batch, facultyName, subjectName, courseCode, type, time, room } = req.body;
+    // Destructure academicYear and session from req.body
+    const { branch, section, semester, batch, facultyName, subjectName, courseCode, type, time, room, academicYear, session } = req.body;
 
+    // Create a new Timetable instance including academicYear and session
     const newTimetable = new Timetable({
       branch,
       section,
@@ -16,16 +18,22 @@ exports.createTimetable = async (req, res) => {
       type,
       time,
       room,
+      academicYear, // Include academicYear in the creation
+      session,      // Include session in the creation
       createdBy: req.user._id // Assuming req.user is set by authentication middleware
     });
 
+    // Save the new timetable to the database
     await newTimetable.save();
+
+    // Send a success response with the created timetable
     res.status(201).json(newTimetable);
   } catch (error) {
     console.error('Error creating timetable:', error);
     res.status(500).json({ message: 'Failed to create timetable' });
   }
 };
+
 
 // Get all timetables based on filters
 exports.getTimetables = async (req, res) => {
