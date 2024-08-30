@@ -8,7 +8,7 @@
     padding: 2px;
     flex-wrap: wrap;
     /* Allows wrapping of cards if there's not enough space */
-    width: 1400px;
+    width: 1200px;
     /* Optional: Set a max width for better control */
     margin: 0 auto;
     /* Center container horizontally */
@@ -26,7 +26,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin: 10px;
-    max-width: 100%;
+    max-width: 90%;
     /* Set a maximum height and enable scrolling */
     
     /* Responsive design: Ensure cards don't overflow */

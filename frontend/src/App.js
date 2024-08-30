@@ -35,6 +35,7 @@ import Samefaculty from "./components/AdminDashboard/SameFacultyDifferentSubject
 import Deptanalysis from "./components/AdminDashboard/BranchAnalysis"; // Updated import path
 import Aaadmincsv from "./components/AdminDashboard/admincsv"; // Updated import path
 import Facultyprofilee from "./components/FacultyDashboard/StudentProfile"; // Updated import path
+import Facultyregister from "./components/FacultyDashboard/FacultyRegister"; // Updated import path
 
 
 const AuthRoute = ({ children }) => {
@@ -116,6 +117,7 @@ function App() {
                     <Route path="Surveyform" element={<Surveyf />} />
                     <Route path="Feedback" element={<FacultyFeedback />} />
                     <Route path="F-profile" element={<Facultyprofilee />} />
+                    <Route path="faculty-register" element={<Facultyregister />} />
                     <Route
                       path="faculty-timetable"
                       element={<FacultyPooostTimetable />}

@@ -184,16 +184,14 @@ const FeedbackStats = () => {
                   <tr>
                     <th>Faculty Name</th>
                     <th>Average Rating</th>
-                    <th>Good Feedback (%)</th>
-                    <th>Bad Feedback (%)</th>
+                    
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>{feedbacks.length > 0 ? feedbacks[0].facultyName : 'N/A'}</td>
                     <td>{formattedAnalysisData.averageScore || 'N/A'}</td>
-                    <td>{formattedAnalysisData.goodFeedbackPercentage || 'N/A'}</td>
-                    <td>{formattedAnalysisData.badFeedbackPercentage || 'N/A'}</td>
+                    
                   </tr>
                 </tbody>
               </table>

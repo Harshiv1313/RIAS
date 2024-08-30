@@ -1,9 +1,10 @@
-body {
+/* General body styling */
+body.login-page {
     margin: 0;
     overflow: hidden;
-}
-
-.login-container {
+  }
+  
+  .login-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,9 +12,10 @@ body {
     width: 100vw;
     background: url('../assets/bglogin.png') no-repeat center center;
     background-size: cover;
-    margin-left: -14%;
-    margin-top: -2%;
-}
+    margin-left: -14%; /* Adjust as needed */
+    margin-top: -2%; /* Adjust as needed */
+  }
+  
 
 .login-card-container {
     display: flex;

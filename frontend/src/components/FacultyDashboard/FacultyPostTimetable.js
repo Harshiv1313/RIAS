@@ -18,26 +18,68 @@ const FacultyPostTimetable = () => {
   const [time, setTime] = useState("");
   const [room, setRoom] = useState("");
   const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState(""); // 'success' or 'error'
+  const [messageType, setMessageType] = useState("");
+  const [facultyNames, setFacultyNames] = useState([]);
+  const [filteredFacultyNames, setFilteredFacultyNames] = useState([]);
+  const [suggestions, setSuggestions] = useState([]); // State for autocomplete suggestions
+  const [showSuggestions, setShowSuggestions] = useState(false); // State to control the visibility of the suggestions
 
   // State for the timetables
   const [timetables, setTimetables] = useState([]);
   const [filteredTimetables, setFilteredTimetables] = useState([]);
   const [error, setError] = useState("");
 
+  const handleFacultyNameChange = (e) => {
+    const value = e.target.value;
+    setFacultyName(value);
+
+    if (value) {
+      const filteredSuggestions = facultyNames.filter((name) =>
+        name.toLowerCase().includes(value.toLowerCase())
+      );
+      setSuggestions(filteredSuggestions);
+      setShowSuggestions(true);
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  };
+
+  // Handle suggestion click
+  const handleSuggestionClick = (name) => {
+    setFacultyName(name);
+    setSuggestions([]);
+    setShowSuggestions(false);
+  };
+
+  // Close suggestions when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest(".autocomplete-dropdown")) {
+        setShowSuggestions(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
   // Fetch options for the form
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const [semestersRes, branchesRes, sectionsRes] = await Promise.all([
-          axios.get("http://localhost:4000/api/semesters"),
-          axios.get("http://localhost:4000/api/branches"),
-          axios.get("http://localhost:4000/api/sections"),
-        ]);
+        const [semestersRes, branchesRes, sectionsRes, facultynameRes] =
+          await Promise.all([
+            axios.get("http://localhost:4000/api/semesters"),
+            axios.get("http://localhost:4000/api/branches"),
+            axios.get("http://localhost:4000/api/sections"),
+            axios.get("http://localhost:4000/api/facultyname"),
+          ]);
 
         setSemesters(semestersRes.data);
         setBranches(branchesRes.data);
         setSections(sectionsRes.data);
+        setFacultyNames(facultynameRes.data);
       } catch (error) {
         console.error("Error fetching options:", error);
         setMessage("Failed to load options.");
@@ -47,12 +89,21 @@ const FacultyPostTimetable = () => {
 
     fetchOptions();
   }, []);
+  useEffect(() => {
+    setFilteredFacultyNames(
+      facultyNames.filter((name) =>
+        name.toLowerCase().includes(facultyName.toLowerCase())
+      )
+    );
+  }, [facultyName, facultyNames]);
 
   useEffect(() => {
     // Function to fetch timetables
     const fetchTimetables = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/timetables");
+        const response = await axios.get(
+          "http://localhost:4000/api/timetables"
+        );
         setTimetables(response.data);
         setFilteredTimetables(response.data); // Initially display all timetables
       } catch (error) {
@@ -60,14 +111,13 @@ const FacultyPostTimetable = () => {
         setError("Failed to load timetables.");
       }
     };
-  
+
     // Fetch timetables every second
     const intervalId = setInterval(fetchTimetables, 1000);
-  
+
     // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
   }, []); // Empty dependency array ensures this runs once on mount
-  
 
   // Filter timetables based on selected criteria
   useEffect(() => {
@@ -81,54 +131,67 @@ const FacultyPostTimetable = () => {
     setFilteredTimetables(filtered);
   }, [semester, branch, section, timetables]);
 
-  // Handle timetable form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const token = localStorage.getItem("token");
-      if (!token) throw new Error("No authentication token found");
-
-      await axios.post(
-        "http://localhost:4000/api/timetables",
-        {
-          facultyName,
-          subjectName,
-          courseCode,
-          branch,
-          section,
-          semester,
-          type,
-          time,
-          room,
-          batch,
-          createdBy: localStorage.getItem("userId"), // Assuming you store the user ID in localStorage
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      setMessage("Timetable posted successfully");
-      setMessageType("success");
-      // Clear form fields after submission
-      setFacultyName("");
-      setSubjectName("");
-      setCourseCode("");
-      setBranch("");
-      setSection("");
-      setSemester("");
-      setType("");
-      setTime("");
-      setRoom("");
-      setBatch("");
-    } catch (error) {
-      console.error("Error posting timetable:", error);
-      setMessage("Failed to post timetable");
-      setMessageType("error");
+// Handle timetable form submission
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No authentication token found");
     }
-  };
+
+    const timetableData = {
+      facultyName,
+      subjectName,
+      courseCode,
+      branch,
+      section,
+      semester,
+      type,
+      time,
+      room,
+      batch,
+      createdBy: localStorage.getItem("userId"),
+    };
+
+    await axios.post(
+      "http://localhost:4000/api/timetables",
+      timetableData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    setMessage("Timetable posted successfully");
+    setMessageType("success");
+
+    // Clear form fields
+    setFacultyName("");
+    setSubjectName("");
+    setCourseCode("");
+    setBranch("");
+    setSection("");
+    setSemester("");
+    setType("");
+    setTime("");
+    setRoom("");
+    setBatch("");
+  } catch (error) {
+    console.error("Error posting timetable:", error);
+
+    // Provide more specific error messaging
+    if (error.response && error.response.data) {
+      setMessage(`Failed to post timetable: ${error.response.data.message}`);
+    } else {
+      setMessage("Failed to post timetable. Please try again.");
+    }
+    setMessageType("error");
+  }
+};
+
 
   return (
     <div className="faculty-post-timetable-container">
@@ -139,7 +202,29 @@ const FacultyPostTimetable = () => {
             <input
               type="text"
               value={facultyName}
-              onChange={(e) => setFacultyName(e.target.value)}
+              onChange={handleFacultyNameChange}
+              required
+            />
+            {showSuggestions && (
+              <ul className="autocomplete-dropdown">
+                {suggestions.length ? (
+                  suggestions.map((name, index) => (
+                    <li key={index} onClick={() => handleSuggestionClick(name)}>
+                      {name}
+                    </li>
+                  ))
+                ) : (
+                  <li>No suggestions</li>
+                )}
+              </ul>
+            )}
+          </div>
+          <div className="form-item row1">
+            <label>Abbreviation:</label>
+            <input
+              type="text"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
               required
             />
           </div>
@@ -176,7 +261,10 @@ const FacultyPostTimetable = () => {
               ))}
             </select>
           </div>
-          <div className="form-item row1">
+          
+        </div>
+        <div className="form-grid">
+        <div className="form-item row2">
             <label>Section:</label>
             <select
               value={section}
@@ -191,8 +279,6 @@ const FacultyPostTimetable = () => {
               ))}
             </select>
           </div>
-        </div>
-        <div className="form-grid">
           <div className="form-item row2">
             <label>Semester:</label>
             <select
@@ -222,15 +308,7 @@ const FacultyPostTimetable = () => {
               <option value="Theory">Theory</option>
             </select>
           </div>
-          <div className="form-item row2">
-            <label>Time:</label>
-            <input
-              type="text"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              required
-            />
-          </div>
+          
           <div className="form-item row2">
             <label>Room:</label>
             <input
@@ -242,11 +320,7 @@ const FacultyPostTimetable = () => {
           </div>
           <div className="form-item row2">
             <label>Batch:</label>
-            <select
-              value={batch}
-              onChange={(e) => setBatch(e.target.value)}
-              
-            >
+            <select value={batch} onChange={(e) => setBatch(e.target.value)}>
               <option value="" disabled>
                 Select type
               </option>
@@ -256,7 +330,6 @@ const FacultyPostTimetable = () => {
               <option value="3">3</option>
             </select>
           </div>
-        
         </div>
         <div className="form-grid">
           <div className="button-container">

@@ -33,6 +33,7 @@ const feedbackRoutes = require("./routes/feedbackRoutes");
 const antiRaggingRoutes = require('./routes/aa');
 const adminchart = require('./routes/adminAnalysis');
 const csv = require('./routes/adminRoutes');
+const facultyregisterRoutes= require('./routes/facultyregisterRoutes');
 
 app.use("/api", authRoutes); // Authentication routes
 app.use("/api/class-schedules", classSchedulesRoutes); // Class schedules routes
@@ -46,6 +47,7 @@ app.use("/api/feedback", feedbackRoutes);
 app.use('/api/antiragging', antiRaggingRoutes);
 app.use('/api/admin', adminchart);
 app.use('/api/csv', csv);
+app.use('/api/facultyregister', facultyregisterRoutes);
 
 // Connect to MongoDB
 mongoose

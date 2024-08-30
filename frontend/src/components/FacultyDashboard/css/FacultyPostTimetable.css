@@ -297,3 +297,38 @@
 .timetable-table td {
   vertical-align: top;
 }
+
+
+/* Autocomplete Dropdown Styles */
+.autocomplete-dropdown {
+  position: absolute;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 1000;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 60px;
+  width: 200px;
+
+
+   /* Hide scrollbar but keep functionality */
+   scrollbar-width: none; /* Firefox */
+   -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.autocomplete-dropdown li {
+  padding: 10px;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333333;
+}
+
+.autocomplete-dropdown li:hover {
+  background-color: #f7f7f7;
+}

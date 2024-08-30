@@ -138,7 +138,7 @@ exports.updateUserInfo = async (req, res) => {
 exports.getFacultyName = async (req, res) => {
   try {
     const facultyNames = await Timetable.distinct('facultyName'); // Or use User if that's correct
-    console.log('Query Result:', facultyNames); // Log the result
+    
     if (facultyNames.length === 0) {
       console.log('No faculty names found.');
     }

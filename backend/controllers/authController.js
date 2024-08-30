@@ -1,12 +1,11 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
 exports.register = async (req, res) => {
   const {
     username, email, password, role,
-    mobileNumber, registrationNumber, semester, branch, section, rollNumber, batch, session
-  } = req.body; // Added session to destructuring
+    mobileNumber, registrationNumber, semester, branch, section, rollNumber, batch, session, academicYear
+  } = req.body; // Added academicYear to destructuring
 
   try {
     let user = await User.findOne({ email });
@@ -16,7 +15,7 @@ exports.register = async (req, res) => {
 
     user = new User({
       username, email, password, role,
-      mobileNumber, registrationNumber, semester, branch, section, rollNumber, batch, session // Added session field
+      mobileNumber, registrationNumber, semester, branch, section, rollNumber, batch, session, academicYear // Added academicYear field
     });
 
     await user.save();
@@ -26,7 +25,6 @@ exports.register = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
-
 
 // Login User
 exports.login = async (req, res) => {

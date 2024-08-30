@@ -1,6 +1,6 @@
 .samesubjectanalysisContainer {
-    margin-top: 70px;
-    margin-left: 70px;
+    margin-top: 100px;
+    margin-left: 100px;
 }
 
 .samesubjectanalysisCard {
@@ -114,52 +114,3 @@
 .samesubjectanalysisTable tbody tr:hover {
     background-color: #f1f1f1;
 }
-
-
-
-/* Fullscreen overlay */
-.admin-Samesubjectanalysis-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-  }
-  
-  /* Popup box */
-  .admin-Samesubjectanalysis-popup {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    position: relative;
-    max-width: 500px;
-    text-align: center;
-  }
-  
-  /* Close icon */
-  .admin-Samesubjectanalysis-closeIcon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  /* Close button */
-  .admin-Samesubjectanalysis-closeButton {
-    margin-top: 20px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  

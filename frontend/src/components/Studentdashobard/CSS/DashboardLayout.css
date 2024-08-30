@@ -18,16 +18,16 @@
 .sidebar {
   background-color: var(--bg-sidebar);
   position: fixed;
-  top: 0; /* Align at the top of the screen */
-  width: 250px; /* Default width when open */
-  transition: width 0.3s ease; /* Smooth transition for width changes */
+  top: 0;
+  width: 15vw; /* Responsive width */
+  transition: width 0.3s ease;
   white-space: nowrap;
-  z-index: 1000; /* Ensure the sidebar is on top of other content */
-  left: 0; /* Align with the left of the screen */
+  z-index: 1000;
+  left: 0;
 }
 
 .sidebar.close {
-  width: 80px; /* Width when closed */
+  width: 5vw; /* Width when closed */
 }
 
 /* Upper Navbar */
@@ -35,78 +35,72 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
+  height: 6vh; /* Height based on viewport height */
   background-color: #050412;
-  padding: 0 20px;
+  padding: 0 2vw; /* Responsive padding */
   transition: all 0.3s ease;
   position: fixed;
-  top: 0; /* Align at the top of the screen */
-  left: 0; /* Align with the left of the screen */
-  width: 100%; /* Full width of the viewport */
-  border-radius: 20px;
-  border-end-end-radius: 20px; /* Rounded corners */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  z-index: 500; /* Ensure the navbar is below the sidebar */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Full viewport width */
+  border-bottom-right-radius: 2vw; /* Rounded corners */
+  box-shadow: 0 0.2vh 1vh rgba(0, 0, 0, 0.1);
+  z-index: 500;
 }
 
 /* Main Layout */
 .main-layout {
-  display: flex; /* Adjust based on the height of the upper navbar */
+  display: flex;
   overflow: hidden;
-  margin-left: -92px; /* Default margin when sidebar is open */
-  margin-right: -150px;
-  padding-right: 0%;
-  transition: margin-left 0.3s ease; /* Smooth transition for margin changes */
-  margin-top: -4.5%;
+  margin-left: 0; /* Adjust margin based on sidebar width */
+  margin-right: 0;
+  padding-right: 0;
+  transition: margin-left 0.3s ease;
+  margin-top: 6vh; /* Margin below upper navbar */
 }
 
 .main-layout.expanded {
-  margin-left: 80px; /* Margin when sidebar is closed */
+  margin-left: 5vw; /* Margin when sidebar is closed */
 }
 
 .main-layout.collapsed {
-  margin-left: 250px; /* Margin when sidebar is open */
+  margin-left: 15vw; /* Margin when sidebar is open */
 }
 
 /* Main Content */
 .main-content {
   display: flex;
-  flex-direction: row; /* Horizontal layout */
-  margin-left: 15px; /* 20px margin from the left edge of the screen */
-  margin-top: 60px; /* Align below the upper navbar */
-  position: relative; /* Ensure positioning context */
-  width: calc(100%); /* Full width minus 20px margin */
-  margin-bottom: 2000px;
-  
+  flex-direction: row;
+  margin-left: 1vw; /* Margin from the left edge of the screen */
+  margin-top: 6vh; /* Align below the upper navbar */
+  position: relative;
+  width: calc(100% - 1vw); /* Full width minus margin */
 }
 
 .content {
   display: flex;
-  flex-direction: row; /* Horizontal layout */
-  width: 100%; /* Full width of the parent container */
-  height: 100%; /* Full height of the parent container */
-  margin-left: 20px; /* Shift the content part1 to the right */
-  margin-right: -20px;
+  flex-direction: row;
+  width: 100%;
+  height: calc(100vh - 6vh); /* Full viewport height minus navbar height */
+  margin-left: 2vw; /* Shift content to the right */
 }
 
 .student-main-content-part1 {
   flex: 4; /* 80% width */
-  padding: 20px;
-  overflow-y: auto; /* Adds scroll if content overflows */
+  padding: 2vw; /* Responsive padding */
+  overflow-y: auto;
   background-color: #202027;
-  box-sizing: border-box; /* Ensure padding is included in width */
-  margin-left: -1%;
-  margin-bottom: 10%;
-  margin-top: 30px;
-  margin-right: 0%;
+  box-sizing: border-box;
+  margin-left: 0;
+  margin-bottom: 5vh;
+  margin-top: 2vh;
 }
 
 .student-main-content-part2 {
   flex: 1; /* 20% width */
-  padding: 20px;
-  overflow-y: auto; /* Adds scroll if content overflows */
+  padding: 2vw; /* Responsive padding */
+  overflow-y: auto;
   background-color: #252323;
-  box-sizing: border-box; /* Ensure padding is included in width */
-  margin-right: -100px;
+  box-sizing: border-box;
+  margin-right: 0;
 }
-

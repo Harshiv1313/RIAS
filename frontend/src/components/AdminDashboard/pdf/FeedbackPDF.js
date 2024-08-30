@@ -65,8 +65,7 @@ const styles = StyleSheet.create({
 const FeedbackPDF = ({ feedbacks, analysisData, filters }) => {
   const formattedAnalysisData = {
     averageScore: analysisData?.averageScore || 'N/A',
-    goodFeedbackPercentage: (analysisData?.goodFeedbacks / analysisData?.totalFeedbacks * 100 || 0).toFixed(2) + '%',
-    badFeedbackPercentage: (analysisData?.badFeedbacks / analysisData?.totalFeedbacks * 100 || 0).toFixed(2) + '%',
+    
     questionAverages: analysisData?.questionAverages || {},
   };
 
@@ -115,12 +114,7 @@ const FeedbackPDF = ({ feedbacks, analysisData, filters }) => {
               <View style={styles.tableCol20}>
                 <Text style={styles.tableCell}>Average Rating</Text>
               </View>
-              <View style={styles.tableCol20}>
-                <Text style={styles.tableCell}>Good Feedback (%)</Text>
-              </View>
-              <View style={styles.tableCol20}>
-                <Text style={styles.tableCell}>Bad Feedback (%)</Text>
-              </View>
+              
             </View>
             {feedbacks.length > 0 && (
               <View style={styles.tableRow}>
@@ -130,12 +124,7 @@ const FeedbackPDF = ({ feedbacks, analysisData, filters }) => {
                 <View style={styles.tableCol20}>
                   <Text style={styles.tableCell}>{formattedAnalysisData.averageScore}</Text>
                 </View>
-                <View style={styles.tableCol20}>
-                  <Text style={styles.tableCell}>{formattedAnalysisData.goodFeedbackPercentage}</Text>
-                </View>
-                <View style={styles.tableCol20}>
-                  <Text style={styles.tableCell}>{formattedAnalysisData.badFeedbackPercentage}</Text>
-                </View>
+                
               </View>
             )}
           </View>

@@ -14,6 +14,7 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true },
   role: { type: String, required: true },
   session: { type: String }, // Added session field
+  academicYear: { type: String }, // Added academicYear field
   isApproved: { type: Boolean, default: false }
 });
 

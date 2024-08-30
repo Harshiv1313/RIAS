@@ -280,7 +280,7 @@ const FeedbackForm = () => {
                     <th className="student-dashboard-feedback-th">Theory Factors</th>
                     {filteredTheoryTimetable.map((item, index) => (
                       <th key={item._id} className="student-dashboard-feedback-th">
-                        {item.subjectName}
+                        {item.time}
                       </th>
                     ))}
                   </tr>
@@ -295,8 +295,8 @@ const FeedbackForm = () => {
                           key={`${timetableIndex}_${questionIndex}`}
                           className="student-dashboard-feedback-td"
                         >
-                          <select
-                            value={
+                          <select 
+                            value={ 
                               responses[
                                 `theory_${timetableIndex}_${questionIndex}`
                               ] !== undefined
@@ -312,8 +312,9 @@ const FeedbackForm = () => {
                                 timetableIndex,
                                 "theory"
                               )
-                            }
+                            }style={{ textAlign: "left" }} 
                             className="student-dashboard-feedback-select"
+                            
                           >
                             <option value="">Select</option>
                             {[0, 1, 2, 3, 4].map((num) => (
@@ -335,7 +336,7 @@ const FeedbackForm = () => {
         {filteredPracticalTimetable.length > 0 && (
           <>
             <h2 className="student-dashboard-timetable-title">Practical Timetable</h2>
-            <table className="student-dashboard-timetable-table">
+            <table className="student-dashboard-timetable-table" >
               <thead>
                 <tr>
                   <th className="student-dashboard-timetable-th">S.N.</th>
@@ -368,12 +369,12 @@ const FeedbackForm = () => {
                     <th className="student-dashboard-feedback-th">Practical Factors</th>
                     {filteredPracticalTimetable.map((item, index) => (
                       <th key={item._id} className="student-dashboard-feedback-th">
-                        {item.subjectName}
+                        {item.time}
                       </th>
                     ))}
                   </tr>
                 </thead>
-                <tbody>
+                <tbody >
                   {practicalQuestions.map((question, questionIndex) => (
                     <tr key={questionIndex}>
                       <td className="student-dashboard-feedback-td">{questionIndex + 1}</td>

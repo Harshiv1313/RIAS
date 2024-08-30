@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import FacultyImage from '../assets/faculty.png';
@@ -18,14 +18,26 @@ const Register = () => {
     password: '',
     role: '',
     batch: '',
-    session: '' // Added state for session dropdown
+    session: '', // Added state for session dropdown
+    academicYear: '' // Added state for academicYear dropdown
   });
+
   const navigate = useNavigate();
 
   const {
     username, email, mobileNumber, registrationNumber,
-    semester, branch, section, rollNumber, password, role, batch, session
+    semester, branch, section, rollNumber, password, role, batch, session, academicYear
   } = formData;
+
+  useEffect(() => {
+    // Add class to body when component mounts
+    document.body.classList.add('body-register-page');
+
+    // Remove class from body when component unmounts
+    return () => {
+      document.body.classList.remove('body-register-page');
+    };
+  }, []);
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -35,6 +47,10 @@ const Register = () => {
 
   const handleSessionChange = (e) => {
     setFormData({ ...formData, session: e.target.value });
+  };
+
+  const handleAcademicYearChange = (e) => {
+    setFormData({ ...formData, academicYear: e.target.value });
   };
 
   const onSubmit = async (e) => {
@@ -77,6 +93,7 @@ const Register = () => {
             <div className="register-title"><b>Register Page</b></div>
             <div className="register-form-wrapper">
               <form onSubmit={onSubmit}>
+                {/* Existing form fields */}
                 <label htmlFor="email" className="register-label">Email</label>
                 <input type="email" name="email" value={email} onChange={onChange} placeholder="Email" className="register-input" />
 
@@ -104,6 +121,16 @@ const Register = () => {
                   <option value="Summer">Summer</option>
                 </select>
 
+                <label htmlFor="academicYear" className="register-label">Academic Year</label>
+                <select name="academicYear" value={academicYear} onChange={handleAcademicYearChange} className="register-input">
+                  <option value="">Select Academic Year</option>
+                  <option value="2025">2025</option>
+                  <option value="2026">2026</option>
+                  <option value="2027">2027</option>
+                  <option value="2028">2028</option>
+                </select>
+
+                {/* Remaining form fields */}
                 <label htmlFor="branch" className="register-label">Branch</label>
                 <select name="branch" value={branch} onChange={onChange} className="register-input">
                   <option value="">Select Branch</option>
@@ -126,9 +153,9 @@ const Register = () => {
                   <option value="C">C</option>
                 </select>
 
-                <label htmlFor="batch" className="register-label">Batch</label>
+                <label htmlFor="practical-batch" className="register-label">Practical Batch</label>
                 <select name="batch" value={batch} onChange={handleBatchChange} className="register-input">
-                  <option value="">Select Batch</option>
+                  <option value="">Select Practical Batch</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
