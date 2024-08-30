@@ -49,26 +49,32 @@
               </span>
             </Link>
           </li>
+          <li className="settings-link">
+            <Link to="/admin-dashboard/Department-Analysis">
+              <img className="icon" src={BranchAnalysis} alt="settings" />
+              <span className={`${isOpen ? "" : "hideElement"}`}>Branch Analysis</span>
+            </Link>
+          </li>
 
-              <li className="settings-link">
-                <Link to="/admin-dashboard/samesubject">
-                  <img className="icon" src={SettingsIcon} alt="settings" />
-                  <span className={`${isOpen ? "" : "hideElement"}`}>Subject Analysis</span>
-                </Link>
-              </li>
-              <li className="settings-link">
-                <Link to="/admin-dashboard/samefaculty">
-                  <img className="icon" src={SameFacultyDifferentSubjectsAnalysis} alt="settings" />
-                  <span className={`${isOpen ? "" : "hideElement"}`}>faculty Analysis</span>
-                </Link>
-              </li>
-              
-              <li className="settings-link">
-                <Link to="/admin-dashboard/Department-Analysis">
-                  <img className="icon" src={BranchAnalysis} alt="settings" />
-                  <span className={`${isOpen ? "" : "hideElement"}`}>Branch Analysis</span>
-                </Link>
-              </li>
+          <li className="settings-link">
+            <Link to="/admin-dashboard/samesubject">
+              <img className="icon" src={SettingsIcon} alt="settings" />
+              <span className={`${isOpen ? "" : "hideElement"}`}>Subject Analysis</span>
+            </Link>
+          </li>
+          <li className="settings-link">
+            <Link to="/admin-dashboard/samefaculty">
+              <img className="icon" src={SameFacultyDifferentSubjectsAnalysis} alt="settings" />
+              <span className={`${isOpen ? "" : "hideElement"}`}>faculty Analysis</span>
+            </Link>
+          </li>
+          
+          <li className="settings-link">
+            <Link to="/admin-dashboard/Department-Analysis">
+              <img className="icon" src={BranchAnalysis} alt="settings" />
+              <span className={`${isOpen ? "" : "hideElement"}`}>faculty Analysis</span>
+            </Link>
+          </li>
 
               <li className="feedback-link">
                 <Link to="/admin-dashboard/Stats">
