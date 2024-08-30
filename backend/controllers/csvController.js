@@ -1,7 +1,7 @@
-const User = require('../models/User');
-const csv = require('csv-parser');
-const fs = require('fs');
-const bcrypt = require('bcryptjs');
+const User = require("../models/User");
+const csv = require("csv-parser");
+const fs = require("fs");
+const bcrypt = require("bcryptjs");
 
 exports.uploadCSV = async (req, res) => {
   try {
@@ -9,12 +9,21 @@ exports.uploadCSV = async (req, res) => {
 
     fs.createReadStream(req.file.path)
       .pipe(csv())
-      .on('data', (data) => results.push(data))
-      .on('end', async () => {
+      .on("data", (data) => results.push(data))
+      .on("end", async () => {
         for (const row of results) {
           const {
-            username, email, password, role,
-            mobileNumber, registrationNumber, semester, branch, section, rollNumber
+            username,
+            email,
+            password,
+            role,
+            mobileNumber,
+            registrationNumber,
+            semester,
+            branch,
+            section,
+            rollNumber,
+            academicYear,
           } = row;
 
           if (!password) {
@@ -32,7 +41,8 @@ exports.uploadCSV = async (req, res) => {
           console.log(`Raw password: ${password}`);
 
           let storedPassword;
-          const passwordIsHashed = password.startsWith('$2a$') || password.startsWith('$2b$');
+          const passwordIsHashed =
+            password.startsWith("$2a$") || password.startsWith("$2b$");
 
           if (passwordIsHashed) {
             storedPassword = password; // If already hashed, store as-is
@@ -43,17 +53,26 @@ exports.uploadCSV = async (req, res) => {
           console.log(`Stored password: ${storedPassword}`);
 
           user = new User({
-            username, email, password: storedPassword, role,
-            mobileNumber, registrationNumber, semester, branch, section, rollNumber
+            username,
+            email,
+            password: storedPassword,
+            role,
+            mobileNumber,
+            registrationNumber,
+            semester,
+            branch,
+            section,
+            rollNumber,
+            academicYear,
           });
 
           await user.save();
         }
 
-        res.status(201).json({ msg: 'Users registered successfully from CSV' });
+        res.status(201).json({ msg: "Users registered successfully from CSV" });
       });
   } catch (err) {
     console.error(err.message);
-    res.status(500).json({ message: 'Server Error' });
+    res.status(500).json({ message: "Server Error" });
   }
 };
