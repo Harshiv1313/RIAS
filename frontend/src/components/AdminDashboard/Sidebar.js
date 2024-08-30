@@ -24,31 +24,31 @@
         navigate("/login");
       };
 
-      return (
-        <nav
-          className={`sidebar ${isOpen ? "open" : "closed"}`}
-          onMouseEnter={() => setIsOpen(true)}
-          onMouseLeave={() => setIsOpen(false)}
-        >
-          <header>
-            <img
-              className={`menu-toggle ${isOpen ? "rotate" : ""}`}
-              src={MenuIcon}
-              alt="menu"
-              onClick={() => setIsOpen(!isOpen)}
-            />
-            <h1 className={`sidebar-title ${isOpen ? "" : "hideElement"}`}>RIAS</h1>
-          </header>
-          <div className="menu-links">
-            <ul className="links-list">
-              <li className="dashboard-link">
-                <Link to="/">
-                  <img className="icon" src={DashboardIcon} alt="dashboard" />
-                  <span className={`${isOpen ? "" : "hideElement"}`}>
-                    Dashboard
-                  </span>
-                </Link>
-              </li>
+  return (
+    <nav
+      className={`sidebar ${isOpen ? "open" : "closed"}`}
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
+      <header>
+        <img
+          className={`menu-toggle ${isOpen ? "rotate" : ""}`}
+          src={MenuIcon}
+          alt="menu"
+          onClick={() => setIsOpen(!isOpen)}
+        />
+        <h1 className={`sidebar-title ${isOpen ? "" : "hideElement"}`}>RIAS</h1>
+      </header>
+      <div className="menu-links">
+        <ul className="links-list">
+          <li className="dashboard-link">
+            <Link to="/">
+              <img className="icon" src={DashboardIcon} alt="dashboard" />
+              <span className={`${isOpen ? "" : "hideElement"}`}>
+                Dashboard
+              </span>
+            </Link>
+          </li>
 
               <li className="settings-link">
                 <Link to="/admin-dashboard/samesubject">
@@ -59,7 +59,7 @@
               <li className="settings-link">
                 <Link to="/admin-dashboard/samefaculty">
                   <img className="icon" src={SameFacultyDifferentSubjectsAnalysis} alt="settings" />
-                  <span className={`${isOpen ? "" : "hideElement"}`}>Faculty Analysis</span>
+                  <span className={`${isOpen ? "" : "hideElement"}`}>faculty Analysis</span>
                 </Link>
               </li>
               
