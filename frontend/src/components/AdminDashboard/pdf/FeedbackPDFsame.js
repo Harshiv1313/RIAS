@@ -1,7 +1,6 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
-// Define styles for the PDF document
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
@@ -60,16 +59,15 @@ const styles = StyleSheet.create({
   },
 });
 
-// Create Document Component
-const FeedbackPDFsame = ({ analysisData }) => {
+const FeedbackPDFsame = ({ analysisData = [] }) => {
   const calculateFinalAveragePercentage = (data) => {
-    if (data.length === 0) return '0.00';
-    const totalPercentage = data.reduce((sum, item) => sum + parseFloat(item.averagePercentage), 0);
+    if (!Array.isArray(data) || data.length === 0) return '0.00';
+    const totalPercentage = data.reduce((sum, item) => sum + parseFloat(item.averagePercentage || 0), 0);
     return (totalPercentage / data.length).toFixed(2);
   };
 
-  const theoryData = analysisData.filter(data => data.type.toLowerCase() === 'theory');
-  const practicalData = analysisData.filter(data => data.type.toLowerCase() === 'practical');
+  const theoryData = (analysisData || []).filter(data => data.type.toLowerCase() === 'theory');
+  const practicalData = (analysisData || []).filter(data => data.type.toLowerCase() === 'practical');
 
   const finalTheoryAverage = calculateFinalAveragePercentage(theoryData);
   const finalPracticalAverage = calculateFinalAveragePercentage(practicalData);
