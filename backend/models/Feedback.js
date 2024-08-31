@@ -10,7 +10,7 @@ const feedbackSchema = new mongoose.Schema({
   batch: { type: String, required: true },
   subjectName: { type: String, required: true },
   courseCode: { type: String, required: true },
-  type: { type: String, required: true }, // Add this field
+  type: { type: String, required: true }, // Theory or Practical
   responses: {
     type: Map,
     of: Number,
@@ -19,4 +19,5 @@ const feedbackSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
+// Model export
 module.exports = mongoose.model('Feedback', feedbackSchema);

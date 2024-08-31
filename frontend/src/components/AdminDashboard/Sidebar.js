@@ -24,51 +24,57 @@
         navigate("/login");
       };
 
-      return (
-        <nav
-          className={`sidebar ${isOpen ? "open" : "closed"}`}
-          onMouseEnter={() => setIsOpen(true)}
-          onMouseLeave={() => setIsOpen(false)}
-        >
-          <header>
-            <img
-              className={`menu-toggle ${isOpen ? "rotate" : ""}`}
-              src={MenuIcon}
-              alt="menu"
-              onClick={() => setIsOpen(!isOpen)}
-            />
-            <h1 className={`sidebar-title ${isOpen ? "" : "hideElement"}`}>RIAS</h1>
-          </header>
-          <div className="menu-links">
-            <ul className="links-list">
-              <li className="dashboard-link">
-                <Link to="/">
-                  <img className="icon" src={DashboardIcon} alt="dashboard" />
-                  <span className={`${isOpen ? "" : "hideElement"}`}>
-                    Dashboard
-                  </span>
-                </Link>
-              </li>
+  return (
+    <nav
+      className={`sidebar ${isOpen ? "open" : "closed"}`}
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
+      <header>
+        <img
+          className={`menu-toggle ${isOpen ? "rotate" : ""}`}
+          src={MenuIcon}
+          alt="menu"
+          onClick={() => setIsOpen(!isOpen)}
+        />
+        <h1 className={`sidebar-title ${isOpen ? "" : "hideElement"}`}>RIAS</h1>
+      </header>
+      <div className="menu-links">
+        <ul className="links-list">
+          <li className="dashboard-link">
+            <Link to="/">
+              <img className="icon" src={DashboardIcon} alt="dashboard" />
+              <span className={`${isOpen ? "" : "hideElement"}`}>
+                Dashboard
+              </span>
+            </Link>
+          </li>
+          <li className="settings-link">
+            <Link to="/admin-dashboard/Department-Analysis">
+              <img className="icon" src={BranchAnalysis} alt="settings" />
+              <span className={`${isOpen ? "" : "hideElement"}`}>Branch Analysis</span>
+            </Link>
+          </li>
 
-              <li className="settings-link">
-                <Link to="/admin-dashboard/samesubject">
-                  <img className="icon" src={SettingsIcon} alt="settings" />
-                  <span className={`${isOpen ? "" : "hideElement"}`}>Subject Analysis</span>
-                </Link>
-              </li>
-              <li className="settings-link">
-                <Link to="/admin-dashboard/samefaculty">
-                  <img className="icon" src={SameFacultyDifferentSubjectsAnalysis} alt="settings" />
-                  <span className={`${isOpen ? "" : "hideElement"}`}>Faculty Analysis</span>
-                </Link>
-              </li>
-              
-              <li className="settings-link">
-                <Link to="/admin-dashboard/Department-Analysis">
-                  <img className="icon" src={BranchAnalysis} alt="settings" />
-                  <span className={`${isOpen ? "" : "hideElement"}`}>Branch Analysis</span>
-                </Link>
-              </li>
+          <li className="settings-link">
+            <Link to="/admin-dashboard/samesubject">
+              <img className="icon" src={SettingsIcon} alt="settings" />
+              <span className={`${isOpen ? "" : "hideElement"}`}>Subject Analysis</span>
+            </Link>
+          </li>
+          <li className="settings-link">
+            <Link to="/admin-dashboard/samefaculty">
+              <img className="icon" src={SameFacultyDifferentSubjectsAnalysis} alt="settings" />
+              <span className={`${isOpen ? "" : "hideElement"}`}>faculty Analysis</span>
+            </Link>
+          </li>
+          
+          <li className="settings-link">
+            <Link to="/admin-dashboard/Department-Analysis">
+              <img className="icon" src={BranchAnalysis} alt="settings" />
+              <span className={`${isOpen ? "" : "hideElement"}`}>faculty Analysis</span>
+            </Link>
+          </li>
 
               <li className="feedback-link">
                 <Link to="/admin-dashboard/Stats">

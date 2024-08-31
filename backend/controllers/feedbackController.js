@@ -2,19 +2,18 @@ const Feedback = require("../models/Feedback");
 const Timetable = require("../models/Timetable");
 const User = require("../models/User");
 
-// Submit theory feedback
 exports.submitTheoryFeedback = async (req, res) => {
   try {
-    const { studentId, feedbackEntries } = req.body;
+    const { studentId, feedbackEntries, academicYear, session, department, year, semester, section, batch } = req.body;
 
     if (!feedbackEntries || !Array.isArray(feedbackEntries)) {
       return res.status(400).json({ message: "Invalid feedback data" });
     }
 
-    // Check if the student has already submitted feedback
     const existingFeedback = await Feedback.findOne({
       studentId: studentId,
       type: 'theory',
+      academicYear, session, department, year, semester, section, batch
     });
 
     if (existingFeedback) {
@@ -22,26 +21,29 @@ exports.submitTheoryFeedback = async (req, res) => {
       return res.status(400).json({ message: "Feedback cannot be submitted twice." });
     }
 
-    // Save all theory feedback entries
     await Feedback.insertMany(
       feedbackEntries.map((entry) => ({
         studentId,
-        type: 'theory', // Set the type field
-        ...entry,
+        type: 'theory',
+        academicYear,
+        session,
+        department,
+        year,
+        semester,
+        section,
+        batch,
+        ...entry
       }))
     );
 
-    res
-      .status(201)
-      .json({ message: "Theory feedback submitted successfully!" });
+    res.status(201).json({ message: "Theory feedback submitted successfully!" });
   } catch (error) {
     console.error("Error submitting theory feedback:", error);
-    res
-      .status(500)
-      .json({ message: "Error submitting theory feedback", error });
+    res.status(500).json({ message: "Error submitting theory feedback", error });
   }
 };
 
+// Similar changes for submitPracticalFeedbac
 exports.submitPracticalFeedback = async (req, res) => {
   try {
     const { studentId, feedbackEntries } = req.body;
@@ -54,7 +56,7 @@ exports.submitPracticalFeedback = async (req, res) => {
     const requiredFields = ['facultyName', 'courseName', 'branch', 'section', 'semester', 'batch', 'subjectName', 'courseCode', 'responses'];
 
     // Check if all feedback entries have the required fields and are not empty
-    const areEntriesValid = feedbackEntries.every(entry => 
+    const areEntriesValid = feedbackEntries.every(entry =>
       requiredFields.every(field => entry[field] !== undefined && entry[field] !== '')
     );
 
@@ -329,19 +331,17 @@ exports.getFeedbackAnalysis = async (req, res) => {
   try {
     const { facultyName, courseName, type, semester, branch } = req.query;
 
-    // Check for required parameters
-    if (!facultyName || !courseName || !type || !semester || !branch) {
-      return res.status(400).json({ message: "Faculty Name, Course Name, Type, Semester, and Branch are required" });
-    }
+    // Build the query object dynamically based on available parameters
+    const query = {};
 
-    // Fetch feedbacks based on all criteria
-    const feedbacks = await Feedback.find({
-      facultyName,
-      courseName,
-      type,
-      semester,
-      branch
-    });
+    if (facultyName) query.facultyName = facultyName;
+    if (courseName) query.courseName = courseName;
+    if (type) query.type = type;
+    if (semester) query.semester = semester;
+    if (branch) query.branch = branch;
+
+    // Fetch feedbacks based on the dynamic query
+    const feedbacks = await Feedback.find(query);
 
     // Check if feedbacks are found
     if (feedbacks.length === 0) {
@@ -401,7 +401,8 @@ exports.getFeedbackAnalysis = async (req, res) => {
       goodFeedbacks,
       badFeedbacks,
       totalFeedbacks: count,
-      questionAverages
+      questionAverages,
+      feedbacks // include feedbacks data for detailed view
     });
   } catch (error) {
     console.error('Error analyzing feedback:', error);
