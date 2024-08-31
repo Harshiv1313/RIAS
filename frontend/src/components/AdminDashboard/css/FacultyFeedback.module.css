@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    max-height: 500px;
     /* Full viewport height */
     padding: 2px;
     flex-wrap: wrap;
@@ -244,4 +244,17 @@
 
 .statItem:nth-child(odd) {
     background: #1818ab; /* Blue background for odd items */
+}
+
+
+
+
+
+/* Style for scrollable container */
+.scrollableContainer {
+    max-height: 600px; /* Set a max height */
+    overflow-y: auto;  /* Add vertical scrollbar */
+    overflow-x: hidden; /* Hide horizontal scrollbar if not needed */
+    padding: 20px; /* Add some padding */
+    box-sizing: border-box; /* Include padding in height calculation */
 }

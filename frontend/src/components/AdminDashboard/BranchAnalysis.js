@@ -12,7 +12,7 @@ const BranchAnalysis = () => {
   const [branches, setBranches] = useState([]);
 
   useEffect(() => {
-    // Fetch branches if not already cached
+    // Function to fetch branches from the backend
     const fetchBranches = async () => {
       try {
         const response = await axios.get("http://localhost:4000/api/feedback/feedbacks/branches");
@@ -24,14 +24,24 @@ const BranchAnalysis = () => {
         setMessageType("error");
       }
     };
-
+  
+    // Check if data is cached in sessionStorage
     const cachedBranches = sessionStorage.getItem("branches");
     if (cachedBranches) {
       setBranches(JSON.parse(cachedBranches));
     } else {
       fetchBranches();
     }
+  
+    // Set up an interval to fetch branches every 10 seconds
+    const intervalId = setInterval(() => {
+      fetchBranches(); // Fetch new branches every 10 seconds
+    }, 10000); // 10 seconds in milliseconds
+  
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
+  
 
   useEffect(() => {
     // Store branch and analysisData in cache

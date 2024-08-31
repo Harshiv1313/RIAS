@@ -1,5 +1,5 @@
 .container {
-    padding: 120px; /* Adjust padding for a more compact layout */
+    padding: 100px; /* Adjust padding for a more compact layout */
     font-family: Arial, sans-serif;
     margin-top: 0; /* Adjust margin */
     margin-top: -30px;
@@ -63,6 +63,7 @@
     border-radius: 3px;
     cursor: pointer;
     font-size: 12px;
+    align-items: center;
 }
 
 .table button:hover {
@@ -77,6 +78,7 @@
 .table button.update {
     background-color: #3498db;
     color: #fff;
+    
 }
 
 

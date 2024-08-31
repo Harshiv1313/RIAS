@@ -73,3 +73,12 @@
   margin-left: 20px;
   cursor: pointer;
 }
+
+
+.nav-icon-svg {
+  width: 24px; /* Set a fixed width for the icons */
+  height: 30px; /* Set a fixed height for the icons */
+  margin-left: 20px;
+  cursor: pointer;
+}
+

@@ -1,152 +1,142 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
-// Define your styles
 const styles = StyleSheet.create({
   page: {
     padding: 20,
+    fontFamily: 'Helvetica',
   },
   section: {
-    marginBottom: 10,
+    marginBottom: 15,
+  },
+  header: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    marginBottom: 6,
+  },
+  text: {
+    fontSize: 8,
+    marginBottom: 3,
   },
   table: {
     display: 'table',
     width: '100%',
+    margin: '8px 0',
     borderStyle: 'solid',
-    borderColor: '#000',
     borderWidth: 1,
-    borderRadius: 5,
+    borderColor: '#ddd',
+    borderRadius: 3,
     overflow: 'hidden',
   },
+  tableHeader: {
+    display: 'table-row',
+    backgroundColor: '#f0f0f0',
+    fontWeight: 'bold',
+  },
   tableRow: {
-    flexDirection: 'row',
-  },
-  tableCol80: {
-    width: '80%',
-    borderRightWidth: 1,
-    borderColor: '#000',
-    borderStyle: 'solid',
-    padding: 5,
-  },
-  tableCol20: {
-    width: '20%',
-    padding: 5,
+    display: 'table-row',
   },
   tableCell: {
-    margin: 5,
-    fontSize: 10,
+    display: 'table-cell',
+    padding: 4,
+    borderColor: '#ddd',
+    borderStyle: 'solid',
+    borderWidth: 1,
     textAlign: 'center',
+    fontSize: 8,
   },
-  tableCellLeft: {
-    margin: 5,
+  tableHeaderCell: {
+    backgroundColor: '#f0f0f0',
     fontSize: 10,
+  },
+  infoTable: {
+    display: 'table',
+    width: '100%',
+    margin: '8px 0',
+  },
+  infoRow: {
+    display: 'table-row',
+  },
+  infoCell: {
+    display: 'table-cell',
+    padding: 4,
+    borderColor: '#ddd',
+    borderStyle: 'solid',
+    borderWidth: 1,
     textAlign: 'left',
+    fontSize: 8,
+    width: '33%',
   },
-  header: {
-    fontSize: 12,
-    marginBottom: 10,
+  feedbackTable: {
+    display: 'table',
+    width: '100%',
+    margin: '8px 0',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 3,
+    overflow: 'hidden',
+  },
+  feedbackHeader: {
+    display: 'table-row',
+    backgroundColor: '#f0f0f0',
     fontWeight: 'bold',
   },
-  detailRow: {
-    flexDirection: 'row',
-    marginBottom: 5,
+  feedbackRow: {
+    display: 'table-row',
   },
-  detailLabel: {
-    width: '30%',
-    fontWeight: 'bold',
-    fontSize: 10,
-  },
-  detailValue: {
-    width: '70%',
-    fontSize: 10,
+  feedbackCell: {
+    display: 'table-cell',
+    padding: 4,
+    borderColor: '#ddd',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    fontSize: 8,
   },
 });
 
-const FeedbackPDF = ({ feedbacks, analysisData, filters }) => {
-  const formattedAnalysisData = {
-    averageScore: analysisData?.averageScore || 'N/A',
-    
-    questionAverages: analysisData?.questionAverages || {},
-  };
-
-  return (
-    <Document>
-      <Page size="A4" style={styles.page}>
+const FeedbackPDF = ({ feedbacks, analysisData }) => (
+  <Document>
+    {feedbacks.map((feedback, feedbackIndex) => (
+      <Page size="A4" style={styles.page} key={feedbackIndex}>
         <View style={styles.section}>
-          <Text style={styles.header}>Feedback Statistics</Text>
-          <Text>Filter and review feedback statistics based on various criteria.</Text>
-          {filters && (
-            <View>
-              <View style={styles.detailRow}>
-                <Text style={styles.detailLabel}>Semester:</Text>
-                <Text style={styles.detailValue}>{filters.semester || 'N/A'}</Text>
-              </View>
-              <View style={styles.detailRow}>
-                <Text style={styles.detailLabel}>Branch:</Text>
-                <Text style={styles.detailValue}>{filters.branch || 'N/A'}</Text>
-              </View>
-              <View style={styles.detailRow}>
-                <Text style={styles.detailLabel}>Type:</Text>
-                <Text style={styles.detailValue}>{filters.type || 'N/A'}</Text>
-              </View>
-              <View style={styles.detailRow}>
-                <Text style={styles.detailLabel}>Subject:</Text>
-                <Text style={styles.detailValue}>{filters.subject || 'N/A'}</Text>
-              </View>
-              <View style={styles.detailRow}>
-                <Text style={styles.detailLabel}>Course:</Text>
-                <Text style={styles.detailValue}>{filters.course || 'N/A'}</Text>
-              </View>
-              <View style={styles.detailRow}>
-                <Text style={styles.detailLabel}>Faculty:</Text>
-                <Text style={styles.detailValue}>{filters.faculty || 'N/A'}</Text>
-              </View>
+          <Text style={styles.header}>Faculty Feedback Report</Text>
+          <View style={styles.infoTable}>
+            <View style={styles.infoRow}>
+              <Text style={[styles.infoCell, { fontWeight: 'bold' }]}>Faculty Name</Text>
+              <Text style={[styles.infoCell, { fontWeight: 'bold' }]}>Type</Text>
+              <Text style={[styles.infoCell, { fontWeight: 'bold' }]}>Subject</Text>
             </View>
-          )}
-        </View>
-        <View style={styles.section}>
-          <Text>Feedback Statistics</Text>
-          <View style={styles.table}>
-            <View style={styles.tableRow}>
-              <View style={styles.tableCol80}>
-                <Text style={styles.tableCell}>Faculty Name</Text>
-              </View>
-              <View style={styles.tableCol20}>
-                <Text style={styles.tableCell}>Average Rating</Text>
-              </View>
-              
+            <View style={styles.infoRow}>
+              <Text style={styles.infoCell}>{feedback.facultyName}</Text>
+              <Text style={styles.infoCell}>{feedback.type}</Text>
+              <Text style={styles.infoCell}>{feedback.subjectName}</Text>
             </View>
-            {feedbacks.length > 0 && (
-              <View style={styles.tableRow}>
-                <View style={styles.tableCol80}>
-                  <Text style={styles.tableCell}>{feedbacks[0].facultyName}</Text>
-                </View>
-                <View style={styles.tableCol20}>
-                  <Text style={styles.tableCell}>{formattedAnalysisData.averageScore}</Text>
-                </View>
-                
-              </View>
-            )}
           </View>
         </View>
         <View style={styles.section}>
-          <Text>Question Averages</Text>
-          <View style={styles.table}>
-            {Object.entries(formattedAnalysisData.questionAverages).map(([question, avg], index) => (
-              <View key={index} style={styles.tableRow}>
-                <View style={styles.tableCol80}>
-                  <Text style={styles.tableCellLeft}>{question}</Text>
+          <View style={styles.feedbackTable}>
+            <View style={styles.feedbackHeader}>
+              <Text style={[styles.feedbackCell, { fontWeight: 'bold', textAlign: 'left' }]}>Question</Text>
+              <Text style={[styles.feedbackCell, { fontWeight: 'bold' }]}>Average Score</Text>
+            </View>
+            {Object.entries(analysisData.questionAverages).map(([question, avg], index) => (
+              question.startsWith(`${feedbackIndex}_`) && (
+                <View style={styles.feedbackRow} key={index}>
+                  <Text style={styles.feedbackCell}>{question.split('_').slice(1).join('_')}</Text>
+                  <Text style={styles.feedbackCell}>
+                    {avg === undefined || avg === null || isNaN(avg)
+                      ? 'N/A'
+                      : parseFloat(avg).toFixed(2)}
+                  </Text>
                 </View>
-                <View style={styles.tableCol20}>
-                  <Text style={styles.tableCell}>{avg}</Text>
-                </View>
-              </View>
+              )
             ))}
           </View>
         </View>
       </Page>
-    </Document>
-  );
-};
+    ))}
+  </Document>
+);
 
 export default FeedbackPDF;

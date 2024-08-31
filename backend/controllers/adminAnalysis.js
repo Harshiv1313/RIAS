@@ -305,20 +305,29 @@ exports.getFeedbackAnalysisByFaculty = async (req, res) => {
   }
 };
 
+
+
+
+
+
+
+
+
 exports.getFeedbackAnalysisByBranch = async (req, res) => {
   try {
-    const { branch } = req.query;
+    const { branch, type, subjectName, courseName, facultyName } = req.query;
 
-    if (!branch) {
-      return res.status(400).json({ message: "Branch is required" });
-    }
+    // Build query based on provided filters
+    const query = { branch };
+    if (type) query.type = type;
+    if (subjectName) query.subjectName = subjectName;
+    if (courseName) query.courseName = courseName;
+    if (facultyName) query.facultyName = facultyName;
 
-    const feedbacks = await Feedback.find({ branch });
+    const feedbacks = await Feedback.find(query);
 
     if (feedbacks.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No feedback found for the given branch" });
+      return res.status(404).json({ message: "No feedback found for the given filters" });
     }
 
     const facultyAnalysis = {};
@@ -330,61 +339,41 @@ exports.getFeedbackAnalysisByBranch = async (req, res) => {
       const responsesObj = Object.fromEntries(responses);
 
       // Convert responses to a scale of 4
-      const scores = Object.values(responsesObj).map((score) =>
-        parseFloat(score)
-      );
-      const validScores = scores.filter((score) => !isNaN(score));
-      const totalScore = validScores.reduce((acc, score) => acc + score, 0);
-      const count = validScores.length;
-
-      if (count === 0) return;
-
-      const averageScore = totalScore / count;
+      const scores = Object.values(responsesObj).map((score) => parseFloat(score));
+      const totalScores = scores.reduce((a, b) => a + b, 0);
+      const avgScore = totalScores / scores.length || 0;
 
       if (!facultyAnalysis[facultyName]) {
         facultyAnalysis[facultyName] = {
+          totalFeedbacks: 0,
+          goodFeedbacks: 0,
+          badFeedbacks: 0,
           totalScore: 0,
-          count: 0,
-          totalQuestions: 0,
-          courses: new Set(),
+          feedbacks: []
         };
       }
 
-      facultyAnalysis[facultyName].totalScore += averageScore;
-      facultyAnalysis[facultyName].count += 1;
-      facultyAnalysis[facultyName].totalQuestions +=
-        Object.keys(responsesObj).length;
-      facultyAnalysis[facultyName].courses.add(courseName); // Add courseName to the set
+      facultyAnalysis[facultyName].totalFeedbacks += 1;
+      facultyAnalysis[facultyName].totalScore += avgScore;
+      facultyAnalysis[facultyName].feedbacks.push(feedback);
+
+      // Counting good and bad feedbacks
+      if (avgScore >= 3) {
+        facultyAnalysis[facultyName].goodFeedbacks += 1;
+      } else {
+        facultyAnalysis[facultyName].badFeedbacks += 1;
+      }
     });
 
-    // Calculate average score, percentage per faculty, and course count
-    const result = Object.keys(facultyAnalysis).map((facultyName) => {
-      const facultyData = facultyAnalysis[facultyName];
-      const averageScore =
-        facultyData.count > 0
-          ? (facultyData.totalScore / facultyData.count).toFixed(2)
-          : "0.00";
-      const averagePercentage =
-        facultyData.count > 0
-          ? ((facultyData.totalScore / (facultyData.count * 4)) * 100).toFixed(
-              2
-            ) // Convert average score to percentage
-          : "0.00"; // Default to '0.00' if no data available
+    const analysisData = Object.entries(facultyAnalysis).map(([facultyName, data]) => ({
+      facultyName,
+      averageRating: (data.totalScore / data.totalFeedbacks).toFixed(2),
+    }));
 
-      return {
-        facultyName,
-        studentCount: facultyData.count,
-        courseCount: facultyData.courses.size, // Count the number of unique courses
-        averageRating: averageScore,
-        averagePercentage,
-      };
-    });
+    res.json(analysisData);
 
-    res.json({ facultyData: result });
   } catch (error) {
-    console.error("Error analyzing feedback by branch:", error);
-    res
-      .status(500)
-      .json({ message: "Error analyzing feedback by branch", error });
+    console.error("Error in getFeedbackAnalysisByBranch:", error);
+    res.status(500).json({ message: "Server error" });
   }
 };

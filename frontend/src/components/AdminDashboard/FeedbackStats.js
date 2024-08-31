@@ -14,7 +14,6 @@ const FeedbackStats = () => {
   const [subjects, setSubjects] = useState([]);
   const [courses, setCourses] = useState([]);
   const [faculties, setFaculties] = useState([]);
-
   const [selectedFilters, setSelectedFilters] = useState({
     semester: "",
     branch: "",
@@ -23,7 +22,6 @@ const FeedbackStats = () => {
     course: "",
     faculty: ""
   });
-
   const [feedbacks, setFeedbacks] = useState([]);
   const [analysisData, setAnalysisData] = useState(null);
   const [message, setMessage] = useState("");
@@ -31,6 +29,7 @@ const FeedbackStats = () => {
 
   const componentRef = useRef();
 
+  // Fetch filter options on component mount
   useEffect(() => {
     const fetchOptions = async () => {
       try {
@@ -66,6 +65,7 @@ const FeedbackStats = () => {
     fetchOptions();
   }, []);
 
+  // Fetch feedbacks based on selected filters
   const fetchFeedbacks = async () => {
     try {
       const { semester, branch, type, subject, course, faculty } = selectedFilters;
@@ -82,13 +82,16 @@ const FeedbackStats = () => {
         "http://localhost:4000/api/feedback/feedbacks/filtered",
         { params }
       );
-
       const analysisResponse = await axios.get(
         "http://localhost:4000/api/feedback/feedbacks/analysis",
         { params }
       );
 
-      setFeedbacks(feedbackResponse.data);
+      const filteredFeedbacks = feedbackResponse.data.filter(feedback =>
+        type ? feedback.type === type : true
+      );
+
+      setFeedbacks(filteredFeedbacks);
       setAnalysisData(analysisResponse.data);
     } catch (error) {
       console.error("Error fetching feedbacks:", error);
@@ -97,6 +100,7 @@ const FeedbackStats = () => {
     }
   };
 
+  // Handle filter changes
   const handleFilterChange = (e) => {
     const { id, value } = e.target;
     setSelectedFilters((prev) => ({
@@ -105,39 +109,26 @@ const FeedbackStats = () => {
     }));
   };
 
+  // Apply filters and fetch data
   const handleFilterApply = () => {
     fetchFeedbacks();
   };
 
-  const allDropdownsSelected = () => {
-    return Object.values(selectedFilters).every(value => value);
-  };
-
+  // Convert analysis data for display
   const convertAnalysisData = (data) => {
-    if (!data) return { averageScore: 'N/A', goodFeedbackPercentage: 'N/A', badFeedbackPercentage: 'N/A', questionAverages: {} };
+    if (!data) return { averageScore: 'N/A', questionAverages: {} };
 
-    const totalFeedbacks = data.totalFeedbacks || 0;
-    const goodFeedbacks = data.goodFeedbacks || 0;
-    const badFeedbacks = data.badFeedbacks || 0;
-
-  return {
-  averageScore: data.averageScore || 'N/A',
-  goodFeedbackPercentage: totalFeedbacks > 0 
-    ? ((goodFeedbacks / totalFeedbacks) * 100).toFixed(2) + '%' 
-    : 'N/A',
-  badFeedbackPercentage: totalFeedbacks > 0 
-    ? ((badFeedbacks / totalFeedbacks) * 100).toFixed(2) + '%' 
-    : 'N/A',
-  questionAverages: data.questionAverages || {}
-};
-
+    return {
+      averageScore: data.averageScore || 'N/A',
+      questionAverages: data.questionAverages || {}
+    };
   };
 
   const formattedAnalysisData = convertAnalysisData(analysisData);
 
   return (
     <div style={{ marginTop: '70px', marginLeft: '70px' }} className={styles.container}>
-      <div className={styles.feedbackCard} ref={componentRef}>
+      <div className={`${styles.feedbackCard} ${styles.scrollableContainer}`} ref={componentRef}>
         <h2>Feedback Statistics</h2>
         <p>Filter and review feedback statistics based on various criteria.</p>
         {message && (
@@ -171,50 +162,51 @@ const FeedbackStats = () => {
             </div>
           ))}
         </div>
-        {allDropdownsSelected() && (
-          <button onClick={handleFilterApply} className={styles.filterButton}>
-            Apply Filters
-          </button>
-        )}
+        <button onClick={handleFilterApply} className={styles.filterButton}>
+          Apply Filters
+        </button>
         {feedbacks.length > 0 ? (
           <div>
-            <div className={styles.feedbackTableWrapper}>
-              <table className={styles.feedbackTable}>
-                <thead>
-                  <tr>
-                    <th>Faculty Name</th>
-                    <th>Average Rating</th>
-                    
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{feedbacks.length > 0 ? feedbacks[0].facultyName : 'N/A'}</td>
-                    <td>{formattedAnalysisData.averageScore || 'N/A'}</td>
-                    
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className={styles.questionTableWrapper}>
-              <h3>Question Averages</h3>
-              <table className={styles.questionTable}>
-                <thead>
-                  <tr>
-                    <th>Question</th>
-                    <th>Average Score</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Object.entries(formattedAnalysisData.questionAverages).map(([question, avg], index) => (
-                    <tr key={index}>
-                      <td>{question}</td>
-                      <td>{avg}</td>
+            {feedbacks.map((feedback, feedbackIndex) => (
+              <div key={feedbackIndex}>
+                <table className={styles.feedbackTable}>
+                  <thead>
+                    <tr>
+                      <th>Faculty Name</th>
+                      <th>Type</th>
+                      <th>Subject</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{feedback.facultyName}</td>
+                      <td>{feedback.type}</td>
+                      <td>{feedback.subjectName}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div className={styles.feedbackTableWrapper}>
+                  <table className={styles.feedbackTable}>
+                    <thead>
+                      <tr>
+                        <th>Question</th>
+                        <th>Average Score</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Object.entries(formattedAnalysisData.questionAverages).map(([question, avg], index) => (
+                        question.startsWith(feedbackIndex.toString()) && (
+                          <tr key={index}>
+                            <td>{question}</td>
+                            <td>{avg}</td>
+                          </tr>
+                        )
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ))}
             <div className={styles.pdfPrintButtons}>
               <PDFDownloadLink
                 document={<FeedbackPDF feedbacks={feedbacks} analysisData={formattedAnalysisData} />}

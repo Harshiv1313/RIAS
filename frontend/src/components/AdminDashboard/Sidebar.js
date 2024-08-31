@@ -65,14 +65,7 @@
           <li className="settings-link">
             <Link to="/admin-dashboard/samefaculty">
               <img className="icon" src={SameFacultyDifferentSubjectsAnalysis} alt="settings" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>faculty Analysis</span>
-            </Link>
-          </li>
-          
-          <li className="settings-link">
-            <Link to="/admin-dashboard/Department-Analysis">
-              <img className="icon" src={BranchAnalysis} alt="settings" />
-              <span className={`${isOpen ? "" : "hideElement"}`}>faculty Analysis</span>
+              <span className={`${isOpen ? "" : "hideElement"}`}>Faculty Analysis</span>
             </Link>
           </li>
 

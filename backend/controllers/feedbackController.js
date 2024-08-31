@@ -194,6 +194,11 @@ exports.getBranchesFromFeedbacks = async (req, res) => {
       .json({ message: "Error fetching branches from feedbacks", error });
   }
 };
+
+
+
+
+
 // Add this function in your feedbackController.js
 
 exports.getTypesFromFeedbacks = async (req, res) => {

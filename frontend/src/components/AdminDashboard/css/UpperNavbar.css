@@ -39,6 +39,7 @@
   font-size: 24px;
   font-weight: bold;
   color: #FFF;
+  margin-bottom: 22px;
 }
 
 .search-bar {
@@ -73,3 +74,6 @@
   margin-left: 20px;
   cursor: pointer;
 }
+
+
+
