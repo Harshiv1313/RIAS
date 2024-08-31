@@ -1,4 +1,5 @@
 const Timetable = require('../models/Timetable');
+const User = require("../models/User"); // Import User model if needed
 
 // Create a new timetable
 exports.createTimetable = async (req, res) => {
@@ -87,13 +88,19 @@ exports.getTimetableById = async (req, res) => {
   }
 };
 
-// Update a specific timetable by ID
+const mongoose = require('mongoose');
+
 exports.updateTimetable = async (req, res) => {
   try {
+    const id = req.params.id;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: 'Invalid ID format' });
+    }
+
     const { branch, section, semester, batch, facultyName, subjectName, courseCode, type, time, room } = req.body;
 
     const timetable = await Timetable.findByIdAndUpdate(
-      req.params.id,
+      id,
       { branch, section, semester, batch, facultyName, subjectName, courseCode, type, time, room },
       { new: true, runValidators: true }
     );
@@ -109,10 +116,10 @@ exports.updateTimetable = async (req, res) => {
   }
 };
 
-// Delete a specific timetable by ID
+
 exports.deleteTimetable = async (req, res) => {
   try {
-    const timetable = await Timetable.findByIdAndDelete(req.params.id);
+    const timetable = await Timetable.findByIdAndDelete(req.query.id); // Use req.query.id instead of req.params.id
     if (!timetable) {
       return res.status(404).json({ message: 'Timetable not found' });
     }
@@ -122,3 +129,24 @@ exports.deleteTimetable = async (req, res) => {
     res.status(500).json({ message: 'Failed to delete timetable' });
   }
 };
+
+
+
+
+
+
+
+exports.getAllTimetables = async (req, res) => {
+  try {
+    const timetables = await Timetable.find().populate("createdBy", "name email"); // Populate createdBy with user fields if needed
+    res.status(200).json(timetables);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+
+
+
+

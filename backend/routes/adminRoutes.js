@@ -1,10 +1,9 @@
-// routes/csvRoutes.js
-
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const { uploadCSV } = require("../controllers/csvController");
+const { uploadTimetableCSV } = require("../controllers/csvController"); // Import the new controller
 
 // Configure multer for CSV upload
 const storage = multer.diskStorage({
@@ -31,6 +30,10 @@ const upload = multer({
   },
 });
 
+// Route for uploading user data via CSV
 router.post("/upload-csv", upload.single("file"), uploadCSV);
+
+// Route for uploading timetable data via CSV
+router.post("/upload-timetable-csv", upload.single("file"), uploadTimetableCSV);
 
 module.exports = router;

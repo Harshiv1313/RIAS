@@ -34,8 +34,11 @@ import Samesubject from "./components/AdminDashboard/Samesubjectanalysis"; // Up
 import Samefaculty from "./components/AdminDashboard/SameFacultyDifferentSubjectsAnalysis"; // Updated import path
 import Deptanalysis from "./components/AdminDashboard/BranchAnalysis"; // Updated import path
 import Aaadmincsv from "./components/AdminDashboard/admincsv"; // Updated import path
+import Facultycsv from "./components/FacultyDashboard/facultycsv"; // Updated import path
 import Facultyprofilee from "./components/FacultyDashboard/StudentProfile"; // Updated import path
 import Facultyregister from "./components/FacultyDashboard/FacultyRegister"; // Updated import path
+import Stutable from "./components/FacultyDashboard/StudentTable"; // Updated import path
+import FacultyPostmapping from "./components/FacultyDashboard/EditMappingfaculty"; // Updated import path
 
 
 const AuthRoute = ({ children }) => {
@@ -115,9 +118,11 @@ function App() {
                     <Route path="users" element={<Users />} />
                     <Route path="Survey" element={<Survey />} />
                     <Route path="Surveyform" element={<Surveyf />} />
-                    <Route path="Feedback" element={<FacultyFeedback />} />
+                    <Route path="Feedback" element={<FacultyPostmapping />} />
                     <Route path="F-profile" element={<Facultyprofilee />} />
                     <Route path="faculty-register" element={<Facultyregister />} />
+                    <Route path="faculty-csv" element={<Facultycsv />} />
+
                     <Route
                       path="faculty-timetable"
                       element={<FacultyPooostTimetable />}

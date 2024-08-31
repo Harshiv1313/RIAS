@@ -3,6 +3,7 @@ const Timetable = require('../models/Timetable');
 
 
 
+
 // Get User by ID
 exports.getUserById = async (req, res) => {
     try {
@@ -182,4 +183,11 @@ exports.getFacultyName = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   };
+
+
+
+
+
+
+
   

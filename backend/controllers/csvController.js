@@ -1,5 +1,7 @@
 const User = require("../models/User");
 const csv = require("csv-parser");
+const Timetable = require("../models/Timetable");
+
 const fs = require("fs");
 const bcrypt = require("bcryptjs");
 
@@ -74,5 +76,70 @@ exports.uploadCSV = async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: "Server Error" });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+exports.uploadTimetableCSV = async (req, res) => {
+  try {
+      const results = [];
+
+      fs.createReadStream(req.file.path)
+          .pipe(csv())
+          .on("data", (data) => results.push(data))
+          .on("end", async () => {
+              for (const row of results) {
+                  const {
+                      branch,
+                      section,
+                      semester,
+                      batch,
+                      timetable,
+                      facultyName,
+                      subjectName,
+                      courseCode,
+                      type,
+                      time,
+                      room,
+                      academicYear,
+                      session,
+                  } = row;
+
+                  const newTimetable = new Timetable({
+                      branch,
+                      section,
+                      semester,
+                      batch,
+                      timetable,
+                      facultyName,
+                      subjectName,
+                      courseCode,
+                      type,
+                      time,
+                      room,
+                      academicYear,
+                      session,
+                      createdBy: req.user ? req.user._id : null, // Handle absence of req.user
+                  });
+
+                  await newTimetable.save();
+              }
+
+              res.status(201).json({ msg: "Timetable uploaded successfully from CSV" });
+          });
+  } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ message: "Server Error" });
   }
 };

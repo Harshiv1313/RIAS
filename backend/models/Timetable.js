@@ -14,7 +14,7 @@ const timetableSchema = new mongoose.Schema({
   room: { type: String, required: true },
   academicYear: { type: String, required: true }, // Add this line
   session: { type: String, required: true },     // Add this line
-  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'Faculty', required: true },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'user', required: false },
   createdAt: { type: Date, default: Date.now }
 });
 
