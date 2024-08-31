@@ -164,7 +164,7 @@
     color: #721c24;
 }
 .feedbackTableWrapper {
-    max-height: 400px; /* Adjust as needed */
+    max-height: 450px; /* Adjust as needed */
     overflow-y: auto; /* Add vertical scroll bar */
     overflow-x: hidden; /* Hide horizontal scroll bar if not needed */
     margin-top: 20px;
