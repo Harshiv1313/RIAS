@@ -283,11 +283,13 @@ const FacultyPostTimetable = () => {
               onChange={(e) => setSelectedAcademicYear(e.target.value)}
               required
             >
+              <option value="2025">3</option>
               <option value="">Select Academic</option>
               {academicYears.map((year) => (
                 <option key={year} value={year}>
                   {year}
                 </option>
+                
               ))}
             </select>
           </div>
